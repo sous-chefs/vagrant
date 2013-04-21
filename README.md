@@ -104,8 +104,9 @@ binary in the `PATH` of the shell executing Chef to uninstall, and
 then use Chef's built-in RubyGems to uninstall. If you have a
 customized Ruby environment, such as with rbenv or rvm (or other), you
 may need to manually remove and clean up anything leftover, such as
-running `rbenv rehash`. Nor will this recipe support such craziness
-:-).
+running `rbenv rehash`. Likewise, if you have multiple copies of the
+vagrant gem installed, you'll need to clean up all versions. This
+recipe won't support such craziness :-).
 
 Usage
 =====
