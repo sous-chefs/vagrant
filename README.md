@@ -1,9 +1,13 @@
 vagrant Cookbook
 ================
 
-Installs vagrant and manages vagrant plugins w/ a custom resource.
+Installs Vagrant 1.1+ and manages vagrant plugins w/ a custom
+resource.
 
 * Vagrant: http://www.vagrantup.com/
+
+This cookbook is not intended to be used for vagrant "1.0" (gem
+install) versions. A recipe is provided for removing the gem, see __Recipes__.
 
 Requirements
 ------------
@@ -20,8 +24,11 @@ Support exists for Windows and OS X but this has not yet been tested.
 
 The URL and Checksum attributes must be set, see __Attributes__
 
+Because Vagrant is installed as a native system package, Chef must run
+as a privileged user (e.g., root).
+
 Attributes
-----------
+==========
 
 The following attributes *must* be set.
 
@@ -46,7 +53,7 @@ The following attribute is optional.
   default recipe.
 
 Resources
----------
+=========
 
 This cookbook includes the `vagrant_plugin` resource, for managing
 vagrant plugins.
@@ -74,8 +81,34 @@ vagrant plugins.
       version "1.2.0"
     end
 
+Recipes
+=======
+
+## default
+
+The default recipe includes the platform-family specific recipe to
+install Vagrant. It then iterates over the
+`node['vagrant']['plugins']` attribute to install any required vagrant
+plugins.
+
+## debian, fedora, mac_os_x, rhel, windows
+
+These are the platform family recipes included by the default recipe.
+The `fedora` recipe will include `rhel`.
+
+## uninstall_gem
+
+This recipe will attempt to uninstall the `vagrant` gem with the
+`gem_package` and `chef_gem` resources. Meaning, it will use the `gem`
+binary in the `PATH` of the shell executing Chef to uninstall, and
+then use Chef's built-in RubyGems to uninstall. If you have a
+customized Ruby environment, such as with rbenv or rvm (or other), you
+may need to manually remove and clean up anything leftover, such as
+running `rbenv rehash`. Nor will this recipe support such craziness
+:-).
+
 Usage
------
+=====
 
 Set the url and checksum attributes on the node. Do this in a role, or
 a "wrapper" cookbook.
