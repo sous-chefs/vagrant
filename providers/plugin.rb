@@ -16,15 +16,18 @@ action :install do
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
     shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
+    new_resource.updated_by_last_action(true)
   end
 end
 
 action :remove do
   uninstall if @current_resource.installed
+  new_resource.updated_by_last_action(true)
 end
 
 action :uninstall do
   uninstall if @current_resource.installed
+  new_resource.updated_by_last_action(true)
 end
 
 def uninstall
