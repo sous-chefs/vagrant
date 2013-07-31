@@ -1,5 +1,5 @@
 remote_file "#{Chef::Config[:file_cache_path]}/vagrant.rpm" do
-  source node['vagrant']['url']
+  source node['vagrant']['url']['rpm']
   checksum node['vagrant']['checksum']
   notifies :install, "rpm_package[vagrant]", :immediately
 end

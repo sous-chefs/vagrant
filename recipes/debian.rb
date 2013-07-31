@@ -1,5 +1,5 @@
 remote_file "#{Chef::Config[:file_cache_path]}/vagrant.deb" do
-  source node['vagrant']['url']
+  source node['vagrant']['url']['deb']
   checksum node['vagrant']['checksum']
   notifies :install, "dpkg_package[vagrant]", :immediately
 end
