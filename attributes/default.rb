@@ -25,6 +25,7 @@ when 'fedora', 'rhel'
     default['vagrant']['checksum'] = '68d4673fe7657cc8d075412f57a19c878a6e187b2f2fc54462e5ac3041d912fe'
   when 'x86_64'
     default['vagrant']['checksum'] = 'a2057895601f46db4de22832ac462ee63e07e9905c1bfd11318290bd362137f9'
+  end
 else
   default['vagrant']['url'] = nil
   default['vagrant']['checksum'] = nil
