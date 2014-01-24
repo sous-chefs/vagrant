@@ -1,7 +1,7 @@
 vagrant Cookbook
 ================
 
-Installs Vagrant 1.1+ and manages vagrant plugins w/ a custom
+Installs Vagrant 1.4.3+ and manages vagrant plugins w/ a custom
 resource.
 
 * Vagrant: http://www.vagrantup.com/
@@ -30,7 +30,7 @@ as a privileged user (e.g., root).
 Attributes
 ==========
 
-The following attributes *must* be set.
+The following attributes *should* be set.
 
 * `node['vagrant']['url']` - URL to the Vagrant installation package.
 * `node['vagrant']['checksum']` - SHA256 checksum of the Vagrant
