@@ -10,5 +10,5 @@ supports 'debian', '>= 6.0'
 supports 'ubuntu', '>= 12.04'
 supports 'redhat', '>= 6.3'
 
-depends "dmg"
-depends "windows"
+recommends 'dmg'
+recommends 'windows'
