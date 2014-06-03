@@ -12,25 +12,24 @@ install) versions. A recipe is provided for removing the gem, see __Recipes__.
 Requirements
 ------------
 
-Tested on Chef 11:
+Tested with Test Kitchen:
 
-* Debian 6
-* CentOS 6.3
+* Debian 7.4
+* Ubuntu 14.04
+* CentOS 6.5
 
-May work on other Debian/RHEL family distributions with or without
-modification.
+May work on other Debian/RHEL family distributions with or without modification.
 
-Support exists for Windows and OS X but this has not yet been tested.
+Support exists for Windows and OS X but this has not yet been added to test-kitchen (`.kitchen.yml`).
 
 The URL and Checksum attributes must be set, see __Attributes__
 
-Because Vagrant is installed as a native system package, Chef must run
-as a privileged user (e.g., root).
+Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root).
 
 Attributes
 ==========
 
-The following attributes *must* be set.
+The following attributes *must* be set. See `.kitchen.yml` for example values.
 
 * `node['vagrant']['url']` - URL to the Vagrant installation package.
 * `node['vagrant']['checksum']` - SHA256 checksum of the Vagrant
@@ -132,7 +131,7 @@ License and Authors
 -------------------
 
 * Author:: Joshua Timberman <opensource@housepub.org>
-* Copyright (c) 2013, Joshua Timberman
+* Copyright (c) 2013-2014, Joshua Timberman
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
