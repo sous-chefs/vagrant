@@ -51,6 +51,8 @@ The following attribute is optional.
   install. This is used by the `vagrant_plugin` resource in the
   default recipe.
 
+See `attributes/default.rb` for further descriptions of attributes.
+
 Resources
 =========
 
@@ -71,6 +73,9 @@ vagrant plugins.
   "vagrant-omnibus".
 - `:version`: version of the plugin to installed, must be specified as
   a string, e.g., "1.0.2"
+- `:user`: user to run install command under. Defaults to user running chef.
+- `:home`: $HOME set to run install command, where `.vagrant.d/` directory
+  lives. Defaults to user's home determined by `etc` core ruby lib.
 
 ### Examples
 
