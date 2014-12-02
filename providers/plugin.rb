@@ -3,7 +3,7 @@ include Chef::Mixin::ShellOut
 
 def load_current_resource
   @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
-  vp = shell_out("vagrant plugin list")
+  vp = shell_out("vagrant plugin list", {:user => new_resource.user, :env => {'VAGRANT_HOME' => get_home}})
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
     @current_resource.installed_version(vp.stdout.split[1].gsub(/[\(\)]/, ''))
@@ -15,7 +15,7 @@ action :install do
   unless installed?
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
-    shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
+    shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}", {:user => new_resource.user, :env => {'VAGRANT_HOME' => get_home}})
     new_resource.updated_by_last_action(true)
   end
 end
@@ -31,7 +31,7 @@ action :uninstall do
 end
 
 def uninstall
-  shell_out("vagrant plugin uninstall #{new_resource.plugin_name}")
+  shell_out("vagrant plugin uninstall #{new_resource.plugin_name}", {:user => new_resource.user, :env => {'VAGRANT_HOME' => get_home}})
 end
 
 def installed?
@@ -47,4 +47,14 @@ def version_match
     # the version matches otherwise because it's installed
     true
   end
+end
+
+def get_home
+  if new_resource.home.nil? # nil is the default
+    require 'etc'
+    home = Etc.getpwnam(new_resource.user)['dir']+'/.vagrant.d'
+  else
+    home = new_resource.home
+  end
+  home
 end
