@@ -73,6 +73,8 @@ vagrant plugins.
 - `:version`: version of the plugin to installed, must be specified as
   a string, e.g., "1.0.2"
 - `:user`: a user to run plugin installation as. Usually this is for single user systems (like workstations).
+- `:sources`: alternate locations to search for plugins. This would commonly
+  be used if you are hosting your vagrant plugins in a custom gem repo
 
 ### Examples
 
@@ -80,6 +82,7 @@ vagrant plugins.
 
     vagrant_plugin "vagrant-berkshelf"
       version "1.2.0"
+      sources ["http://src1.example.com", "http://src2.example.com"]
     end
 
     # Install the plugins as the `donuts` user, into ~donuts/.vagrant.d
