@@ -16,7 +16,7 @@ Requirements
 
 Tested with Test Kitchen:
 
-* Debian 7.4
+* Debian 7.6
 * Ubuntu 14.04
 * CentOS 6.5
 

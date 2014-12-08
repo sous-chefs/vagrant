@@ -8,7 +8,7 @@ provisioner:
   name: chef_zero
 
 platforms:
-- name: debian-7.4
+- name: debian-7.6
 - name: ubuntu-14.04
 - name: centos-6.5
   # To run test-kitchen for OS X, create a box for 10.9, and add it to
@@ -36,7 +36,7 @@ suites:
     - recipe[vagrant]
   excludes:
     - ubuntu-14.04
-    - debian-7.4
+    - debian-7.6
     - macosx-10.9
   attributes:
     vagrant:
@@ -48,7 +48,7 @@ suites:
     - recipe[vagrant]
   excludes:
     - ubuntu-14.04
-    - debian-7.4
+    - debian-7.6
     - centos-6.5
   attributes:
     vagrant:
