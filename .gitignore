@@ -1,2 +1,26 @@
-.kitchen/
-.kitchen.local.yml
+# Editors etc
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Bundler
+/Gemfile.lock
+/bin/
+/.bundle/
+/bundle/
+/vendor/gems/
+
+# Berkshelf
+/Berksfile.lock
+/cookbooks/
+/vendor/cookbooks/
+
+# Vagrant
+/.vagrant/
+
+# Test Kitchen
+/.kitchen/
+/.kitchen.local.yml

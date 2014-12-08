@@ -11,20 +11,46 @@ platforms:
 - name: debian-7.4
 - name: ubuntu-14.04
 - name: centos-6.5
+  # To run test-kitchen for OS X, create a box for 10.9, and add it to
+  # vagrant. See for example,
+  # https://github.com/timsutton/osx-vm-templates
+  # https://github.com/opscode/bento/blob/master/packer/macosx-10.9.json
+- name: macosx-10.9
+  driver:
+    box: chef/macosx-10.9
 
 suites:
 - name: debian
-  run_list: ["recipe[vagrant::default]"]
-  excludes: ["centos-6.5"]
+  run_list:
+    - recipe[vagrant]
+  excludes:
+    - centos-6.5
+    - macosx-10.9
   attributes:
     vagrant:
-      url: "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.2_x86_64.deb"
-      plugins: ["vagrant-omnibus"]
+      plugins:
+        - vagrant-omnibus
 
 - name: rhel
-  run_list: ["recipe[vagrant::default]"]
-  excludes: ["ubuntu-14.04", "debian-7.4"]
+  run_list:
+    - recipe[vagrant]
+  excludes:
+    - ubuntu-14.04
+    - debian-7.4
+    - macosx-10.9
   attributes:
     vagrant:
-      url: "https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.2_x86_64.rpm"
-      plugins: ["vagrant-omnibus"]
+      plugins:
+        - vagrant-omnibus
+
+- name: osx
+  run_list:
+    - recipe[vagrant]
+  excludes:
+    - ubuntu-14.04
+    - debian-7.4
+    - centos-6.5
+  attributes:
+    vagrant:
+      plugins:
+        - vagrant-omnibus

@@ -25,12 +25,9 @@ end
 def vagrant_platform_package(vers = nil)
   case node['os']
   when 'darwin'
-    v = vagrant_1_4_name(vers)
-    sep = v == 'Vagrant' ? '-' : '_'
-    "#{v}#{sep}#{vers}.dmg"
+    "vagrant_#{vers}.dmg"
   when 'windows'
-    v = vagrant_1_4_name(vers)
-    "#{v}_#{vers}.msi"
+    "vagrant_#{vers}.msi"
   when 'linux'
     case node['platform_family']
     when 'debian'
@@ -48,6 +45,6 @@ def vagrant_sha256sum(vers = nil)
   sha256sums.readlines.grep(/#{vagrant_platform_package(vers)}/)[0].split.first
 end
 
-def vagrant_1_4_name(vers = nil)
-  vers.to_f == 1.4 ? 'Vagrant' : 'vagrant'
+def vagrant_package_uri(vers = nil)
+  URI.join(vagrant_base_uri, vagrant_platform_package(vers)).to_s
 end
