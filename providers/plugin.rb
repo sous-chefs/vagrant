@@ -15,7 +15,8 @@ action :install do
   unless installed?
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
-    shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
+    vpi = shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
+    Chef::Log.error vpi.stderr unless vpi.stderr.empty?
     new_resource.updated_by_last_action(true)
   end
 end
