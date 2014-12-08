@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-default['vagrant']['url'] = nil
-default['vagrant']['checksum'] = nil
-default['vagrant']['plugins'] = []
-default['vagrant']['msi_version'] = ""
+default['vagrant']['version']     = '1.6.5'
+default['vagrant']['url']         = vagrant_package_uri(node['vagrant']['version'])
+default['vagrant']['checksum']    = vagrant_sha256sum(node['vagrant']['version'])
+default['vagrant']['plugins']     = []
+default['vagrant']['msi_version'] = ''

@@ -1,13 +1,15 @@
 vagrant Cookbook
 ================
 
-Installs Vagrant 1.1+ and manages vagrant plugins w/ a custom
+Installs Vagrant 1.6+ and manages vagrant plugins w/ a custom
 resource.
 
 * Vagrant: http://www.vagrantup.com/
 
 This cookbook is not intended to be used for vagrant "1.0" (gem
 install) versions. A recipe is provided for removing the gem, see __Recipes__.
+
+This cookbook is not supported for installing versions of Vagrant older than 1.6.
 
 Requirements
 ------------
