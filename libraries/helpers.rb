@@ -48,3 +48,26 @@ end
 def vagrant_package_uri(vers = nil)
   URI.join(vagrant_base_uri, vagrant_platform_package(vers)).to_s
 end
+
+def vagrant_get_home(user)
+  begin
+    # Attempting to get the $HOME of `user`
+    Chef::Log.debug("Attempting to get $HOME of #{user}")
+    home = Etc.getpwnam(user).dir
+  rescue ArgumentError
+    begin
+      # Could not look up `user`, seeing if Chef knows about a
+      # user[`user`] resource
+      Chef::Log.debug("Couldn't find `#{user}`, looking for a resource")
+      home = resources("user[#{user}]").home
+    rescue Chef::Exceptions::ResourceNotFound
+      # Chef does not know about a user[`user`] resource, and that
+      # user does not exist on the system, try using the $HOME of the
+      # user running Chef
+      Chef::Log.debug("No user found, using running process uid, `#{Process.uid}`")
+      home = Etc.getpwuid(Process.uid).dir
+    end
+  end
+
+  home
+end

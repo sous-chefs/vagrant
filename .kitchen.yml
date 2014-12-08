@@ -23,6 +23,7 @@ suites:
 - name: debian
   run_list:
     - recipe[vagrant]
+    - recipe[test]
   excludes:
     - centos-6.5
     - macosx-10.9
@@ -34,6 +35,7 @@ suites:
 - name: rhel
   run_list:
     - recipe[vagrant]
+    - recipe[test]
   excludes:
     - ubuntu-14.04
     - debian-7.6
@@ -46,6 +48,7 @@ suites:
 - name: osx
   run_list:
     - recipe[vagrant]
+    - recipe[test]
   excludes:
     - ubuntu-14.04
     - debian-7.6
