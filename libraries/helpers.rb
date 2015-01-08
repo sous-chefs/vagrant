@@ -23,18 +23,15 @@ def vagrant_base_uri
 end
 
 def vagrant_platform_package(vers = nil)
-  case node['os']
-  when 'darwin'
+  case node['platform_family']
+  when 'mac_os_x'
     "vagrant_#{vers}.dmg"
   when 'windows'
     "vagrant_#{vers}.msi"
-  when 'linux'
-    case node['platform_family']
-    when 'debian'
-      "vagrant_#{vers}_x86_64.deb"
-    when 'redhat', 'fedora'
-      "vagrant_#{vers}_x86_64.rpm"
-    end
+  when 'debian'
+    "vagrant_#{vers}_x86_64.deb"
+  when 'rhel', 'fedora'
+    "vagrant_#{vers}_x86_64.rpm"
   end
 end
 
