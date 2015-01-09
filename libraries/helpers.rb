@@ -32,7 +32,7 @@ def vagrant_platform_package(vers = nil)
     case node['platform_family']
     when 'debian'
       "vagrant_#{vers}_x86_64.deb"
-    when 'redhat', 'fedora', 'rhel'
+    when 'fedora', 'rhel'
       "vagrant_#{vers}_x86_64.rpm"
     end
   end
