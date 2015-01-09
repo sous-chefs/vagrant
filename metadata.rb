@@ -9,6 +9,7 @@ version          '0.2.1'
 supports 'debian', '>= 6.0'
 supports 'ubuntu', '>= 12.04'
 supports 'redhat', '>= 6.3'
+supports 'centos', '>= 6.4'
 
 depends "dmg"
 depends "windows"
