@@ -9,6 +9,8 @@ supports 'debian', '>= 6.0'
 supports 'ubuntu', '>= 12.04'
 supports 'redhat', '>= 6.3'
 supports 'centos', '>= 6.4'
+supports 'windows'
+supports 'mac_os_x'
 
 depends 'dmg'
 depends 'windows'
