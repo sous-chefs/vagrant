@@ -17,5 +17,19 @@
 # limitations under the License.
 #
 
-include_recipe "vagrant::#{node['platform_family']}"
-include_recipe 'vagrant::install_plugins' if node['vagrant']['plugins'].length > 0
+node['vagrant']['plugins'].each do |plugin|
+  if plugin.respond_to?(:keys)
+
+    vagrant_plugin plugin['name'] do
+      user node['vagrant']['user']
+      version plugin['version']
+    end
+
+  else
+
+    vagrant_plugin plugin do
+      user node['vagrant']['user']
+    end
+
+  end
+end

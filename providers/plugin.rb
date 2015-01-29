@@ -1,9 +1,17 @@
+require 'etc'
 require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 
+use_inline_resources if defined?(:use_inline_resources)
+
 def load_current_resource
   @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
-  vp = shell_out("vagrant plugin list")
+  vp = shell_out('vagrant plugin list', {
+                                         :user => run_as_user,
+                                         :env => {
+                                                  'VAGRANT_HOME' => vagrant_home
+                                                 }
+                                        })
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
     @current_resource.installed_version(vp.stdout.split[1].gsub(/[\(\)]/, ''))
@@ -15,23 +23,35 @@ action :install do
   unless installed?
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
-    shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
-    new_resource.updated_by_last_action(true)
+    execute "installing vagrant plugin #{new_resource.plugin_name}" do
+      command "vagrant plugin install #{new_resource.plugin_name} #{plugin_args}"
+      user new_resource.user
+      environment 'VAGRANT_HOME' => vagrant_home
+    end
   end
 end
 
 action :remove do
   uninstall if @current_resource.installed
-  new_resource.updated_by_last_action(true)
 end
 
 action :uninstall do
   uninstall if @current_resource.installed
-  new_resource.updated_by_last_action(true)
 end
 
 def uninstall
-  shell_out("vagrant plugin uninstall #{new_resource.plugin_name}")
+  execute "vagrant plugin uninstall #{new_resource.plugin_name}" do
+    user new_resource.user
+    environment 'VAGRANT_HOME' => vagrant_home
+  end
+end
+
+def run_as_user
+  new_resource.user || Etc.getpwuid(Process.uid).name
+end
+
+def vagrant_home
+  ::File.join(vagrant_get_home(run_as_user), '.vagrant.d')
 end
 
 def installed?
