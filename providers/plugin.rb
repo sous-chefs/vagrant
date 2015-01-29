@@ -3,7 +3,7 @@ include Chef::Mixin::ShellOut
 
 def load_current_resource
   @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
-  vp = shell_out("vagrant plugin list")
+  vp = run_command("vagrant plugin list")
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
     @current_resource.installed_version(vp.stdout.split[1].gsub(/[\(\)]/, ''))
@@ -15,7 +15,7 @@ action :install do
   unless installed?
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
-    shell_out("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
+    run_command("vagrant plugin install #{new_resource.plugin_name} #{plugin_args}")
     new_resource.updated_by_last_action(true)
   end
 end
@@ -31,7 +31,7 @@ action :uninstall do
 end
 
 def uninstall
-  shell_out("vagrant plugin uninstall #{new_resource.plugin_name}")
+  run_command("vagrant plugin uninstall #{new_resource.plugin_name}")
 end
 
 def installed?
@@ -46,5 +46,14 @@ def version_match
   else
     # the version matches otherwise because it's installed
     true
+  end
+end
+
+def run_command(cmd)
+  if new_resource.user
+    home = shell_out!("echo ~#{new_resource.user}").stdout.chomp
+    shell_out!(cmd, { :user => new_resource.user, :env => { 'HOME' => home } })
+  else
+    shell_out!(cmd)
   end
 end
