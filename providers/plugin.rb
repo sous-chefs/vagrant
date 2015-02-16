@@ -23,6 +23,14 @@ action :install do
   unless installed?
     plugin_args = ""
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
+
+    unless new_resource.sources.empty?
+      sources = Array(new_resource.sources)
+      sources.each do |source|
+        plugin_args += " --plugin-source #{source}"
+      end
+    end
+
     execute "installing vagrant plugin #{new_resource.plugin_name}" do
       command "vagrant plugin install #{new_resource.plugin_name} #{plugin_args}"
       user new_resource.user
