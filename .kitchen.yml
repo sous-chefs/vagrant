@@ -22,6 +22,7 @@ platforms:
 suites:
 - name: debian
   run_list:
+    - recipe[build-essential]
     - recipe[vagrant]
     - recipe[test]
   excludes:
@@ -34,6 +35,7 @@ suites:
 
 - name: rhel
   run_list:
+    - recipe[build-essential]
     - recipe[vagrant]
     - recipe[test]
   excludes:
@@ -47,6 +49,7 @@ suites:
 
 - name: osx
   run_list:
+    - recipe[build-essential]
     - recipe[vagrant]
     - recipe[test]
   excludes:
