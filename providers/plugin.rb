@@ -14,7 +14,9 @@ def load_current_resource
                                         })
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
-    @current_resource.installed_version(vp.stdout.split[1].gsub(/[\(\)]/, ''))
+    installed_line = vp.stdout.split("\n").detect { |line| line.include? new_resource.plugin_name }
+    installed_version = installed_line.split('(')[1].split(')')[0]
+    @current_resource.installed_version(installed_line.gsub(/[\(\)]/, ''))
   end
   @current_resource
 end
@@ -70,7 +72,7 @@ def version_match
   # if the version is specified, we need to check if it matches what
   # is installed already
   if new_resource.version
-    @current_resource.installed_version == new_resource.version
+    @current_resource.installed_version == "#{new_resource.plugin_name} #{new_resource.version}"
   else
     # the version matches otherwise because it's installed
     true
