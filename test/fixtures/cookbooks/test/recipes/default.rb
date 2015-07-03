@@ -1,3 +1,8 @@
+execute 'apt-get update' if platform_family?('debian')
+
+include_recipe 'build-essential'
+include_recipe 'vagrant'
+
 # How meta...
 vagrant_plugin 'vagrant-aws' do
   user 'vagrant'
