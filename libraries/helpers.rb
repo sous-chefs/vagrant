@@ -32,9 +32,13 @@ def vagrant_platform_package(vers = nil)
     case node['platform_family']
     when 'debian'
       "vagrant_#{vers}_x86_64.deb"
-    when 'fedora', 'rhel'
+    when 'fedora', 'rhel', 'suse'
+      Chef::Log.debug 'SUSE is not specifically supported by vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
       "vagrant_#{vers}_x86_64.rpm"
     end
+  else
+    Chef::Log.warn "#{node['platform']} is not supported by vagrant."
+    return
   end
 end
 
@@ -59,7 +63,7 @@ def vagrant_get_home(user)
       # Could not look up `user`, seeing if Chef knows about a
       # user[`user`] resource
       Chef::Log.debug("Couldn't find `#{user}`, looking for a resource")
-      home = resources("user[#{user}]").home
+      home = run_context.resource_collection.find("user[#{user}]").home
     rescue Chef::Exceptions::ResourceNotFound
       # Chef does not know about a user[`user`] resource, and that
       # user does not exist on the system, try using the $HOME of the

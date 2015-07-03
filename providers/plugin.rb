@@ -55,7 +55,19 @@ def uninstall
 end
 
 def run_as_user
-  new_resource.user || Etc.getpwuid(Process.uid).name
+  case new_resource.user
+  when String
+    Chef::Log.debug("I found a string for `#{new_resource.user}`")
+    new_resource.user
+  when NilClass
+    begin
+      Chef::Log.debug("I'm searching for a resource user[#{new_resource.user}]")
+      run_context.resource_collection.find("user[#{new_resource.user}]").username
+    rescue ArgumentError
+      Chef::Log.debug("Trying to find the user by the process UID #{Process.uid}")
+      Etc.getpwuid(Process.uid).name
+    end
+  end
 end
 
 def vagrant_home
