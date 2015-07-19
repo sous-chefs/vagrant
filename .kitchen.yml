@@ -8,26 +8,23 @@ provisioner:
   name: chef_zero
 
 platforms:
-- name: debian-7.6
+# We don't have every platform that this might work on, or every
+# version as the latest. The behavior in this cookbook is dependent on
+# platform families.
 - name: ubuntu-14.04
-- name: centos-6.5
-  # To run test-kitchen for OS X, create a box for 10.9, and add it to
-  # vagrant. See for example,
-  # https://github.com/timsutton/osx-vm-templates
-  # https://github.com/opscode/bento/blob/master/packer/macosx-10.9.json
-- name: macosx-10.9
+- name: centos-6.6
+  # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
+- name: macosx-10.10
   driver:
-    box: chef/macosx-10.9
+    box: chef/macosx-10.10
 
 suites:
 - name: debian
   run_list:
-    - recipe[build-essential]
-    - recipe[vagrant]
     - recipe[test]
   excludes:
-    - centos-6.5
-    - macosx-10.9
+    - centos-6.6
+    - macosx-10.10
   attributes:
     vagrant:
       plugins:
@@ -35,13 +32,10 @@ suites:
 
 - name: rhel
   run_list:
-    - recipe[build-essential]
-    - recipe[vagrant]
     - recipe[test]
   excludes:
     - ubuntu-14.04
-    - debian-7.6
-    - macosx-10.9
+    - macosx-10.10
   attributes:
     vagrant:
       plugins:
@@ -49,13 +43,10 @@ suites:
 
 - name: osx
   run_list:
-    - recipe[build-essential]
-    - recipe[vagrant]
     - recipe[test]
   excludes:
     - ubuntu-14.04
-    - debian-7.6
-    - centos-6.5
+    - centos-6.6
   attributes:
     vagrant:
       plugins:

@@ -12,5 +12,5 @@ supports 'centos', '>= 6.4'
 supports 'windows'
 supports 'mac_os_x'
 
-depends 'dmg'
-depends 'windows'
+depends 'dmg', '>= 2.2.2'
+depends 'windows', '>= 1.30.2'

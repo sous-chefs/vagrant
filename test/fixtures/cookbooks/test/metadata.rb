@@ -1,2 +1,4 @@
-name             'test'
-version          '0.1.0'
+name    'test'
+version '0.1.0'
+depends 'build-essential'
+depends 'vagrant'
