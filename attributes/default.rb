@@ -18,8 +18,10 @@
 return unless %w(darwin windows linux).include?(node['os'])
 
 default['vagrant']['version']     = '1.6.5'
-default['vagrant']['url']         = vagrant_package_uri(node['vagrant']['version'])
-default['vagrant']['checksum']    = vagrant_sha256sum(node['vagrant']['version'])
+if %w(darwin windows linux).include? node['os']
+  default['vagrant']['url']         = vagrant_package_uri(node['vagrant']['version'])
+  default['vagrant']['checksum']    = vagrant_sha256sum(node['vagrant']['version'])
+end
 default['vagrant']['plugins']     = []
 default['vagrant']['user']        = nil
 default['vagrant']['msi_version'] = ''
