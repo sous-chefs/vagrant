@@ -1,6 +1,6 @@
 # vagrant Cookbook
 
-Installs Vagrant 1.6+ and manages vagrant plugins w/ a custom resource.
+Installs Vagrant 1.6+ and manages vagrant plugins w/ a custom resource. If you are not familiar with Vagrant, read about it here:
 
 * Vagrant: http://www.vagrantup.com/
 
@@ -10,7 +10,20 @@ This cookbook is not supported for installing versions of Vagrant older than 1.6
 
 # Requirements
 
-Tested with Test Kitchen:
+**This cookbook should not be used on platforms that Vagrant itself does not support.**
+
+## Vagrant Supported Platforms
+
+Vagrant does not specifically list supported platforms on the project web site. However, the only platforms with [packages provided](https://www.vagrantup.com/downloads.html) are:
+
+* Mac OS X
+* Windows
+* Linux (deb-package based platforms, e.g., Debian and Ubuntu)
+* Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
+
+Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is **strongly recommended** that this cookbook not be on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
+
+## Tested with Test Kitchen
 
 * Debian 7.6
 * Ubuntu 14.04

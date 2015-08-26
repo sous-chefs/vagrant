@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+return unless %w(darwin windows linux).include?(node['os'])
 
 default['vagrant']['version']     = '1.6.5'
 default['vagrant']['url']         = vagrant_package_uri(node['vagrant']['version'])
