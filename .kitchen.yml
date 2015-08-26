@@ -12,7 +12,7 @@ platforms:
 # version as the latest. The behavior in this cookbook is dependent on
 # platform families.
 - name: ubuntu-14.04
-- name: centos-6.6
+- name: centos-7.1
   # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
 - name: macosx-10.10
   driver:
@@ -23,7 +23,7 @@ suites:
   run_list:
     - recipe[test]
   excludes:
-    - centos-6.6
+    - centos-7.1
     - macosx-10.10
   attributes:
     vagrant:
@@ -46,7 +46,7 @@ suites:
     - recipe[test]
   excludes:
     - ubuntu-14.04
-    - centos-6.6
+    - centos-7.1
   attributes:
     vagrant:
       plugins:

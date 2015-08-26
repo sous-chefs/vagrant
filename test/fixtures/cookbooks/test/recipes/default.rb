@@ -22,7 +22,7 @@ user 'donuts' do
   gid 'staff' if ['darwin'].include?(node['os'])
   shell '/bin/bash'
   home donut_home
-  supports :manage_home => true
+  supports manage_home: true
 end
 
 directory donut_home do

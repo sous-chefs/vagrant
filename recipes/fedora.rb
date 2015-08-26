@@ -1,1 +1,1 @@
-include_recipe "vagrant::rhel"
+include_recipe 'vagrant::rhel'

@@ -6,16 +6,14 @@ use_inline_resources if defined?(:use_inline_resources)
 
 def load_current_resource
   @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
-  vp = shell_out('vagrant plugin list', {
-                                         :user => run_as_user,
-                                         :env => {
-                                                  'VAGRANT_HOME' => vagrant_home
-                                                 }
-                                        })
+  vp = shell_out('vagrant plugin list',                                          user: run_as_user,
+                                                                                 env: {
+                                                                                   'VAGRANT_HOME' => vagrant_home
+                                                                                 })
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
     installed_line = vp.stdout.split("\n").detect { |line| line.include? new_resource.plugin_name }
-    installed_version = installed_line.split('(')[1].split(')')[0]
+    @current_resource.installed_version = installed_line.split('(')[1].split(')')[0]
     @current_resource.installed_version(installed_line.gsub(/[\(\)]/, ''))
   end
   @current_resource
@@ -23,7 +21,7 @@ end
 
 action :install do
   unless installed?
-    plugin_args = ""
+    plugin_args = ''
     plugin_args += "--plugin-version #{new_resource.version}" if new_resource.version
 
     unless new_resource.sources.empty?

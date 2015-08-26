@@ -5,25 +5,32 @@ AllCops:
     - Rakefile
     - Thorfile
     - Guardfile
+    - Policyfile.rb
   Exclude:
-    - metadata.rb
     - vendor/**
 
-ClassLength:
+AlignParameters:
   Enabled: false
 Documentation:
   Enabled: false
 Encoding:
   Enabled: false
-HashSyntax:
+ClassLength:
   Enabled: false
-LineLength:
+CyclomaticComplexity:
   Enabled: false
 MethodLength:
   Enabled: false
-SignalException:
+Metrics/AbcSize:
   Enabled: false
-TrailingComma:
+LineLength:
   Enabled: false
-WordArray:
+PerceivedComplexity:
   Enabled: false
+Style/FileName:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/SingleSpaceBeforeFirstArg:
+  Exclude:
+    - '**/metadata.rb'
