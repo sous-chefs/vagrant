@@ -1,3 +1,7 @@
+## 0.3.1:
+
+* #25, #31 Don't evaluate attributes on unsupported platforms
+
 ## 0.3.0:
 
 * #11 Custom plugin sources
