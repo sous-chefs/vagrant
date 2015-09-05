@@ -1,3 +1,8 @@
+## Unreleased
+
+* Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
+for `vagrant_plugin`.
+
 ## 0.3.1:
 
 * #25, #31 Don't evaluate attributes on unsupported platforms
