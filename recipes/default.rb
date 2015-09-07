@@ -1,4 +1,3 @@
-#
 # Cookbook Name:: vagrant
 # Recipe:: default
 #
@@ -15,7 +14,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 include_recipe "vagrant::#{node['platform_family']}"
 include_recipe 'vagrant::install_plugins' if node['vagrant']['plugins'].length > 0

@@ -1,4 +1,6 @@
-#
+# Cookbook Name:: vagrant
+# Attributes:: default
+
 # Author:: Joshua Timberman <opensource@housepub.org>
 # Copyright (c) 2013-2014, Joshua Timberman
 # License:: Apache License, Version 2.0

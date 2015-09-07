@@ -1,7 +1,6 @@
-#
 # Cookbook Name:: vagrant
-# Recipe:: default
-#
+# Recipe:: install_plugins
+
 # Copyright 2013, Joshua Timberman
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 node['vagrant']['plugins'].each do |plugin|
   if plugin.respond_to?(:keys)
