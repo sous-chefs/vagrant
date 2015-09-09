@@ -2,7 +2,7 @@
 
 Installs Vagrant 1.6+ and manages vagrant plugins w/ a custom resource. If you are not familiar with Vagrant, read about it here:
 
-* Vagrant: http://www.vagrantup.com/
+* Vagrant: https://www.vagrantup.com/
 
 This cookbook is not intended to be used for vagrant "1.0" (gem install) versions. A recipe is provided for removing the gem, see __Recipes__.
 
@@ -91,17 +91,35 @@ vagrant plugins.
 
 ### Examples
 
-    vagrant_plugin "vagrant-omnibus"
+```ruby
+vagrant_plugin 'vagrant-omnibus'
 
-    vagrant_plugin "vagrant-berkshelf"
-      version "1.2.0"
-      sources ["http://src1.example.com", "http://src2.example.com"]
-    end
+vagrant_plugin 'vagrant-berkshelf'
+  version '1.2.0'
+  sources ['http://src1.example.com', 'http://src2.example.com']
+end
 
-    # Install the plugins as the `donuts` user, into ~donuts/.vagrant.d
-    vagrant_plugin "vagrant-aws"
-      user "donuts"
-    end
+# Install the plugins as the `donuts` user, into ~donuts/.vagrant.d
+vagrant_plugin 'vagrant-aws'
+  user 'donuts'
+end
+```
+
+### ChefSpec Matchers
+
+This cookbook provides ChefSpec Custom Matchers for `vagrant_plugin`.
+
+Example:
+
+```ruby
+RSpec.describe 'example::default' do
+  let(:chef_run) { ChefSpec::ServerRunner.converge(described_recipe) }
+
+  it 'installs the vagrant-omnibus plugin' do
+    expect(chef_run).to install_vagrant_plugin('vagrant-omnibus')
+  end
+end
+```
 
 # Recipes
 
@@ -143,10 +161,12 @@ array for the `node['vagrant']['plugins']` attribute. For example, to
 install the `vagrant-omnibus` plugin (any version) and version "1.2.0"
 of the `vagrant-berkshelf` plugin:
 
-    node.set['vagrant']['plugins'] = [
-      "vagrant-omnibus",
-      {"name" => "vagrant-berkshelf", "version" => "1.2.0"}
-    ]
+```ruby
+node.set['vagrant']['plugins'] = [
+  "vagrant-omnibus",
+  {"name" => "vagrant-berkshelf", "version" => "1.2.0"}
+]
+```
 
 See the attribute description above.
 
