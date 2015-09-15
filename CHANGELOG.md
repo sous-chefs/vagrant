@@ -2,6 +2,7 @@
 
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
 for `vagrant_plugin`.
+* Add Rakefile for testing/style checks.
 
 ## 0.3.1:
 

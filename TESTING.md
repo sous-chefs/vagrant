@@ -1,25 +1,31 @@
-This cookbook includes support for running tests via Test Kitchen (1.0). This has some requirements.
+# Testing
 
-1. You must be using the Git repository, rather than the downloaded cookbook from the Chef Community Site.
-2. You must have Vagrant 1.1+ installed.
-3. You must have a "sane" Ruby 1.9.3 environment.
+## Style and Unit Testing
+This cookbook comes with a Rakefile with the following testing targets:
 
-Once the above requirements are met, install the additional requirements:
+```
+rake foodcritic            # Lint Chef cookbooks
+rake rubocop               # Run RuboCop
+rake rubocop:auto_correct  # Auto-correct RuboCop offenses
+rake spec                  # Run RSpec code examples
+rake style                 # Run Rubocop and Foodcritic style checks
+rake test                  # Run style checks and unit tests
+```
 
-Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby environment.
+## Integration (test-kitchen)
+A .kitchen.yml file is also provided.
 
-    vagrant plugin install vagrant-berkshelf
-    gem install berkshelf
+To run test-kitchen on a Mac guest, you will need to provide a Mac vagrant box.
 
-Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
+```
+kitchen list
 
-    gem install test-kitchen --pre
+Instance            Driver   Provisioner  Verifier  Transport  Last Action
+debian-ubuntu-1404  Vagrant  ChefZero     Busser    Ssh        <Not Created>
+rhel-centos-71      Vagrant  ChefZero     Busser    Ssh        <Not Created>
+osx-macosx-1010     Vagrant  ChefZero     Busser    Ssh        <Not Created>
+```
 
-Install the Vagrant driver for Test Kitchen.
-
-    gem install kitchen-vagrant
-
-Once the above are installed, you should be able to run Test Kitchen:
-
-    kitchen list
-    kitchen test
+```
+kitchen test
+```
