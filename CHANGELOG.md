@@ -1,8 +1,12 @@
+# Vagrant Cookbook Changelog
+
 ## Unreleased
 
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
 for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.
+* Fix idempotency when installing Vagrant Windows package.
+* Bump default Vagrant version to 1.7.4
 
 ## 0.3.1:
 
