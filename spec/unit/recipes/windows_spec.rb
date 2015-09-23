@@ -24,7 +24,7 @@ RSpec.describe 'vagrant::windows' do
     VAGRANT_DEFAULT_VERSION = '1.7.4'
 
     cached(:windows_node) do
-      ChefSpec::ServerRunner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'windows',
         version: '2012R2'
       ) do |node|
@@ -43,7 +43,7 @@ RSpec.describe 'vagrant::windows' do
   context 'when you override the version' do
     VAGRANT_OVERRIDE_VERSION = '1.88.88'
     cached(:windows_node) do
-      ChefSpec::ServerRunner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'windows',
         version: '2012R2'
       ) do |node|
