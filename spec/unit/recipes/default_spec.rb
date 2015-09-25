@@ -16,7 +16,7 @@
 #
 require 'spec_helper'
 
-describe 'vagrant::default' do
+RSpec.describe 'vagrant::default' do
   before(:each) do
     allow_any_instance_of(Chef::Node).to receive(:vagrant_sha256sum).and_return('')
   end

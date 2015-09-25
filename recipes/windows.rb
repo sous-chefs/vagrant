@@ -15,8 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-windows_package "Vagrant #{node['vagrant']['msi_version']}" do
+windows_package 'Vagrant' do
+  action :install
+  version node['vagrant']['msi_version']
   source node['vagrant']['url']
   checksum node['vagrant']['checksum']
-  action :install
 end

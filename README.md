@@ -42,7 +42,7 @@ Because Vagrant is installed as a native system package, Chef must run as a priv
 
 The following attributes *must* be set. The cookbook has helper methods in `libraries` that attempt to automatically discover these values.
 
-* `node['vagrant']['version']` - Version of Vagrant to use, default is 1.6.5, which was current at the time of writing.
+* `node['vagrant']['version']` - Version of Vagrant to use, default is 1.7.4, which was current at the time of writing.
 * `node['vagrant']['url']` - URL to the Vagrant installation package.
 * `node['vagrant']['checksum']` - SHA256 checksum of the Vagrant
   installation package.
