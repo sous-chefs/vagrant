@@ -17,9 +17,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+vagrant_url = node['vagrant']['url'] || vagrant_package_uri
+vagrant_checksum = node['vagrant']['checksum'] || vagrant_sha256sum
+
 remote_file "#{Chef::Config[:file_cache_path]}/vagrant.deb" do
-  source node['vagrant']['url']
-  checksum node['vagrant']['checksum']
+  source vagrant_url
+  checksum vagrant_checksum
   notifies :install, 'dpkg_package[vagrant]', :immediately
 end
 

@@ -16,13 +16,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
 return unless %w(darwin windows linux).include?(node['os'])
 
 default['vagrant']['version']     = '1.7.4'
 default['vagrant']['msi_version'] = '1.7.4'
 
-default['vagrant']['url']         = vagrant_package_uri(node['vagrant']['version'])
-default['vagrant']['checksum']    = vagrant_sha256sum(node['vagrant']['version'])
+default['vagrant']['url']         = nil
+default['vagrant']['checksum']    = nil
 default['vagrant']['plugins']     = []
 default['vagrant']['user']        = nil

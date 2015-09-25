@@ -14,10 +14,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+vagrant_url = node['vagrant']['url'] || vagrant_package_uri
+vagrant_checksum = node['vagrant']['checksum'] || vagrant_sha256sum
 
 dmg_package 'Vagrant' do
-  source node['vagrant']['url']
-  checksum node['vagrant']['checksum']
+  source vagrant_url
+  checksum vagrant_checksum
   type 'pkg'
   package_id 'com.vagrant.vagrant'
   action :install

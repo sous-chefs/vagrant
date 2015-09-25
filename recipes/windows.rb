@@ -15,9 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+vagrant_url = node['vagrant']['url'] || vagrant_package_uri
+vagrant_checksum = node['vagrant']['checksum'] || vagrant_sha256sum
+vagrant_version = node['vagrant']['msi_version'] || node['vagrant']['version']
+
 windows_package 'Vagrant' do
   action :install
-  version node['vagrant']['msi_version']
-  source node['vagrant']['url']
-  checksum node['vagrant']['checksum']
+  version vagrant_version
+  source vagrant_url
+  checksum vagrant_checksum
 end
