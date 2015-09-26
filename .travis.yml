@@ -1,0 +1,6 @@
+language: ruby
+bundler_args: --without kitchen_common kitchen_vagrant
+cache: bundler
+rvm:
+  - 2.1
+  - 2.2
