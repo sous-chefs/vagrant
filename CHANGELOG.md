@@ -7,6 +7,7 @@ for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.
 * Fix idempotency when installing Vagrant Windows package.
 * Bump default Vagrant version to 1.7.4
+* #32 Properly parse existing vagrant plugins in plugins provider.
 
 ## 0.3.1:
 

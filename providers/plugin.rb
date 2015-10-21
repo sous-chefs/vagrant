@@ -30,8 +30,9 @@ def load_current_resource
   if vp.stdout.include?(new_resource.plugin_name)
     @current_resource.installed(true)
     installed_line = vp.stdout.split("\n").detect { |line| line.include? new_resource.plugin_name }
-    @current_resource.installed_version = installed_line.split('(')[1].split(')')[0]
-    @current_resource.installed_version(installed_line.gsub(/[\(\)]/, ''))
+    installed_version = installed_line.split('(')[1].split(')')[0]
+    # installed_version should not include ", system"
+    @current_resource.installed_version(installed_version.gsub(/, system/, ''))
   end
   @current_resource
 end
