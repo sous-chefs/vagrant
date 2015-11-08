@@ -17,6 +17,7 @@ maintainer       'Joshua Timberman'
 maintainer_email 'cookbooks@housepub.org'
 license          'Apache 2.0'
 description      'Installs vagrant'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.1'
 
 supports 'debian', '>= 6.0'
@@ -28,3 +29,6 @@ supports 'mac_os_x'
 
 depends 'dmg', '>= 2.2.2'
 depends 'windows', '>= 1.30.2'
+
+source_url 'https://github.com/jtimberman/vagrant-cookbook' if respond_to?(:source_url)
+issues_url 'https://github.com/jtimberman/vagrant-cookbook/issues' if respond_to?(:issues_url)
