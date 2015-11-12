@@ -16,7 +16,7 @@ name             'vagrant'
 maintainer       'Joshua Timberman'
 maintainer_email 'cookbooks@housepub.org'
 license          'Apache 2.0'
-description      'Installs vagrant'
+description      'Installs Vagrant and provides a vagrant_plugin LWRP for installing Vagrant plugins.'
 version          '0.3.1'
 
 supports 'debian', '>= 6.0'

@@ -20,39 +20,54 @@
 require 'uri'
 require 'open-uri'
 
-def vagrant_base_uri
-  'https://dl.bintray.com/mitchellh/vagrant/'
-end
-
-def vagrant_platform_package(vers = nil)
-  case node['os']
-  when 'darwin'
-    "vagrant_#{vers}.dmg"
-  when 'windows'
-    "vagrant_#{vers}.msi"
-  when 'linux'
-    case node['platform_family']
-    when 'debian'
-      "vagrant_#{vers}_x86_64.deb"
-    when 'fedora', 'rhel', 'suse'
-      Chef::Log.debug 'SUSE is not specifically supported by vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
-      "vagrant_#{vers}_x86_64.rpm"
+module Vagrant
+  module Helpers
+    def vagrant_package_uri
+      URI.join(vagrant_base_uri, package_name).to_s
     end
-  else
-    Chef::Log.warn "#{node['platform']} is not supported by vagrant."
-    return
+
+    def vagrant_sha256sum
+      sha256sums = fetch_platform_checksums_for_version
+      extract_checksum(sha256sums)
+    end
+
+    private
+
+    def vagrant_base_uri
+      'https://dl.bintray.com/mitchellh/vagrant/'
+    end
+
+    def package_name
+      "vagrant_#{package_version}#{package_extension}"
+    end
+
+    def package_version
+      node['vagrant']['version']
+    end
+
+    def package_extension
+      extension = value_for_platform_family(
+        'mac_os_x' => '.dmg',
+        'windows' => '.msi',
+        'debian' => '_x86_64.deb',
+        %w(rhel suse fedora) => '_x86_64.rpm'
+      )
+
+      fail "HashiCorp doesn't provide a Vagrant package for
+          the #{node['platform']} platform." if extension.nil?
+
+      extension
+    end
+
+    def fetch_platform_checksums_for_version
+      checksums_url = URI.join(vagrant_base_uri, "#{package_version}_SHA256SUMS?direct")
+      open(checksums_url).readlines
+    end
+
+    def extract_checksum(sha256sums)
+      sha256sums.grep(/#{package_name}/)[0].split.first
+    end
   end
-end
-
-def vagrant_sha256sum(vers = nil)
-  # fetch the version-specific sha256sum file
-  # grep for the platform-specific package name
-  sha256sums = open(URI.join(vagrant_base_uri, "#{vers}_SHA256SUMS?direct"))
-  sha256sums.readlines.grep(/#{vagrant_platform_package(vers)}/)[0].split.first
-end
-
-def vagrant_package_uri(vers = nil)
-  URI.join(vagrant_base_uri, vagrant_platform_package(vers)).to_s
 end
 
 def vagrant_get_home(user)
@@ -77,3 +92,5 @@ def vagrant_get_home(user)
 
   home
 end
+
+Chef::Recipe.send(:include, Vagrant::Helpers)

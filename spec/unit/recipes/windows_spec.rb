@@ -17,7 +17,8 @@ require 'spec_helper'
 
 RSpec.describe 'vagrant::windows' do
   before(:each) do
-    allow_any_instance_of(Chef::Node).to receive(:vagrant_sha256sum)
+    allow_any_instance_of(Chef::Recipe).to receive(:vagrant_sha256sum)
+      .and_return('abc123')
   end
 
   context 'with default attributes' do
@@ -52,7 +53,7 @@ RSpec.describe 'vagrant::windows' do
       end.converge(described_recipe)
     end
 
-    it 'installs the correct package version' do
+    it "installs Vagrant version #{VAGRANT_OVERRIDE_VERSION}" do
       expect(windows_node).to install_windows_package('Vagrant').with(
         source: "https://dl.bintray.com/mitchellh/vagrant/vagrant_#{VAGRANT_OVERRIDE_VERSION}.msi",
         version: VAGRANT_OVERRIDE_VERSION

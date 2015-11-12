@@ -7,6 +7,11 @@ for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.
 * Fix idempotency when installing Vagrant Windows package.
 * Bump default Vagrant version to 1.7.4
+* Refactor Vagrant::Helpers and add test coverage
+* Cookbook no longer fails during compile phase if https://dl.bintray.com is
+unavailable. You can override `node['vagrant']['url']` and
+`node['vagrant']['checksum']` if you need to download Vagrant from a different
+location.
 
 ## 0.3.1:
 
