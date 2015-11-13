@@ -24,3 +24,6 @@
 # Test Kitchen
 /.kitchen/
 /.kitchen.local.yml
+
+# RSpec
+/spec/examples.txt
