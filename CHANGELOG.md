@@ -12,6 +12,7 @@ for `vagrant_plugin`.
 unavailable. You can override `node['vagrant']['url']` and
 `node['vagrant']['checksum']` if you need to download Vagrant from a different
 location.
+* Add Travis-CI integration for style and unit tests
 
 ## 0.3.1:
 
