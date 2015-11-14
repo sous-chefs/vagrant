@@ -14,25 +14,7 @@
 # limitations under the License.
 
 RSpec.describe 'vagrant::windows' do
-  before(:each) do
-    RSpec.configure do |config|
-      config.mock_with :rspec do |mocks|
-        @vpd_setting = mocks.verify_partial_doubles?
-        mocks.verify_partial_doubles = false
-      end
-    end
-
-    allow_any_instance_of(Chef::Recipe).to receive(:vagrant_sha256sum)
-      .and_return('abc123')
-  end
-
-  after do
-    RSpec.configure do |config|
-      config.mock_with :rspec do |mocks|
-        mocks.verify_partial_doubles = @vpd_setting
-      end
-    end
-  end
+  include_context 'mock vagrant_sha256sum'
 
   context 'with default attributes' do
     VAGRANT_DEFAULT_VERSION = '1.7.4'

@@ -16,17 +16,9 @@
 #
 
 RSpec.describe 'vagrant::default' do
-  before(:each) do
-    allow_any_instance_of(Chef::Recipe).to receive(:vagrant_sha256sum)
-      .and_return('abc123')
-  end
+  include_context 'mock vagrant_sha256sum'
 
   context 'debian' do
-    before(:each) do
-      # required to make specs pass on Windows
-      stub_const('RUBY_PLATFORM', 'x86_64-linux')
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
@@ -55,11 +47,6 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'fedora' do
-    before(:each) do
-      # required to make specs pass on Windows
-      stub_const('RUBY_PLATFORM', 'x86_64-linux')
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'fedora',
@@ -88,11 +75,6 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'rhel' do
-    before(:each) do
-      # required to make specs pass on Windows
-      stub_const('RUBY_PLATFORM', 'x86_64-linux')
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'centos',
@@ -121,11 +103,6 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'suse' do
-    before(:each) do
-      # required to make specs pass on Windows
-      stub_const('RUBY_PLATFORM', 'x86_64-linux')
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'suse',
@@ -154,11 +131,6 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'os x' do
-    before(:each) do
-      # required to make specs pass on Windows
-      stub_const('RUBY_PLATFORM', 'x86_64-darwin12.0')
-    end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'mac_os_x',
@@ -181,13 +153,6 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'windows' do
-    # We can't stub_const('RUBY_PLATFORM', 'windows') here because Chef will
-    # try to load Windows-specific gems which don't exist on Linux
-    # before(:each) do
-    #   # required to make specs pass on Windows
-    #   stub_const('RUBY_PLATFORM', 'x86_64-mingw32')
-    # end
-
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',
