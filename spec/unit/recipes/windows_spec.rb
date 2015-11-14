@@ -13,12 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 RSpec.describe 'vagrant::windows' do
-  before(:each) do
-    allow_any_instance_of(Chef::Recipe).to receive(:vagrant_sha256sum)
-      .and_return('abc123')
-  end
+  include_context 'mock vagrant_sha256sum'
 
   context 'with default attributes' do
     VAGRANT_DEFAULT_VERSION = '1.7.4'
@@ -26,7 +22,7 @@ RSpec.describe 'vagrant::windows' do
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',
-        version: '2012R2'
+        version:  '2012R2'
       ) do |node|
         node.set['vagrant']['msi_version'] = VAGRANT_DEFAULT_VERSION
       end.converge(described_recipe)
