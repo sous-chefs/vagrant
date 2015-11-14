@@ -22,6 +22,11 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'debian' do
+    before(:each) do
+      # required to make specs pass on Windows
+      stub_const('RUBY_PLATFORM', 'x86_64-linux')
+    end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
@@ -32,17 +37,17 @@ RSpec.describe 'vagrant::default' do
       end.converge(described_recipe)
     end
 
-    fit 'includes the debian platform family recipe' do
+    it 'includes the debian platform family recipe' do
       expect(chef_run).to include_recipe('vagrant::debian')
     end
 
-    fit 'downloads the package from the calculated URI' do
+    it 'downloads the package from the calculated URI' do
       expect(chef_run).to create_remote_file('/var/tmp/vagrant.deb').with(
         source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.deb'
       )
     end
 
-    fit 'installs the downloaded package' do
+    it 'installs the downloaded package' do
       expect(chef_run).to install_dpkg_package('vagrant').with(
         source: '/var/tmp/vagrant.deb'
       )
@@ -50,6 +55,11 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'fedora' do
+    before(:each) do
+      # required to make specs pass on Windows
+      stub_const('RUBY_PLATFORM', 'x86_64-linux')
+    end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'fedora',
@@ -78,6 +88,11 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'rhel' do
+    before(:each) do
+      # required to make specs pass on Windows
+      stub_const('RUBY_PLATFORM', 'x86_64-linux')
+    end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'centos',
@@ -106,6 +121,11 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'suse' do
+    before(:each) do
+      # required to make specs pass on Windows
+      stub_const('RUBY_PLATFORM', 'x86_64-linux')
+    end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'suse',
@@ -134,6 +154,11 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'os x' do
+    before(:each) do
+      # required to make specs pass on Windows
+      stub_const('RUBY_PLATFORM', 'x86_64-darwin12.0')
+    end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'mac_os_x',
@@ -156,14 +181,18 @@ RSpec.describe 'vagrant::default' do
   end
 
   context 'windows' do
+    # We can't stub_const('RUBY_PLATFORM', 'windows') here because Chef will
+    # try to load Windows-specific gems which don't exist on Linux
+    # before(:each) do
+    #   # required to make specs pass on Windows
+    #   stub_const('RUBY_PLATFORM', 'x86_64-mingw32')
+    # end
+
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',
-        version: '2012',
-        file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
+        version: '2012R2'
+      ).converge(described_recipe)
     end
 
     it 'includes the windows platform family recipe' do
