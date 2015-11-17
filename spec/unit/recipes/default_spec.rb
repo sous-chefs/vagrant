@@ -18,150 +18,46 @@
 RSpec.describe 'vagrant::default' do
   include_context 'mock vagrant_sha256sum'
 
-  context 'debian' do
-    let(:chef_run) do
+  context 'on an Ubuntu node' do
+    let(:debian) do
       ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
         version: '14.04',
         file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
-    end
-
-    it 'includes the debian platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::debian')
-    end
-
-    it 'downloads the package from the calculated URI' do
-      expect(chef_run).to create_remote_file('/var/tmp/vagrant.deb').with(
-        source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.deb'
-      )
-    end
-
-    it 'installs the downloaded package' do
-      expect(chef_run).to install_dpkg_package('vagrant').with(
-        source: '/var/tmp/vagrant.deb'
-      )
-    end
-  end
-
-  context 'fedora' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'fedora',
-        version: '21',
-        file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
-    end
-
-    it 'includes the rhel platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::rhel')
-    end
-
-    it 'downloads the package from the calculated URI' do
-      expect(chef_run).to create_remote_file('/var/tmp/vagrant.rpm').with(
-        source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.rpm'
-      )
-    end
-
-    it 'installs the downloaded package' do
-      expect(chef_run).to install_rpm_package('vagrant').with(
-        source: '/var/tmp/vagrant.rpm'
-      )
-    end
-  end
-
-  context 'rhel' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'centos',
-        version: '6.6',
-        file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
-    end
-
-    it 'includes the rhel platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::rhel')
-    end
-
-    it 'downloads the package from the calculated URI' do
-      expect(chef_run).to create_remote_file('/var/tmp/vagrant.rpm').with(
-        source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.rpm'
-      )
-    end
-
-    it 'installs the downloaded package' do
-      expect(chef_run).to install_rpm_package('vagrant').with(
-        source: '/var/tmp/vagrant.rpm'
-      )
-    end
-  end
-
-  context 'suse' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'suse',
-        version: '12.0',
-        file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
-    end
-
-    it 'includes the rhel platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::rhel')
-    end
-
-    it 'downloads the package from the calculated URI' do
-      expect(chef_run).to create_remote_file('/var/tmp/vagrant.rpm').with(
-        source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.rpm'
-      )
-    end
-
-    it 'installs the downloaded package' do
-      expect(chef_run).to install_rpm_package('vagrant').with(
-        source: '/var/tmp/vagrant.rpm'
-      )
-    end
-  end
-
-  context 'os x' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'mac_os_x',
-        version: '10.10',
-        file_cache_path: '/var/tmp'
-      ) do |node|
-        node.set['vagrant']['version'] = '1.88.88'
-      end.converge(described_recipe)
-    end
-
-    it 'includes the os x platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::mac_os_x')
-    end
-
-    it 'installs the downloaded package with the calculated source URI' do
-      expect(chef_run).to install_dmg_package('Vagrant').with(
-        source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88.dmg'
-      )
-    end
-  end
-
-  context 'windows' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'windows',
-        version: '2012R2'
       ).converge(described_recipe)
     end
 
-    it 'includes the windows platform family recipe' do
-      expect(chef_run).to include_recipe('vagrant::windows')
+    context 'with default attributes' do
+      it 'includes the Debian platform recipe' do
+        expect(debian).to include_recipe('vagrant::debian')
+      end
+
+      it 'does not install plugins by default' do
+        expect(debian).to_not include_recipe('vagrant::install_plugins')
+      end
+    end
+
+    context 'with an array of plugins to install' do
+      it 'includes the install_plugins recipe' do
+        debian.node.set['vagrant']['plugins'] = ['vagrant-omnibus']
+        debian.node.set['vagrant']['user'] = 'vagrant'
+        debian.converge(described_recipe)
+
+        expect(debian).to include_recipe('vagrant::install_plugins')
+      end
+    end
+  end
+
+  context 'on a Windows node' do
+    cached(:windows) do
+      ChefSpec::SoloRunner.new(
+        platform: 'windows',
+        version:  '2012R2'
+      ).converge(described_recipe)
+    end
+
+    it 'includes the Windows platform recipe' do
+      expect(windows).to include_recipe('vagrant::windows')
     end
   end
 end

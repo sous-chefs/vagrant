@@ -18,9 +18,10 @@
 # limitations under the License.
 
 return unless %w(darwin windows linux).include?(node['os'])
+default_version = '1.7.4'
 
-default['vagrant']['version']     = '1.7.4'
-default['vagrant']['msi_version'] = '1.7.4'
+default['vagrant']['version']     = default_version
+default['vagrant']['msi_version'] = default_version
 
 default['vagrant']['url']         = nil
 default['vagrant']['checksum']    = nil

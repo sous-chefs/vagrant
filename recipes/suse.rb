@@ -15,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Chef::Log.debug 'SUSE is not specifically supported by vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
+Chef::Log.debug 'SUSE is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
 
 include_recipe 'vagrant::rhel'
