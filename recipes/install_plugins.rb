@@ -21,6 +21,7 @@ node['vagrant']['plugins'].each do |plugin|
     vagrant_plugin plugin['name'] do
       user node['vagrant']['user']
       version plugin['version']
+      source  plugin['source']
     end
 
   else
