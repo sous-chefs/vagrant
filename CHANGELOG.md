@@ -16,6 +16,7 @@ for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.
 * Add Travis-CI integration for style and unit tests
 * Move vagrant_sha256sum mock to spec/support/shared_context.rb
+* Refactor ChefSpec tests - move platform recipe specs into their own spec files
 
 ## 0.3.1:
 

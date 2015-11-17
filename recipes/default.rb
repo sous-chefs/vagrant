@@ -15,5 +15,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "vagrant::#{node['platform_family']}"
-include_recipe 'vagrant::install_plugins' if node['vagrant']['plugins'].length > 0
+include_recipe "#{cookbook_name}::#{node['platform_family']}"
+include_recipe "#{cookbook_name}::install_plugins" if node['vagrant']['plugins'].length > 0
