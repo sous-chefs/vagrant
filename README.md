@@ -60,10 +60,20 @@ The following attributes are optional.
 
 * `node['vagrant']['plugins']` - A array of plugins. The elements in
   the array can be a string or a hash. String elements should be the
-  names of plugins to install. Hash elements should have two keys,
-  "name" and "version", for the plugin name and its version to
-  install. This is used by the `vagrant_plugin` resource in the
-  `install_plugins` recipe.
+  names of plugins to install. Hash elements should have two or three key/value
+  pairs for each plugin: "name", "version", and "source".
+  This is used by the `vagrant_plugin` resource in the `install_plugins` recipe.
+
+  Use it like this:
+```ruby
+    node['vagrant']['plugins'] = [
+      { name: 'vagrant_plugin_1', version: '1.0.0',
+        source: %w(https://vagrant.example.com/my_plugin file://my_plugin)
+      },
+      { name: 'vagrant_plugin_2', version: '2.0.0' }
+    ]
+```
+
 * `node['vagrant']['user']` - A user that is used to automatically install plugins as for the `node['vagrant']['plugins']` attribute.
 
 # Resources
