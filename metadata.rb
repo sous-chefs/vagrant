@@ -28,7 +28,7 @@ supports 'ubuntu', '>= 12.04'
 supports 'redhat', '>= 6.3'
 supports 'centos', '>= 6.4'
 supports 'windows'
-supports 'mac_os_x
+supports 'mac_os_x'
 
 depends 'dmg', '>= 2.2.2'
 depends 'windows', '~> 1.38'
