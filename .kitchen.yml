@@ -17,6 +17,7 @@ platforms:
 - name: macosx-10.10
   driver:
     box: chef/macosx-10.10
+- name: win81x64-enterprise
 
 suites:
 - name: debian
@@ -25,6 +26,7 @@ suites:
   excludes:
     - centos-7.1
     - macosx-10.10
+    - win81x64-enterprise
   attributes:
     vagrant:
       plugins:
@@ -36,6 +38,7 @@ suites:
   excludes:
     - ubuntu-14.04
     - macosx-10.10
+    - win81x64-enterprise
   attributes:
     vagrant:
       plugins:
@@ -47,7 +50,16 @@ suites:
   excludes:
     - ubuntu-14.04
     - centos-7.1
+    - win81x64-enterprise
   attributes:
     vagrant:
       plugins:
         - vagrant-omnibus
+
+- name: windows
+  run_list:
+    - recipe[test::windows_vagrant_plugin]
+  excludes:
+    - ubuntu-14.04
+    - centos-7.1
+    - macosx-10.10

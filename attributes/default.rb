@@ -23,7 +23,12 @@ default_version = '1.7.4'
 default['vagrant']['version']     = default_version
 default['vagrant']['msi_version'] = default_version
 
+# the URL and checksum are calculated from the package version by helper methods
+# in the recipe if you# don't override them in a wrapper cookbook
 default['vagrant']['url']         = nil
 default['vagrant']['checksum']    = nil
+
 default['vagrant']['plugins']     = []
 default['vagrant']['user']        = nil
+# password is required on Windows if you want to install plugins as another user
+default['vagrant']['password']    = nil

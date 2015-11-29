@@ -1,8 +1,6 @@
 # vagrant Cookbook
 
-Installs Vagrant 1.6+ and manages vagrant plugins w/ a custom resource. If you are not familiar with Vagrant, read about it here:
-
-* Vagrant: https://www.vagrantup.com/
+Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` LWRP.
 
 This cookbook is not intended to be used for vagrant "1.0" (gem install) versions. A recipe is provided for removing the gem, see __Recipes__.
 
@@ -29,34 +27,33 @@ Other platforms are not supported. This cookbook attempts to exit gracefully in 
 * Ubuntu 14.04
 * CentOS 6.5
 * OS X 10.9
+* Windows 8.1
 
 May work on other Debian/RHEL family distributions with or without modification.
 
-Support exists for Windows but this has not yet been added to test-kitchen. OS X support is in test-kitchen, but requires a custom box be created.
+This cookbook has [test-kitchen](http://kitchen.ci) support for Windows and Mac OS X, but requires custom Vagrant boxes.
 
-The URL and Checksum attributes must be set, see __Attributes__
-
-Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root).
+Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root or Administrator).
 
 # Attributes
+## Vagrant Package
+The attributes defined by this recipe are organized under the
+`node['vagrant']` namespace.
 
-The following attributes *must* be set. The cookbook has helper methods in `libraries` that attempt to automatically discover these values.
+Attribute | Description | Type   | Default
+----------|-------------|--------|--------
+['version'] | Vagrant package version (Linux/Mac only) | String | '1.7.4'
+['msi_version'] | Vagrant package version (Windows only) | String | '1.7.4'
+['url'] | Download Vagrant package from this URL | String | Calculated by `vagrant_package_uri` helper method.
+['checksum'] | Vagrant package checksum (SHA256) | String | Calculated by `vagrant_sha256sum` helper method.
 
-* `node['vagrant']['version']` - Version of Vagrant to use, default is 1.7.4, which was current at the time of writing.
-* `node['vagrant']['url']` - URL to the Vagrant installation package.
-* `node['vagrant']['checksum']` - SHA256 checksum of the Vagrant
-  installation package.
+## 'install_plugins' recipe
+Attributes in the table below are under the `node['vagrant']` namespace.
 
-**Note**: I'm not taking pull requests to merely update the version. Change it in your local setup via role, environment, wrapper cookbook, etc. The helpers should take care of the rest. If a new version of vagrant requires other changes, then open an issue.
-
-If the node is Windows, the MSI version must be set. This is used by
-the `windows_package` resource to determine if the package is
-installed.
-
-* `node['vagrant']['msi_version']` - Version string of the installed
-  MSI "package" on Windows.
-
-The following attributes are optional.
+Attribute | Description | Type   | Default
+----------|-------------|--------|--------
+['plugins'] | An array of plugins, e.g. `%w(vagrant-aws vagrant-ohai vagrant-omnibus)` | Array | nil
+['plugins'] | If you want to install specific plugin versions, use the second form of the `['plugins']` array, e.g. [ {name: 'vagrant-ohai', version: '0.1.3'}, {name: 'vagrant-aws', version: '0.6.0'} ] | Array of Hashes | nil
 
 * `node['vagrant']['plugins']` - A array of plugins. The elements in
   the array can be a string or a hash. String elements should be the
@@ -99,9 +96,16 @@ vagrant_plugin 'vagrant-berkshelf'
   sources ['http://src1.example.com', 'http://src2.example.com']
 end
 
-# Install the plugins as the `donuts` user, into ~donuts/.vagrant.d
+# Install the plugins as the `donuts` user, into ~/donuts/.vagrant.d
 vagrant_plugin 'vagrant-aws'
   user 'donuts'
+end
+
+# Install the 'vagrant-winrm' plugin for another user. Windows impersonation
+# requires a username and password.
+vagrant_plugin 'vagrant-winrm' do
+  user node['vagrant']['user']
+  password node['vagrant']['password']
 end
 ```
 
@@ -113,10 +117,12 @@ Example:
 
 ```ruby
 RSpec.describe 'example::default' do
-  let(:chef_run) { ChefSpec::ServerRunner.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.converge(described_recipe) }
 
   it 'installs the vagrant-omnibus plugin' do
-    expect(chef_run).to install_vagrant_plugin('vagrant-omnibus')
+    expect(chef_run).to install_vagrant_plugin('vagrant-omnibus').with(
+      user: 'my_user'
+    )
   end
 end
 ```
@@ -130,7 +136,7 @@ install Vagrant. If the `node['vagrant']['plugins']` attribute is not empty, it 
 
 ## install_plugins
 
-Iterates over the `node['vagrant']['plugins']` attribute and installs the listed plugins. If that attribute is a hash, it uses the version. If the `node['vagrant']['user']` attribute is set, the plugins are installed for only that user.
+Iterates over the `node['vagrant']['plugins']` attribute and installs the listed plugins. If that attribute is a hash, it installs the specified plugin version. If the `node['vagrant']['user']` attribute is set, the plugins are installed for only that user.
 
 ## debian, fedora, mac_os_x, rhel, windows
 
@@ -163,12 +169,12 @@ of the `vagrant-berkshelf` plugin:
 
 ```ruby
 node.set['vagrant']['plugins'] = [
-  "vagrant-omnibus",
-  {"name" => "vagrant-berkshelf", "version" => "1.2.0"}
+  'vagrant-omnibus',
+  {name: 'vagrant-berkshelf', version: '1.2.0'}
 ]
 ```
 
-See the attribute description above.
+See the attribute tables above.
 
 # License and Authors
 

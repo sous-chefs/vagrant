@@ -21,9 +21,7 @@ include_recipe 'build-essential'
 include_recipe 'vagrant'
 
 # How meta...
-vagrant_plugin 'vagrant-aws' do
-  user 'vagrant'
-end
+vagrant_plugin 'vagrant-aws'
 
 # A user that doesn't exist...
 donut_home = case node['os']
