@@ -19,14 +19,15 @@ node['vagrant']['plugins'].each do |plugin|
   if plugin.respond_to?(:keys)
 
     vagrant_plugin plugin['name'] do
-      user node['vagrant']['user']
-      version plugin['version']
+      user node['vagrant']['user'] if node['vagrant']['user']
+      version plugin['version'] if plugin['version']
+      sources plugin['source'] if plugin['source']
     end
 
   else
 
     vagrant_plugin plugin do
-      user node['vagrant']['user']
+      user node['vagrant']['user'] if node['vagrant']['user']
     end
 
   end

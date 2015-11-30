@@ -9,6 +9,7 @@ unavailable. You can override `node['vagrant']['url']` and
 location.
 * Fix idempotency when installing Vagrant Windows package.
 * Refactor Vagrant::Helpers and add test coverage
+* `install_plugins` recipe now accepts source or sources for each plugin to install from.
 
 ### Dev environment changes
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
