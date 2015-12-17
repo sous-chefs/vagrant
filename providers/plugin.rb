@@ -21,16 +21,6 @@ def whyrun_supported?
   true
 end
 
-def plugin
-  is_windows = node['platform_family'] == 'windows'
-  @plugin ||= Vagrant::Plugin.new(
-    new_resource.plugin_name,
-    is_windows,
-    username: new_resource.user,
-    password: new_resource.password
-  )
-end
-
 def load_current_resource
   @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
 
@@ -58,6 +48,18 @@ end
 
 action :uninstall do
   uninstall
+end
+
+private
+
+def plugin
+  is_windows = node['platform_family'] == 'windows'
+  @plugin ||= Vagrant::Plugin.new(
+    new_resource.plugin_name,
+    is_windows,
+    username: new_resource.user,
+    password: new_resource.password
+  )
 end
 
 def uninstall
