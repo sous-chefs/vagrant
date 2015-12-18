@@ -9,6 +9,8 @@ unavailable. You can override `node['vagrant']['url']` and
 location.
 * Fix idempotency when installing Vagrant Windows package.
 * Refactor Vagrant::Helpers and add test coverage
+* `vagrant_plugin` resource correctly installs vagrant plugins as another user on Windows.
+* Refactor LWRP and add unit tests.
 
 ### Dev environment changes
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
