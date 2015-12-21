@@ -1,6 +1,6 @@
 # Vagrant Cookbook Changelog
 
-## Unreleased
+## 0.4.0 - December 21, 2015
 
 * Bump default Vagrant version to 1.7.4
 * Cookbook no longer fails during compile phase if https://dl.bintray.com is
@@ -12,7 +12,7 @@ location.
 * `vagrant_plugin` resource correctly installs vagrant plugins as another user on Windows.
 * Refactor LWRP and add unit tests.
 
-### Dev environment changes
+#### Dev environment changes
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
 for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.

@@ -1,6 +1,3 @@
-require 'simplecov'
-SimpleCov.start
-
 require_relative '../../../libraries/plugin'
 
 RSpec.describe Vagrant::Plugin do
