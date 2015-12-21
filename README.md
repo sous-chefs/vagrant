@@ -179,6 +179,7 @@ See the attribute tables above.
 # License and Authors
 
 * Author:: Joshua Timberman <opensource@housepub.org>
+* Author:: Doug Ireton <doug.ireton@nordstrom.com>
 * Copyright (c) 2013-2014, Joshua Timberman
 
 ```
