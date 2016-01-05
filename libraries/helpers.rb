@@ -60,7 +60,7 @@ module Vagrant
     end
 
     def fetch_platform_checksums_for_version
-      checksums_url = "#{vagrant_base_uri}#{package_version}/#{package_version}_SHA256SUMS?direct")
+      checksums_url = "#{vagrant_base_uri}#{package_version}/#{package_version}_SHA256SUMS?direct"
       open(checksums_url).readlines
     end
 
