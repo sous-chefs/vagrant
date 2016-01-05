@@ -23,7 +23,7 @@ require 'open-uri'
 module Vagrant
   module Helpers
     def vagrant_package_uri
-      URI.join(vagrant_base_uri, "#{package_version}/#{package_name}").to_s
+      "#{vagrant_base_uri}#{package_version}/#{package_name}"
     end
 
     def vagrant_sha256sum
@@ -60,7 +60,7 @@ module Vagrant
     end
 
     def fetch_platform_checksums_for_version
-      checksums_url = URI.join(vagrant_base_uri, "#{package_version}/#{package_version}_SHA256SUMS?direct")
+      checksums_url = "#{vagrant_base_uri}#{package_version}/#{package_version}_SHA256SUMS?direct")
       open(checksums_url).readlines
     end
 
