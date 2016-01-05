@@ -18,7 +18,7 @@ RSpec.describe Vagrant::Helpers do
     allow(my_recipe).to receive(:package_version).and_return('1.7.4')
     allow(my_recipe).to receive(:package_extension).and_return('.dmg')
 
-    expect(my_recipe.vagrant_package_uri).to eq 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4.dmg'
+    expect(my_recipe.vagrant_package_uri).to eq 'https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg'
   end
 
   it 'returns the correct SHA256 checksum for the mac_os_x package' do

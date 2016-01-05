@@ -30,7 +30,7 @@ RSpec.describe 'vagrant::windows' do
 
     it "installs Vagrant version #{VAGRANT_DEFAULT_VERSION}" do
       expect(windows_node).to install_windows_package('Vagrant').with(
-        source: "https://dl.bintray.com/mitchellh/vagrant/vagrant_#{VAGRANT_DEFAULT_VERSION}.msi",
+        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_DEFAULT_VERSION}/vagrant_#{VAGRANT_DEFAULT_VERSION}.msi",
         version: VAGRANT_DEFAULT_VERSION
       )
     end
@@ -50,7 +50,7 @@ RSpec.describe 'vagrant::windows' do
 
     it "installs Vagrant version #{VAGRANT_OVERRIDE_VERSION}" do
       expect(windows_node).to install_windows_package('Vagrant').with(
-        source: "https://dl.bintray.com/mitchellh/vagrant/vagrant_#{VAGRANT_OVERRIDE_VERSION}.msi",
+        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_OVERRIDE_VERSION}/vagrant_#{VAGRANT_OVERRIDE_VERSION}.msi",
         version: VAGRANT_OVERRIDE_VERSION
       )
     end
