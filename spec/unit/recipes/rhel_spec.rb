@@ -13,7 +13,7 @@ RSpec.describe 'vagrant::rhel' do
 
   it 'downloads the package from the calculated URI' do
     expect(chef_run).to create_remote_file('/var/tmp/vagrant.rpm').with(
-      source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88_x86_64.rpm'
+      source: 'https://releases.hashicorp.com/vagrant/1.88.88/vagrant_1.88.88_x86_64.rpm'
     )
   end
 

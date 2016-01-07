@@ -13,7 +13,7 @@ RSpec.describe 'vagrant::mac_os_x' do
 
   it 'installs the downloaded package with the calculated source URI' do
     expect(chef_run).to install_dmg_package('Vagrant').with(
-      source: 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.88.88.dmg'
+      source: 'https://releases.hashicorp.com/vagrant/1.88.88/vagrant_1.88.88.dmg'
     )
   end
 end

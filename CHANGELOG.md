@@ -1,5 +1,9 @@
 # Vagrant Cookbook Changelog
 
+## Unreleased
+
+* Change the base URL for downloads to the new hashicorp.com URLs to support Vagrant 1.8+
+
 ## 0.4.0 - December 21, 2015
 
 * Bump default Vagrant version to 1.7.4
