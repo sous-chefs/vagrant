@@ -1,8 +1,8 @@
 # Vagrant Cookbook Changelog
 
-## Unreleased
+## 0.4.1 - January 6, 2016
 
-* Change the base URL for downloads to the new hashicorp.com URLs to support Vagrant 1.8+
+* Hashicorp has moved Vagrant package downloads from bintray.com to hashicorp.com. Download Vagrant packages from new location.
 
 ## 0.4.0 - December 21, 2015
 
