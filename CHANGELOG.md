@@ -1,5 +1,13 @@
 # Vagrant Cookbook Changelog
 
+## 0.4.2 - January 7, 2016
+
+* Fix regression in `fetch_platform_checksums_for_version` method. Release 0.4.1
+changed the checksums URL to the new Hashicorp location and introduced a regression.
+The `fetch_platform_checksums_for_version` method now returns the correct URL.
+
+Thanks to Jeff Bachtel for the PR.
+
 ## 0.4.1 - January 6, 2016
 
 * Hashicorp has moved Vagrant package downloads from bintray.com to hashicorp.com. Download Vagrant packages from new location.
