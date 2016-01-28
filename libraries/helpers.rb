@@ -34,7 +34,7 @@ module Vagrant
     private
 
     def vagrant_base_uri
-      'https://releases.hashicorp.com/vagrant/'
+      node['vagrant']['vagrant_base_uri']
     end
 
     def package_name
