@@ -17,7 +17,7 @@ RSpec.describe 'vagrant::windows' do
   include_context 'mock vagrant_sha256sum'
 
   context 'with default attributes' do
-    VAGRANT_DEFAULT_VERSION = '1.7.4'
+    VAGRANT_DEFAULT_VERSION = '1.7.4'.freeze
 
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
@@ -37,7 +37,7 @@ RSpec.describe 'vagrant::windows' do
   end
 
   context 'when you override the version' do
-    VAGRANT_OVERRIDE_VERSION = '1.88.88'
+    VAGRANT_OVERRIDE_VERSION = '1.88.88'.freeze
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',

@@ -17,6 +17,7 @@ RSpec.describe Vagrant::Helpers do
   it 'returns the correct Vagrant package URL' do
     allow(my_recipe).to receive(:package_version).and_return('1.7.4')
     allow(my_recipe).to receive(:package_extension).and_return('.dmg')
+    allow(my_recipe).to receive(:vagrant_base_uri).and_return('https://releases.hashicorp.com/vagrant/')
 
     expect(my_recipe.vagrant_package_uri).to eq 'https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg'
   end
