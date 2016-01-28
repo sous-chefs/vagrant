@@ -22,6 +22,7 @@ default_version = '1.7.4'
 
 default['vagrant']['version']     = default_version
 default['vagrant']['msi_version'] = default_version
+default['vagrant']['vagrant_base_uri'] = 'https://releases.hashicorp.com/vagrant/'
 
 # the URL and checksum are calculated from the package version by helper methods
 # in the recipe if you# don't override them in a wrapper cookbook
