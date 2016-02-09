@@ -16,4 +16,4 @@
 # limitations under the License.
 
 include_recipe "#{cookbook_name}::#{node['platform_family']}"
-include_recipe "#{cookbook_name}::install_plugins" if node['vagrant']['plugins'].length > 0
+include_recipe "#{cookbook_name}::install_plugins" unless node['vagrant']['plugins'].empty?

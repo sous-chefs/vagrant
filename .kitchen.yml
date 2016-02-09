@@ -1,75 +1,29 @@
 ---
 driver:
   name: vagrant
-  customize:
-    memory: 512
 
 provisioner:
   name: chef_zero
 
+verifier:
+  name: inspec
+
 platforms:
-# We don't have every platform that this might work on, or every
-# version as the latest. The behavior in this cookbook is dependent on
-# platform families.
-- name: ubuntu-14.04
-- name: centos-7.1
-  # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
-- name: macosx-10.10
-  driver:
-    box: chef/macosx-10.10
-- name: win81x64-enterprise
+  - name: centos-7.1
+  - name: ubuntu-14.04
+    # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
+  - name: macosx-10.10
+    driver_config:
+      box: chef/macosx-10.10
+  - name: windows-2012r2
+    driver_config:
+      box: mwrock/Windows2012R2
 
 suites:
 <% %w(11 12).each do |version| %>
-- name: debian_chef<%= version %>
-  provisioner:
-    require_chef_omnibus: <%= version %>
-  run_list:
-    - recipe[test]
-  excludes:
-    - centos-7.1
-    - macosx-10.10
-    - win81x64-enterprise
-  attributes:
-    vagrant:
-      plugins:
-        - vagrant-omnibus
-
-- name: rhel_chef<%= version %>
-  provisioner:
-    require_chef_omnibus: <%= version %>
-  run_list:
-    - recipe[test]
-  excludes:
-    - ubuntu-14.04
-    - macosx-10.10
-    - win81x64-enterprise
-  attributes:
-    vagrant:
-      plugins:
-        - vagrant-omnibus
-
-- name: osx_chef<%= version %>
-  provisioner:
-    require_chef_omnibus: <%= version %>
-  run_list:
-    - recipe[test]
-  excludes:
-    - ubuntu-14.04
-    - centos-7.1
-    - win81x64-enterprise
-  attributes:
-    vagrant:
-      plugins:
-        - vagrant-omnibus
-
-- name: windows_chef<%= version %>
-  provisioner:
-    require_chef_omnibus: <%= version %>
-  run_list:
-    - recipe[test::windows_vagrant_plugin]
-  excludes:
-    - ubuntu-14.04
-    - centos-7.1
-    - macosx-10.10
+  - name: default_chef<%= version %>
+    provisioner:
+      require_chef_omnibus: <%= version %>
+    run_list:
+      - recipe[test]
 <% end %>

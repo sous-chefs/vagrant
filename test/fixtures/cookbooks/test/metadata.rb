@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name 'test'
-version '0.1.0'
-depends 'build-essential'
+name             'test'
+maintainer       'Joshua Timberman'
+maintainer_email 'cookbooks@housepub.org'
+description      'Test cookbook for the vagrant cookbook'
+license          'Apache 2.0'
+version          '0.1.0'
+
 depends 'vagrant'
