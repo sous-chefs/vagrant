@@ -20,7 +20,10 @@ platforms:
 - name: win81x64-enterprise
 
 suites:
-- name: debian
+<% %w(11 12).each do |version| %>
+- name: debian_chef<%= version %>
+  provisioner:
+    require_chef_omnibus: <%= version %>
   run_list:
     - recipe[test]
   excludes:
@@ -32,7 +35,9 @@ suites:
       plugins:
         - vagrant-omnibus
 
-- name: rhel
+- name: rhel_chef<%= version %>
+  provisioner:
+    require_chef_omnibus: <%= version %>
   run_list:
     - recipe[test]
   excludes:
@@ -44,7 +49,9 @@ suites:
       plugins:
         - vagrant-omnibus
 
-- name: osx
+- name: osx_chef<%= version %>
+  provisioner:
+    require_chef_omnibus: <%= version %>
   run_list:
     - recipe[test]
   excludes:
@@ -56,10 +63,13 @@ suites:
       plugins:
         - vagrant-omnibus
 
-- name: windows
+- name: windows_chef<%= version %>
+  provisioner:
+    require_chef_omnibus: <%= version %>
   run_list:
     - recipe[test::windows_vagrant_plugin]
   excludes:
     - ubuntu-14.04
     - centos-7.1
     - macosx-10.10
+<% end %>
