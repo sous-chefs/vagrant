@@ -18,10 +18,11 @@
 # limitations under the License.
 
 return unless %w(darwin windows linux).include?(node['os'])
-default_version = '1.7.4'
 
-default['vagrant']['version']     = default_version
-default['vagrant']['msi_version'] = default_version
+DEFAULT_VERSION = '1.8.1'.freeze
+
+default['vagrant']['version']     = DEFAULT_VERSION
+default['vagrant']['msi_version'] = DEFAULT_VERSION
 
 # the URL and checksum are calculated from the package version by helper methods
 # in the recipe if you# don't override them in a wrapper cookbook

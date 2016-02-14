@@ -1,5 +1,10 @@
 # Vagrant Cookbook Changelog
 
+## 0.5.0
+
+* Install Vagrant 1.8.1 by default
+* Switch to [InSpec verifier](https://github.com/chef/inspec) for test-kitchen
+
 ## 0.4.2 - January 7, 2016
 
 * Fix regression in `fetch_platform_checksums_for_version` method. Release 0.4.1

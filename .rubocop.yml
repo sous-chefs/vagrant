@@ -17,11 +17,7 @@ Encoding:
   Enabled: false
 ClassLength:
   Enabled: false
-CyclomaticComplexity:
-  Enabled: false
 MethodLength:
-  Enabled: false
-Metrics/AbcSize:
   Enabled: false
 LineLength:
   Enabled: false
@@ -31,6 +27,6 @@ Style/FileName:
   Enabled: false
 Style/GuardClause:
   Enabled: false
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Exclude:
     - '**/metadata.rb'
