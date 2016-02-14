@@ -13,11 +13,11 @@ module Vagrant
       @is_windows
     end
 
-    def initialize(plugin_name, is_windows, username: nil, password: nil)
+    def initialize(plugin_name, is_windows, options = {})
       @plugin_name = plugin_name
       @is_windows = is_windows
-      @username = username
-      @password = password
+      @username = options.fetch(:username, nil)
+      @password = options.fetch(:password, nil)
     end
 
     # Searches for an installed Vagrant plugin
