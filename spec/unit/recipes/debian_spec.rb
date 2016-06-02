@@ -20,7 +20,8 @@ RSpec.describe 'vagrant::debian' do
 
   it 'installs the downloaded package' do
     expect(chef_run).to install_dpkg_package('vagrant').with(
-      source: '/var/tmp/vagrant.deb'
+      source: '/var/tmp/vagrant.deb',
+      version: '1.88.88'
     )
   end
 end

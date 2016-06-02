@@ -28,4 +28,5 @@ end
 
 dpkg_package 'vagrant' do
   source "#{Chef::Config[:file_cache_path]}/vagrant.deb"
+  version node['vagrant']['version']
 end
