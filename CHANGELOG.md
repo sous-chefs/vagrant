@@ -1,5 +1,9 @@
 # Vagrant Cookbook Changelog
 
+## 0.6.0
+
+* Install Vagrant 1.8.5 by default
+
 ## 0.5.0
 
 * Install Vagrant 1.8.1 by default

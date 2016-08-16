@@ -42,8 +42,8 @@ The attributes defined by this recipe are organized under the
 
 Attribute | Description | Type   | Default
 ----------|-------------|--------|--------
-['version'] | Vagrant package version (Linux/Mac only) | String | '1.8.1'
-['msi_version'] | Vagrant package version (Windows only) | String | '1.8.1'
+['version'] | Vagrant package version (Linux/Mac only) | String | '1.8.5'
+['msi_version'] | Vagrant package version (Windows only) | String | '1.8.5'
 ['url'] | Download Vagrant package from this URL | String | Calculated by `vagrant_package_uri` helper method.
 ['checksum'] | Vagrant package checksum (SHA256) | String | Calculated by `vagrant_sha256sum` helper method.
 
