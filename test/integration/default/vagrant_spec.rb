@@ -1,5 +1,5 @@
 describe command('vagrant --version') do
-  its('stdout') { should match(/Vagrant 1.8.1/) }
+  its('stdout') { should match(/Vagrant 1.8.5/) }
   its('stderr') { should eq '' }
 end
 

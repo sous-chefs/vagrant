@@ -19,7 +19,7 @@
 
 return unless %w(darwin windows linux).include?(node['os'])
 
-DEFAULT_VERSION = '1.8.1'.freeze
+DEFAULT_VERSION = '1.8.5'.freeze
 
 default['vagrant']['version']     = DEFAULT_VERSION
 default['vagrant']['msi_version'] = DEFAULT_VERSION
