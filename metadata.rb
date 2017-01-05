@@ -31,4 +31,4 @@ supports 'windows'
 supports 'mac_os_x'
 
 depends 'dmg', '>= 2.2.2'
-depends 'windows', '~> 1.38'
+depends 'windows', '>= 1.38'
