@@ -52,9 +52,7 @@ module Vagrant
         'debian' => '_x86_64.deb',
         %w(rhel suse fedora) => '_x86_64.rpm'
       )
-
-      raise ArgumentError "HashiCorp doesn't provide a Vagrant package for
-          the #{node['platform']} platform." if extension.nil?
+      raise ArgumentError "HashiCorp doesn't provide a Vagrant package for the #{node['platform']} platform." if extension.nil?
 
       extension
     end
