@@ -1,4 +1,4 @@
-# vagrant Cookbook
+# Vagrant Cookbook
 
 Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` LWRP.
 

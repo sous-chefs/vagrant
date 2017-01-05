@@ -1,5 +1,9 @@
 # Vagrant Cookbook Changelog
 
+## 0.7.0
+
+* Fix #67: Remove depends constraint on Windows 1.x cookbook.
+
 ## 0.6.0
 
 * Install Vagrant 1.8.5 by default
@@ -24,7 +28,7 @@ Thanks to Jeff Bachtel for the PR.
 ## 0.4.0 - December 21, 2015
 
 * Bump default Vagrant version to 1.7.4
-* Cookbook no longer fails during compile phase if https://dl.bintray.com is
+* Cookbook no longer fails during compile phase if <https://dl.bintray.com> is
 unavailable. You can override `node['vagrant']['url']` and
 `node['vagrant']['checksum']` if you need to download Vagrant from a different
 location.
@@ -35,7 +39,7 @@ location.
 
 #### Dev environment changes
 * Add ChefSpec [Custom Matchers](https://github.com/sethvargo/chefspec#packaging-custom-matchers)
-for `vagrant_plugin`.
+  for `vagrant_plugin`.
 * Add Rakefile for testing/style checks.
 * Add Travis-CI integration for style and unit tests
 * Move vagrant_sha256sum mock to spec/support/shared_context.rb
@@ -54,7 +58,7 @@ for `vagrant_plugin`.
 
 ## 0.2.2:
 
-* Fix platform_family, redhat is not a family, rhel is. (#18)
+* Fix platform_family, `redhat` is not a family, `rhel` is. (#18)
 
 ## 0.2.0:
 
