@@ -22,7 +22,7 @@ def whyrun_supported?
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::VagrantPlugin.new(new_resource)
+  @current_resource = Chef::Resource.resource_for_node(:vagrant_plugin, node).new(new_resource)
 
   installed_version = plugin.installed_version
 
