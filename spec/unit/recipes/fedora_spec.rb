@@ -5,7 +5,7 @@ RSpec.describe 'vagrant::fedora' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(
       platform: 'fedora',
-      version: '21',
+      version: '25',
       file_cache_path: '/var/tmp'
     ).converge(described_recipe)
   end

@@ -39,8 +39,8 @@ RSpec.describe 'vagrant::default' do
 
     context 'with an array of plugins to install' do
       it 'includes the install_plugins recipe' do
-        debian.node.set['vagrant']['plugins'] = ['vagrant-omnibus']
-        debian.node.set['vagrant']['user'] = 'vagrant'
+        debian.node.normal['vagrant']['plugins'] = ['vagrant-omnibus']
+        debian.node.normal['vagrant']['user'] = 'vagrant'
         debian.converge(described_recipe)
 
         expect(debian).to include_recipe('vagrant::install_plugins')

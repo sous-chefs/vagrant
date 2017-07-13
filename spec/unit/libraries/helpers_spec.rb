@@ -10,7 +10,7 @@ RSpec.describe Vagrant::Helpers do
       '050411ba8b36e322c4ce32990d2539e73a87fabd932f7397d2621986084eda6a  vagrant_1.7.4_i686.deb',
       'f83ea56f8d1a37f3fdf24dd4d14bf8d15545ed0e39b4c1c5d4055f3de6eb202d  vagrant_1.7.4_i686.rpm',
       'dcd2c2b5d7ae2183d82b8b363979901474ba8d2006410576ada89d7fa7668336  vagrant_1.7.4_x86_64.deb',
-      'b0a09f6e6f9fc17b01373ff54d1f5b0dc844394886109ef407a5f1bcfdd4e304  vagrant_1.7.4_x86_64.rpm'
+      'b0a09f6e6f9fc17b01373ff54d1f5b0dc844394886109ef407a5f1bcfdd4e304  vagrant_1.7.4_x86_64.rpm',
     ]
   end
 

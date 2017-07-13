@@ -4,10 +4,10 @@ RSpec.describe 'vagrant::rhel' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
       platform: 'centos',
-      version: '6.6',
+      version: '6.9',
       file_cache_path: '/var/tmp'
     ) do |node|
-      node.set['vagrant']['version'] = '1.88.88'
+      node.normal['vagrant']['version'] = '1.88.88'
     end.converge(described_recipe)
   end
 

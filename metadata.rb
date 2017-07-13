@@ -15,7 +15,7 @@
 name             'vagrant'
 maintainer       'Joshua Timberman'
 maintainer_email 'cookbooks@housepub.org'
-license          'Apache 2.0'
+license          'Apache-2.0'
 description      'Installs Vagrant and provides a vagrant_plugin LWRP for installing Vagrant plugins.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.7.0'
@@ -32,3 +32,5 @@ supports 'mac_os_x'
 
 depends 'dmg', '>= 2.2.2'
 depends 'windows', '>= 1.38'
+
+chef_version '>= 12.7'
