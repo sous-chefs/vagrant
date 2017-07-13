@@ -1,5 +1,10 @@
 # Vagrant Cookbook Changelog
 
+## 0.7.1
+
+* Fixes for Chef 13 compat
+* Install Vagrant 1.9.7 by default
+
 ## 0.7.0
 
 * Fix #67: Remove depends constraint on Windows 1.x cookbook.
