@@ -19,6 +19,9 @@ ClassLength:
   Enabled: false
 MethodLength:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
 LineLength:
   Enabled: false
 PerceivedComplexity:
