@@ -7,7 +7,7 @@ RSpec.describe 'vagrant::debian' do
       version: '14.04',
       file_cache_path: '/var/tmp'
     ) do |node|
-      node.set['vagrant']['version'] = '1.88.88'
+      node.normal['vagrant']['version'] = '1.88.88'
     end.converge(described_recipe)
   end
 

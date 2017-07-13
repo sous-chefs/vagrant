@@ -9,8 +9,9 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-7.1
+  - name: centos-7.3
   - name: ubuntu-14.04
+  - name: ubuntu-16.04
     # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
   - name: macosx-10.10
     driver_config:
@@ -20,7 +21,7 @@ platforms:
       box: mwrock/Windows2012R2
 
 suites:
-<% %w(11 12).each do |version| %>
+<% %w(13 12).each do |version| %>
   - name: default_chef<%= version %>
     provisioner:
       require_chef_omnibus: <%= version %>

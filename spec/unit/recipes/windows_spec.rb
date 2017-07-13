@@ -17,14 +17,14 @@ RSpec.describe 'vagrant::windows' do
   include_context 'mock vagrant_sha256sum'
 
   context 'with default attributes' do
-    VAGRANT_DEFAULT_VERSION = '1.8.5'.freeze
+    VAGRANT_DEFAULT_VERSION = '1.9.7'.freeze
 
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',
         version:  '2012R2'
       ) do |node|
-        node.set['vagrant']['msi_version'] = VAGRANT_DEFAULT_VERSION
+        node.normal['vagrant']['msi_version'] = VAGRANT_DEFAULT_VERSION
       end.converge(described_recipe)
     end
 
@@ -43,8 +43,8 @@ RSpec.describe 'vagrant::windows' do
         platform: 'windows',
         version: '2012R2'
       ) do |node|
-        node.set['vagrant']['version'] = VAGRANT_OVERRIDE_VERSION
-        node.set['vagrant']['msi_version'] = VAGRANT_OVERRIDE_VERSION
+        node.normal['vagrant']['version'] = VAGRANT_OVERRIDE_VERSION
+        node.normal['vagrant']['msi_version'] = VAGRANT_OVERRIDE_VERSION
       end.converge(described_recipe)
     end
 

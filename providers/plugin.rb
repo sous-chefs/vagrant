@@ -63,10 +63,8 @@ def plugin
 end
 
 def uninstall
-  if current_resource.installed
-    converge_by("Uninstalling Vagrant plugin: #{new_resource.name} #{new_resource.version}") do
-      plugin.uninstall
-    end
+  converge_by("Uninstalling Vagrant plugin: #{new_resource.name}") do
+    plugin.uninstall
   end
 end
 

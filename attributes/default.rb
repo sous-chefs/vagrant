@@ -19,10 +19,8 @@
 
 return unless %w(darwin windows linux).include?(node['os'])
 
-DEFAULT_VERSION = '1.8.5'.freeze
-
-default['vagrant']['version']     = DEFAULT_VERSION
-default['vagrant']['msi_version'] = DEFAULT_VERSION
+default['vagrant']['version']     = '1.9.7'
+default['vagrant']['msi_version'] = nil
 
 # the URL and checksum are calculated from the package version by helper methods
 # in the recipe if you# don't override them in a wrapper cookbook
