@@ -15,5 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "#{cookbook_name}::#{node['platform_family']}"
+node['platform_family'] == 'amazon'? platform_family = 'rhel' : platform_family = node['platform_family']
+include_recipe "#{cookbook_name}::#{platform_family}"
 include_recipe "#{cookbook_name}::install_plugins" unless node['vagrant']['plugins'].empty?
