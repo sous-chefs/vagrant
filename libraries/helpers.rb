@@ -47,7 +47,7 @@ module Vagrant
 
     def package_extension
       extension = value_for_platform_family(
-        'mac_os_x' => '.dmg',
+        'mac_os_x' =>  mac_os_x_extension,
         'windows' => '.msi',
         'debian' => '_x86_64.deb',
         %w(rhel suse fedora) => '_x86_64.rpm'
@@ -64,6 +64,11 @@ module Vagrant
 
     def extract_checksum(sha256sums)
       sha256sums.grep(/#{package_name}/)[0].split.first
+    end
+
+    def mac_os_x_extension
+      last_using_dmg = Gem::Version.new('1.9.2')
+      Gem::Version.new(package_version) > last_using_dmg ? '_x86_64.dmg' : '.dmg'
     end
   end
 end
