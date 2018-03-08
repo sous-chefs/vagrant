@@ -1,5 +1,9 @@
 # Vagrant Cookbook Changelog
 
+## 0.7.2
+
+* Added support for Amazon Rhel under Chef 13
+
 ## 0.7.1
 
 * Fixes for Chef 13 compat
