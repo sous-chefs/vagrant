@@ -78,7 +78,7 @@ module Vagrant
     end
 
     def windows_machine
-      node['kernel']['machine'] == 'x86_64' ? '_x86_64' : '_i686' 
+      node['kernel']['machine'] == 'x86_64' ? '_x86_64' : '_i686'
     end
   end
 end

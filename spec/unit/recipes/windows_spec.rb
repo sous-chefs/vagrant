@@ -67,9 +67,9 @@ RSpec.describe 'vagrant::windows' do
       end.converge(described_recipe)
     end
 
-    it "installs Vagrant version 1.9.1" do
+    it 'installs Vagrant version 1.9.1' do
       expect(windows_node).to install_windows_package('Vagrant').with(
-        source: "https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1.msi",
+        source: 'https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1.msi',
         version: '1.9.1'
       )
     end
