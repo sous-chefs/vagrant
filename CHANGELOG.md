@@ -1,5 +1,12 @@
 # Vagrant Cookbook Changelog
 
+## 0.7.2
+
+* The package extension for the vagrant mac package changed. 
+  After version 1.9.2 the extension is _x86_64.dmg.
+* The package extension for the vagrant windows package changed. 
+  After version 1.9.5 the extension is <machinetype>.msi.
+
 ## 0.7.1
 
 * Fixes for Chef 13 compat

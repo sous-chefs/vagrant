@@ -30,7 +30,7 @@ RSpec.describe 'vagrant::windows' do
 
     it "installs Vagrant version #{VAGRANT_DEFAULT_VERSION}" do
       expect(windows_node).to install_windows_package('Vagrant').with(
-        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_DEFAULT_VERSION}/vagrant_#{VAGRANT_DEFAULT_VERSION}.msi",
+        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_DEFAULT_VERSION}/vagrant_#{VAGRANT_DEFAULT_VERSION}_x86_64.msi",
         version: VAGRANT_DEFAULT_VERSION
       )
     end
@@ -41,7 +41,7 @@ RSpec.describe 'vagrant::windows' do
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
         platform: 'windows',
-        version: '2012R2'
+        version:  '2012R2'
       ) do |node|
         node.normal['vagrant']['version'] = VAGRANT_OVERRIDE_VERSION
         node.normal['vagrant']['msi_version'] = VAGRANT_OVERRIDE_VERSION
@@ -50,8 +50,27 @@ RSpec.describe 'vagrant::windows' do
 
     it "installs Vagrant version #{VAGRANT_OVERRIDE_VERSION}" do
       expect(windows_node).to install_windows_package('Vagrant').with(
-        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_OVERRIDE_VERSION}/vagrant_#{VAGRANT_OVERRIDE_VERSION}.msi",
+        source: "https://releases.hashicorp.com/vagrant/#{VAGRANT_OVERRIDE_VERSION}/vagrant_#{VAGRANT_OVERRIDE_VERSION}_x86_64.msi",
         version: VAGRANT_OVERRIDE_VERSION
+      )
+    end
+  end
+
+  context 'when you override with an old the version' do
+    cached(:windows_node) do
+      ChefSpec::SoloRunner.new(
+        platform: 'windows',
+        version: '2012R2'
+      ) do |node|
+        node.normal['vagrant']['version'] = '1.9.1'
+        node.normal['vagrant']['msi_version'] = '1.9.1'
+      end.converge(described_recipe)
+    end
+
+    it 'installs Vagrant version 1.9.1' do
+      expect(windows_node).to install_windows_package('Vagrant').with(
+        source: 'https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1.msi',
+        version: '1.9.1'
       )
     end
   end
