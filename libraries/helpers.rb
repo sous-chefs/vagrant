@@ -50,7 +50,7 @@ module Vagrant
         'mac_os_x' =>  mac_os_x_extension,
         'windows' => windows_extension,
         'debian' => '_x86_64.deb',
-        %w(rhel suse fedora) => '_x86_64.rpm'
+        %w(rhel suse fedora amazon) => '_x86_64.rpm'
       )
       raise ArgumentError "HashiCorp doesn't provide a Vagrant package for the #{node['platform']} platform." if extension.nil?
 

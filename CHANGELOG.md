@@ -6,6 +6,7 @@
   After version 1.9.2 the extension is _x86_64.dmg.
 * The package extension for the vagrant windows package changed. 
   After version 1.9.5 the extension is <machinetype>.msi.
+* Added support for amazon linux
 
 ## 0.7.1
 
