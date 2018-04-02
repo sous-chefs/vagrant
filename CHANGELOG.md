@@ -7,6 +7,7 @@
 * The package extension for the vagrant windows package changed. 
   After version 1.9.5 the extension is <machinetype>.msi.
 * Added support for amazon linux
+* Make the inspec tests run. Move them to the correct directories.
 
 ## 0.7.1
 

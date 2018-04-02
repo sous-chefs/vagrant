@@ -15,6 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'vagrant'
+node.default['vagrant']['plugins'] = %w(vagrant-ohai)
 
-vagrant_plugin 'vagrant-ohai'
+include_recipe 'vagrant'
