@@ -27,4 +27,8 @@ suites:
       require_chef_omnibus: <%= version %>
     run_list:
       - recipe[test]
+    attributes:
+      vagrant:
+        user: administrator
+        password: vagrant
 <% end %>

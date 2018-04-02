@@ -1,7 +1,7 @@
 # Cookbook Name:: vagrant
-# Rakefile
+# Recipe:: suse
 
-# Copyright 2015 Joshua Timberman
+# Copyright 2018 Sous-Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,22 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'rubocop/rake_task'
-require 'foodcritic'
-require 'rspec/core/rake_task'
+Chef::Log.debug 'Amazon is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
 
-RuboCop::RakeTask.new do |rubocop|
-  rubocop.options = ['-D']
-end
-
-FoodCritic::Rake::LintTask.new
-
-RSpec::Core::RakeTask.new
-
-desc 'Run Rubocop and Foodcritic style checks'
-task style: %i(rubocop foodcritic)
-
-desc 'Run all style checks and unit tests'
-task test: %i(style spec)
-
-task default: :test
+include_recipe 'vagrant::rhel'
