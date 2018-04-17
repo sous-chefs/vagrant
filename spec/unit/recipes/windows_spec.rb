@@ -17,7 +17,7 @@ RSpec.describe 'vagrant::windows' do
   include_context 'mock vagrant_sha256sum'
 
   context 'with default attributes' do
-    VAGRANT_DEFAULT_VERSION = '1.9.7'.freeze
+    VAGRANT_DEFAULT_VERSION = '2.0.3'.freeze
 
     cached(:windows_node) do
       ChefSpec::SoloRunner.new(
