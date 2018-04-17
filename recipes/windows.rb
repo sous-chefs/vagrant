@@ -24,4 +24,13 @@ windows_package 'Vagrant' do
   version vagrant_version
   source vagrant_url
   checksum vagrant_checksum
+  returns [1641, 3010]
+  options '/norestart'
+  # We'll do the restart through chef itself to prevent the cookbook from
+  # continuing to run while the Vagrant MSI is telling Windows to reboot
+  notifies :reboot_now, 'reboot[reboot_now]', :immediately
+end
+
+reboot 'reboot_now' do
+  action :nothing
 end

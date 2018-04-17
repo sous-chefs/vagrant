@@ -71,10 +71,7 @@ module Vagrant
 
     def execute_cli(command)
       shell_out!(
-        command,
-        user: username,
-        password: password, # required on Windows
-        env: { 'VAGRANT_HOME' => vagrant_home }
+        command
       )
     end
 
