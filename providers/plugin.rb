@@ -14,7 +14,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-use_inline_resources if defined?(:use_inline_resources) # ~FC113
+use_inline_resources if defined?(:use_inline_resources)
 
 # Support whyrun
 def whyrun_supported?

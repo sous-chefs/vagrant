@@ -7,3 +7,10 @@ describe command('vagrant plugin list') do
   its('stdout') { should match(/vagrant-ohai/) }
   its('exit_status') { should eq 0 }
 end
+
+if os[:family] == 'windows'
+  describe command('vagrant plugin list') do
+    its('stdout') { should match(/vagrant-winrm/) }
+    its('stdout') { should match(/vagrant-omnibus/) }
+  end
+end

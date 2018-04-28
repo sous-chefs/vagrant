@@ -70,8 +70,13 @@ module Vagrant
     end
 
     def execute_cli(command)
+      cmd_args = {}
+      cmd_args[:user] = username if username
+      cmd_args[:password] = password if password
+      cmd_args[:env] = { 'VAGRANT_HOME' => vagrant_home } if username
       shell_out!(
-        command
+        command,
+        cmd_args
       )
     end
 
@@ -86,7 +91,7 @@ module Vagrant
       # Dir.home(user) raises ArgumentError: user `user` doesn't exist
       # on Windows so we must workaround for now.
       if windows?
-        "C:/Users/#{username}" if Dir.exist?("C:/Users/#{username}")
+        Dir.exist?("C:/Users/#{username}") ? "C:/Users/#{username}" : Dir.home
       else
         begin
           Dir.home(username)
