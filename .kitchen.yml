@@ -36,3 +36,11 @@ suites:
       - recipe[test]
     attributes:
 <% end %>
+  - name: windows_location
+    provisioner:
+      require_chef_omnibus: 13
+    run_list:
+     - recipe[test::windows_location]
+    includes:
+      - windows-2012r2
+    attributes:

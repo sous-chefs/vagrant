@@ -1,7 +1,7 @@
 # Cookbook Name:: test
-# Test:: default
+# Test:: windows_location
 
-# Copyright 2015 Joshua Timberman
+# Copyright 2018 Sous-chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node.default['vagrant']['plugins'] = %w(vagrant-ohai)
+ENV['VAGRANT_HOME'] = 'C:/Users/altloc'
+node.default['vagrant']['plugins'] = %w(vagrant-ohai vagrant-winrm vagrant-omnibus)
 
-include_recipe 'test::windows_vagrant_plugin' if node['os'] == 'windows'
+directory 'C:/Users/altloc' do
+  owner 'vagrant'
+  rights :full_control, 'Everyone', applies_to_children: true
+end
+
 include_recipe 'vagrant'
