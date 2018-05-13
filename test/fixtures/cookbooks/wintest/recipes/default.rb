@@ -1,7 +1,7 @@
-# Cookbook Name:: vagrant
-# Recipe:: mac_os_x
+# Cookbook Name:: wintest
+# Test:: default
 
-# Copyright 2015 Joshua Timberman
+# Copyright 2018 Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-vagrant_url = node['vagrant']['url'] || vagrant_package_uri
-vagrant_checksum = node['vagrant']['checksum'] || vagrant_sha256sum
 
-dmg_package 'Vagrant' do
-  source vagrant_url
-  checksum vagrant_checksum
-  type 'pkg'
-  package_id 'com.vagrant.vagrant'
-  action :install
-end
+node.default['vagrant']['plugins'] = %w(vagrant-ohai)
+
+include_recipe 'wintest::windows_vagrant_plugin'

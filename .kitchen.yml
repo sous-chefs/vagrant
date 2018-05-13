@@ -29,18 +29,31 @@ platforms:
 
 suites:
 <% %w(13 14).each do |version| %>
-  - name: default_chef<%= version %>
+  - name: linux_chef<%= version %>
+    includes: 
+     - centos-7.3
+     - ubuntu-16.04
     provisioner:
       require_chef_omnibus: <%= version %>
     run_list:
       - recipe[test]
     attributes:
 <% end %>
+<% %w(13 14).each do |version| %>
+  - name:  win_chef<%= version %>
+    includes: 
+     - windows-2012r2
+    provisioner:
+      require_chef_omnibus: <%= version %>
+    run_list:
+      - recipe[wintest]
+    attributes:
+<% end %>
   - name: windows_location
     provisioner:
       require_chef_omnibus: 13
     run_list:
-     - recipe[test::windows_location]
+     - recipe[wintest::windows_location]
     includes:
       - windows-2012r2
     attributes:

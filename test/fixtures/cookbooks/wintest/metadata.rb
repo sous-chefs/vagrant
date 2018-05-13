@@ -1,6 +1,3 @@
-# Cookbook Name:: vagrant
-# Recipe:: suse
-
 # Copyright 2015 Joshua Timberman
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Chef::Log.debug 'SUSE is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
+name             'wintest'
+maintainer       'Sous Chefs'
+maintainer_email 'help@sous-chefs.org'
+description      'Test cookbook for the vagrant cookbook'
+license          'Apache 2.0'
+version          '0.1.0'
 
-include_recipe 'vagrant::rhel'
+depends 'vagrant'

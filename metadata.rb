@@ -18,10 +18,10 @@ maintainer_email 'help@sous-chefs.org'
 license          'Apache-2.0'
 description      'Installs Vagrant and provides a vagrant_plugin LWRP for installing Vagrant plugins.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.8.1'
+version          '0.9.0'
 
-source_url       'https://github.com/sous-chefs/vagrant' if respond_to?(:source_url)
-issues_url       'https://github.com/sous-chefs/vagrant/issues' if respond_to?(:issues_url)
+source_url       'https://github.com/sous-chefs/vagrant'
+issues_url       'https://github.com/sous-chefs/vagrant/issues'
 
 supports         'debian', '>= 6.0'
 supports         'ubuntu', '>= 12.04'
@@ -33,4 +33,4 @@ supports         'mac_os_x'
 depends          'dmg', '>= 2.2.2'
 depends          'windows', '>= 1.38'
 
-chef_version     '>= 12.7'
+chef_version     '>= 13.0'

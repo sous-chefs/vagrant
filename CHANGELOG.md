@@ -1,5 +1,8 @@
 # Vagrant Cookbook Changelog
 
+## 0.9.0
+* Create a custom resource to install vagrant.  Fix issue #69
+
 ## 0.8.1
 * Change the source respository name
 * Add the authorize_service resource for setting up windows testing

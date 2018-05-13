@@ -27,6 +27,5 @@ node['vagrant']['plugins'].each do |plugin|
       user node['vagrant']['user'] if node['vagrant']['user']
       password node['vagrant']['password'] if node['vagrant']['password']
     end
-
   end
 end

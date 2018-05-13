@@ -12,9 +12,9 @@ resource_name :authorize_service
 property :service, String, required: true
 property :user, String, required: true
 
-require 'chef/provider/service/simple'
-require 'chef/win32/error'
-require 'win32/service'
+require 'chef/provider/service/simple' if node['os'] =~ /win/i
+require 'chef/win32/error' if node['os'] =~ /win/i
+require 'win32/service' if node['os'] =~ /win/i
 
 action_class do
   include Chef::ReservedNames::Win32::API::Error
@@ -32,7 +32,9 @@ action_class do
 end
 
 action :authorize do
-  converge_by("Add service #{new_resource.service} for user #{new_resource.user}") do
-    grant_service(new_resource.user, new_resource.service)
-  end unless Chef::ReservedNames::Win32::Security.get_account_right(new_resource.user).include?(new_resource.service)
+  unless Chef::ReservedNames::Win32::Security.get_account_right(new_resource.user).include?(new_resource.service)
+    converge_by("Add service #{new_resource.service} for user #{new_resource.user}") do
+      grant_service(new_resource.user, new_resource.service)
+    end
+  end
 end

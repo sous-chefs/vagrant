@@ -15,5 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "#{cookbook_name}::#{node['platform_family']}"
+vagrant_install 'Vagrant' do
+  version node['vagrant']['version']
+end
+
 include_recipe "#{cookbook_name}::install_plugins" unless node['vagrant']['plugins'].empty?

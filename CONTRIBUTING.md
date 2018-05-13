@@ -72,9 +72,7 @@ mailing list, or https://community-slack.chef.io/
 ## Cookbook Contribution Do's and Don't's
 
 Please do include tests for your contribution. If you need help, ask
-on the
-[chef-dev mailing list](http://lists.chef.io/sympa/info/chef-dev)
-or the https://community-slack.chef.io/
+on the sous-chef channel on https://community-slack.chef.io/
 
 Not all platforms that a cookbook supports may be supported by Test
 Kitchen. Please provide evidence of testing your contribution if it
