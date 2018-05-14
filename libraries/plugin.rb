@@ -73,7 +73,7 @@ module Vagrant
       cmd_args = {}
       cmd_args[:user] = username if username
       cmd_args[:password] = password if password
-      cmd_args[:env] = { 'VAGRANT_HOME' => vagrant_home } if username
+      cmd_args[:env] = { 'VAGRANT_HOME' => vagrant_home } if vagrant_home
       shell_out!(
         command,
         cmd_args
@@ -82,7 +82,7 @@ module Vagrant
 
     def vagrant_home
       user_home_dir = home_dir
-      ::File.join(user_home_dir, '.vagrant.d') unless user_home_dir.nil?
+      ENV['VAGRANT_HOME'] || ::File.join(user_home_dir, '.vagrant.d') unless user_home_dir.nil?
     end
 
     def home_dir

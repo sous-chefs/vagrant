@@ -18,4 +18,3 @@
 node.default['vagrant']['plugins'] = %w(vagrant-ohai)
 
 include_recipe 'vagrant'
-include_recipe 'test::windows_vagrant_plugin' if node['os'] == 'windows'

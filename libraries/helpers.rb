@@ -42,7 +42,7 @@ module Vagrant
     end
 
     def package_version
-      node['vagrant']['version']
+      @vagrant_version
     end
 
     def package_extension
@@ -82,5 +82,3 @@ module Vagrant
     end
   end
 end
-
-Chef::Recipe.send(:include, Vagrant::Helpers)

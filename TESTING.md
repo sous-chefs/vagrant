@@ -15,8 +15,6 @@ rake test                  # Run style checks and unit tests
 ## Integration (test-kitchen)
 A .kitchen.yml file is also provided.
 
-To run test-kitchen on a Mac guest, you will need to provide a Mac vagrant box.
-
 ```
 kitchen list
 
@@ -29,3 +27,16 @@ osx-macosx-1010     Vagrant  ChefZero     Busser    Ssh        <Not Created>
 ```
 kitchen test
 ```
+
+## Mac Integration Tests
+To run test-kitchen on a Mac guest, you will need to provide a Mac vagrant box.
+To test on your development Mac.  Make sure you have cookbook_path specified and 
+disable the password plugin in /etc/chef/client.rb.
+
+````
+cookbook_path            ["/Users/xmjg/dev/chef/cookbooks"]
+ohai.disabled_plugins = [
+  :Passwd
+]
+````
+Then run chef-client -z -o vagrant -c /etc/chef/client.rb

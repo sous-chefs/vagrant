@@ -1,5 +1,13 @@
 # Vagrant Cookbook Changelog
 
+## 0.9.0
+* Create a custom resource to install vagrant.  Fix issue #69
+
+## 0.8.1
+* Change the source respository name
+* Add the authorize_service resource for setting up windows testing
+* Use environment variable VAGRANT_HOME as the location to install plugins
+
 ## 0.8.0
 * Add tests for chef-client 14
 * Drop testing for chef-client 12
