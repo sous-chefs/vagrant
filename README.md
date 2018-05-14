@@ -1,8 +1,8 @@
 # Vagrant Cookbook
 
-[![Build Status](https://travis-ci.org/jtimberman/vagrant-cookbook.svg?branch=master)](https://travis-ci.org/jtimberman/vagrant-cookbook) [![Cookbook Version](https://img.shields.io/cookbook/v/vagrant.svg)](https://supermarket.chef.io/cookbooks/vagrant)
+[![Build Status](https://travis-ci.org/sous-chefs/vagrant.svg?branch=master)](https://travis-ci.org/sous-chefs/vagrant) [![Cookbook Version](https://img.shields.io/cookbook/v/vagrant.svg)](https://supermarket.chef.io/cookbooks/vagrant)
 
-Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` LWRP.
+Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` resource.
 
 This cookbook is not intended to be used for vagrant "1.0" (gem install) versions. A recipe is provided for removing the gem, see __Recipes__.
 
