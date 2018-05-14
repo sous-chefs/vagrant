@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-vagrant_install 'Vagrant' do
+vagrant 'Vagrant' do
   version node['vagrant']['version']
 end
 

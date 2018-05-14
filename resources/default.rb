@@ -38,11 +38,9 @@ action_class do
   end
 
   def mac_os_x(pkg_uri, pkg_checksum)
-    uri = pkg_uri
-    checksum = pkg_checksum
     dmg_package 'Vagrant' do
-      source uri
-      checksum checksum
+      source pkg_uri
+      checksum pkg_checksum
       type 'pkg'
       package_id 'com.vagrant.vagrant'
       action :install
@@ -113,11 +111,14 @@ action :install do
     Chef::Log.warning 'Amazon is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('amazon')
     rhel(vagrant_url, vagrant_rpm, vagrant_checksum)
 
-  when 'max_os_x'
+  when 'mac_os_x'
     mac_os_x(vagrant_url, vagrant_checksum)
 
   when 'windows'
     windows(vagrant_url, vagrant_checksum, @vagrant_version)
+
+  else
+    Chef::Log.warning "Unsupported OS #{node['platform_family']}"
   end
 end
 

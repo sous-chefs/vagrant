@@ -67,10 +67,10 @@ Attribute | Description | Type   | Default
 # Resources
 This cookbook includes the:
 
-* `vagrant_install` resource, for installing vagrant.
+* `vagrant` resource, for installing vagrant.
 * `vagrant_plugin` resource, for managing vagrant plugins.
 
-## vagrant_install
+## vagrant
 
 ### Actions
 - `:install`: installs vagrant. Platform specific details are here.
@@ -84,11 +84,11 @@ This cookbook includes the:
 ### Examples
 
 ```ruby
-vagrant_install 'Vagrant' do
+vagrant 'Vagrant' do
   version node['vagrant']['version']
 end
 
-vagrant_install 'Vagrant from url' do
+vagrant 'Vagrant from url' do
   checksum node['vagrant']['checksum']
   url node['vagrant']['url']
   version node['vagrant']['checksum']
@@ -159,7 +159,7 @@ end
 
 ## default
 
-The default recipe uses the vagrant_install resource to install Vagrant. OS specific code is in the install custom resource. If the `node['vagrant']['plugins']` attribute is not empty, it includes the install_plugins recipe to install any required vagrant plugins.
+The default recipe uses the vagrant resource to install Vagrant. OS specific code is in the install custom resource. If the `node['vagrant']['plugins']` attribute is not empty, it includes the install_plugins recipe to install any required vagrant plugins.
 
 ## install_plugins
 

@@ -1,7 +1,7 @@
 # Vagrant Cookbook Changelog
 
 ## 0.9.1
-* Update the README to describe the new vagrant_install resource
+* Update the README to describe the new vagrant resource
 
 ## 0.9.0
 * Create a custom resource to install vagrant.  Fix issue #69
