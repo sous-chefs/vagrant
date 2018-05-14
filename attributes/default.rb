@@ -20,10 +20,9 @@
 return unless %w(darwin windows linux).include?(node['os'])
 
 default['vagrant']['version']     = '2.0.3'
-default['vagrant']['msi_version'] = nil
 
 # the URL and checksum are calculated from the package version by helper methods
-# in the recipe if you# don't override them in a wrapper cookbook
+# in the install resource if you don't override them in a wrapper cookbook
 default['vagrant']['url']         = nil
 default['vagrant']['checksum']    = nil
 
