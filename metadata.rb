@@ -30,6 +30,7 @@ supports         'centos'
 supports         'windows'
 supports         'mac_os_x'
 
-depends          'dmg', '>= 2.2.2'
+# TODO: remove after we can assume chef_version '>= 14.0'
+depends          'dmg', '>= 2.2.2' # ~FC121
 
 chef_version     '>= 13.0'
