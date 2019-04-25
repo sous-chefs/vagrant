@@ -1,7 +1,7 @@
-# Cookbook Name:: vagrant
-# Recipe:: install_plugins
+# Cookbook Name:: test
+# Test:: uninstall
 
-# Copyright 2013, Joshua Timberman
+# Copyright 2018 Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+node.default['vagrant']['plugins'] = %w(vagrant-ohai)
+
 node['vagrant']['plugins'].each do |plugin|
-  if plugin.respond_to?(:keys)
-    vagrant_plugin plugin['name'] do
-      env plugin['env'] if plugin['env']
-      version plugin['version'] if plugin['version']
-      user node['vagrant']['user'] if node['vagrant']['user']
-      password node['vagrant']['password'] if node['vagrant']['password']
-    end
-  else
-    vagrant_plugin plugin do
-      user node['vagrant']['user'] if node['vagrant']['user']
-      password node['vagrant']['password'] if node['vagrant']['password']
-    end
+  vagrant_plugin "uninstall #{plugin}" do
+    plugin_name plugin
+    action :uninstall
   end
 end
+
+include_recipe 'vagrant::uninstall_gem'
