@@ -5,10 +5,6 @@ end
 
 describe command('vagrant plugin list') do
   its('stdout') { should match(/vagrant-ohai/) }
+  its('stdout') { should match(/vagrant-vbguest/) }
   its('exit_status') { should eq 0 }
-end
-
-describe command('vagrant plugin list') do
-  its('stdout') { should match(/vagrant-winrm/) }
-  its('stdout') { should match(/vagrant-omnibus/) }
 end

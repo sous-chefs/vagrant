@@ -7,7 +7,7 @@ module Vagrant
   class Plugin
     include Chef::Mixin::ShellOut
 
-    attr_reader :plugin_name, :username, :password
+    attr_reader :plugin_name, :env, :username, :password
 
     def windows?
       @is_windows
@@ -16,8 +16,10 @@ module Vagrant
     def initialize(plugin_name, is_windows, options = {})
       @plugin_name = plugin_name
       @is_windows = is_windows
-      @username = options.fetch(:username, nil)
-      @password = options.fetch(:password, nil)
+      @env = options.fetch(:env, nil).dup
+      @username = options.fetch(:username, nil).dup
+      @password = options.fetch(:password, nil).dup
+      @vagrant_home = options.fetch(:vagrant_home, nil).dup
     end
 
     # Searches for an installed Vagrant plugin
@@ -29,14 +31,14 @@ module Vagrant
         list = vagrant_plugin_list
       rescue UserNotFoundError
         # when a user is not found, they can't possibly have any plugins
-        return nil
+        return Gem::Version.new('0.0.0')
       end
       plugin_line = find_plugin_line(list)
-      extract_version_from(plugin_line)
+      plugin_line ? Gem::Version.new(extract_version_from(plugin_line)) : nil
     end
 
     def install(version = nil, sources = [])
-      vagrant_plugin_install = "vagrant plugin install #{plugin_name}"
+      vagrant_plugin_install =  "vagrant plugin install #{plugin_name}"
       vagrant_plugin_install << " --plugin-version #{version}" if version
 
       sources.each do |source|
@@ -48,6 +50,18 @@ module Vagrant
 
     def uninstall
       execute_cli "vagrant plugin uninstall #{plugin_name}"
+    end
+
+    def install?(version)
+      requested_version = version ? Gem::Version.new(version) : Gem::Version.new('0.0.0')
+      return true unless installed_version
+      return false if installed_version >= requested_version
+
+      true
+    end
+
+    def installed?
+      installed_version
     end
 
     private
@@ -73,7 +87,8 @@ module Vagrant
       cmd_args = {}
       cmd_args[:user] = username if username
       cmd_args[:password] = password if password
-      cmd_args[:env] = { 'VAGRANT_HOME' => vagrant_home } if vagrant_home
+      cmd_args[:env] = @env || {}
+      cmd_args[:env]['VAGRANT_HOME'] = vagrant_home if vagrant_home
       shell_out!(
         command,
         cmd_args
@@ -81,6 +96,8 @@ module Vagrant
     end
 
     def vagrant_home
+      return @vagrant_home if @vagrant_home
+
       user_home_dir = home_dir
       ENV['VAGRANT_HOME'] || ::File.join(user_home_dir, '.vagrant.d') unless user_home_dir.nil?
     end

@@ -1,32 +1,13 @@
 # Testing
 
 ## Style and Unit Testing
-This cookbook comes with a Rakefile with the following testing targets:
-
-```
-rake foodcritic            # Lint Chef cookbooks
-rake rubocop               # Run RuboCop
-rake rubocop:auto_correct  # Auto-correct RuboCop offenses
-rake spec                  # Run RSpec code examples
-rake style                 # Run Rubocop and Foodcritic style checks
-rake test                  # Run style checks and unit tests
-```
+This cookbook follows the guidelines for cookstyle. Run cookstyle -a to find and auto correct style problems.
+Run foodcritic to check Chef cookbook guidelines.
+Run rspec to test the library modules.
 
 ## Integration (test-kitchen)
-A .kitchen.yml file is also provided.
-
-```
-kitchen list
-
-Instance            Driver   Provisioner  Verifier  Transport  Last Action
-debian-ubuntu-1404  Vagrant  ChefZero     Busser    Ssh        <Not Created>
-rhel-centos-71      Vagrant  ChefZero     Busser    Ssh        <Not Created>
-osx-macosx-1010     Vagrant  ChefZero     Busser    Ssh        <Not Created>
-```
-
-```
-kitchen test
-```
+A .kitchen.yml file is provided. Run kitchen test on the instances to verify correct behaviour. Test kitchen
+tests are set up for centos, ubuntu and windows images.
 
 ## Mac Integration Tests
 To run test-kitchen on a Mac guest, you will need to provide a Mac vagrant box.
@@ -39,4 +20,5 @@ ohai.disabled_plugins = [
   :Passwd
 ]
 ````
-Then run chef-client -z -o vagrant -c /etc/chef/client.rb
+Then run "chef-client -z -o vagrant -c /etc/chef/client.rb -j test/fixtures/mac/mactest.json"
+To verify the install run "inspec exec test/integration/mac/inspec/vagrant_spec.rb"

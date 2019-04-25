@@ -15,14 +15,50 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-actions :install, :remove, :uninstall
-
 default_action :install
 
-attribute :plugin_name, name_attribute: true
-attribute :version, kind_of: [String]
-attribute :installed, kind_of: [TrueClass, FalseClass]
-attribute :installed_version, kind_of: [String]
-attribute :user, kind_of: [String], default: nil
-attribute :password, kind_of: String, default: nil
-attribute :sources, kind_of: [String, Array], default: nil
+property :plugin_name, name_property: true
+property :version, String
+property :env, [Hash, nil], default: nil
+property :user, String
+property :password, String
+property :sources, [String, Array]
+property :vagrant_home, String
+
+action_class do
+  def plugin
+    is_windows = node['platform_family'] == 'windows'
+    @plugin ||= Vagrant::Plugin.new(
+      new_resource.plugin_name,
+      is_windows,
+      env: new_resource.env,
+      username: new_resource.user,
+      password: new_resource.password,
+      vagrant_home: new_resource.vagrant_home
+    )
+  end
+
+  def uninstall
+    return unless plugin.installed?
+
+    converge_by("Uninstalling Vagrant plugin: #{new_resource.name}") do
+      plugin.uninstall
+    end
+  end
+end
+
+action :install do
+  return unless plugin.install?(new_resource.version)
+
+  converge_by("Installing Vagrant plugin: #{new_resource.name} #{new_resource.version}") do
+    plugin.install(new_resource.version, Array(new_resource.sources))
+  end
+end
+
+action :remove do
+  uninstall
+end
+
+action :uninstall do
+  uninstall
+end
