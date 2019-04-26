@@ -8,9 +8,7 @@ describe command('vagrant plugin list') do
   its('exit_status') { should eq 0 }
 end
 
-if os[:family] == 'windows'
-  describe command('vagrant plugin list') do
-    its('stdout') { should match(/vagrant-winrm/) }
-    its('stdout') { should match(/vagrant-omnibus/) }
-  end
+describe command('vagrant plugin list') do
+  its('stdout') { should match(/vagrant-winrm/) }
+  its('stdout') { should match(/vagrant-omnibus/) }
 end

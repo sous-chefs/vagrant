@@ -64,6 +64,7 @@ action_class do
 
   def windows(pkg_uri, pkg_checksum, pkg_version)
     return unless install?
+
     windows_package 'Vagrant' do
       action :install
       version pkg_version

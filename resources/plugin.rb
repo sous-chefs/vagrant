@@ -40,6 +40,7 @@ action_class do
 
   def uninstall
     return unless plugin.installed?
+
     converge_by("Uninstalling Vagrant plugin: #{new_resource.name}") do
       plugin.uninstall
     end
@@ -47,9 +48,8 @@ action_class do
 end
 
 action :install do
-  # move the version testing code to plugin classs
-  # add tests for specific version install
   return unless plugin.install?(new_resource.version)
+
   converge_by("Installing Vagrant plugin: #{new_resource.name} #{new_resource.version}") do
     plugin.install(new_resource.version, Array(new_resource.sources))
   end

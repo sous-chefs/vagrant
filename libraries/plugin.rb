@@ -56,6 +56,7 @@ module Vagrant
       requested_version = version ? Gem::Version.new(version) : Gem::Version.new('0.0.0')
       return true unless installed_version
       return false if installed_version >= requested_version
+
       true
     end
 
@@ -96,6 +97,7 @@ module Vagrant
 
     def vagrant_home
       return @vagrant_home if @vagrant_home
+
       user_home_dir = home_dir
       ENV['VAGRANT_HOME'] || ::File.join(user_home_dir, '.vagrant.d') unless user_home_dir.nil?
     end
