@@ -1,6 +1,10 @@
 # Vagrant Cookbook
 
-[![Build Status](https://travis-ci.org/sous-chefs/vagrant.svg?branch=master)](https://travis-ci.org/sous-chefs/vagrant) [![Cookbook Version](https://img.shields.io/cookbook/v/vagrant.svg)](https://supermarket.chef.io/cookbooks/vagrant)
+[![Cookbook Version](https://img.shields.io/cookbook/v/vagrant.svg)](https://supermarket.chef.io/cookbooks/vagrant)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/vagrant/master.svg)](https://circleci.com/gh/sous-chefs/vagrant)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` resource.
 
@@ -8,28 +12,28 @@ This cookbook is not intended to be used for vagrant "1.0" (gem install) version
 
 This cookbook is not supported for installing versions of Vagrant older than 1.6.
 
-# Requirements
+## Requirements
 
-**This cookbook should not be used on platforms that Vagrant itself does not support.**
+This cookbook should not be used on platforms that Vagrant itself does not support.
 
 ## Vagrant Supported Platforms
 
 Vagrant does not specifically list supported platforms on the project web site. However, the only platforms with [packages provided](https://www.vagrantup.com/downloads.html) are:
 
-* Mac OS X
-* Windows
-* Linux (deb-package based platforms, e.g., Debian and Ubuntu)
-* Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
+- Mac OS X
+- Windows
+- Linux (deb-package based platforms, e.g., Debian and Ubuntu)
+- Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
 
-Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is **strongly recommended** that this cookbook not be on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
+Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is --strongly recommended-- that this cookbook not be on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
 
 ## Tested with Test Kitchen
 
-* Debian 7.6
-* Ubuntu 14.04
-* CentOS 6.5
-* OS X 10.9
-* Windows 2012
+- Debian 7.6
+- Ubuntu 14.04
+- CentOS 6.5
+- OS X 10.9
+- Windows 2012
 
 May work on other Debian/RHEL family distributions with or without modification.
 
@@ -38,7 +42,9 @@ This cookbook has [test-kitchen](http://kitchen.ci) support for Windows and Mac 
 Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root or Administrator).
 
 # Attributes
+
 ## 'default' recipe. Install the Vagrant Package
+
 The attributes defined for this cookbook are organized under the
 `node['vagrant']` namespace.
 
@@ -49,6 +55,7 @@ Attribute | Description | Type   | Default
 ['checksum'] | Vagrant package checksum (SHA256) | String | Calculated by `vagrant_sha256sum` helper method.
 
 ## 'install_plugins' recipe
+
 Attributes in the table below are under the `node['vagrant']` namespace.
 
 Attribute | Description | Type   | Default
@@ -56,23 +63,25 @@ Attribute | Description | Type   | Default
 ['plugins'] | An array of plugins, e.g. `%w(vagrant-aws vagrant-ohai vagrant-omnibus)` | Array | nil
 ['plugins'] | If you want to install specific plugin versions, use the second form of the `['plugins']` array, e.g. [ {name: 'vagrant-ohai', version: '0.1.3'}, {name: 'vagrant-aws', version: '0.6.0'} ] | Array of Hashes | nil
 
-* `node['vagrant']['plugins']` - A array of plugins. The elements in
+- `node['vagrant']['plugins']` - A array of plugins. The elements in
   the array can be a string or a hash. String elements should be the
   names of plugins to install. Hash elements should have two keys,
   "name" and "version", for the plugin name and its version to
   install. This is used by the `vagrant_plugin` resource in the
   `install_plugins` recipe.
-* `node['vagrant']['user']` - A user that is used to automatically install plugins as for the `node['vagrant']['plugins']` attribute.
+- `node['vagrant']['user']` - A user that is used to automatically install plugins as for the `node['vagrant']['plugins']` attribute.
 
 # Resources
+
 This cookbook includes the:
 
-* `vagrant` resource, for installing vagrant.
-* `vagrant_plugin` resource, for managing vagrant plugins.
+- `vagrant` resource, for installing vagrant.
+- `vagrant_plugin` resource, for managing vagrant plugins.
 
 ## vagrant
 
 ### Actions
+
 - `:install`: installs vagrant. Platform specific details are here.
 
 ### Properties
@@ -93,7 +102,7 @@ vagrant 'Vagrant from url' do
   url node['vagrant']['url']
   version node['vagrant']['checksum']
 end
-````
+```
 
 ## vagrant_plugin
 
@@ -121,14 +130,21 @@ vagrant_plugin 'vagrant-berkshelf'
   version '1.2.0'
   sources ['http://src1.example.com', 'http://src2.example.com']
 end
+```
 
-# Install the plugins as the `donuts` user, into ~/donuts/.vagrant.d
+#### Install the plugins as the `donuts` user, into ~/donuts/.vagrant.d
+
+```ruby
 vagrant_plugin 'vagrant-aws'
   user 'donuts'
 end
+```
 
-# Install the 'vagrant-winrm' plugin for another user. Windows impersonation
-# requires a username and password.
+### Install the 'vagrant-winrm' plugin for another user. Windows impersonation
+
+requires a username and password.
+
+```ruby
 vagrant_plugin 'vagrant-winrm' do
   user node['vagrant']['user']
   password node['vagrant']['password']
@@ -155,17 +171,17 @@ RSpec.describe 'example::default' do
 end
 ```
 
-# Recipes
+## Recipes
 
-## default
+### default
 
 The default recipe uses the vagrant resource to install Vagrant. OS specific code is in the install custom resource. If the `node['vagrant']['plugins']` attribute is not empty, it includes the install_plugins recipe to install any required vagrant plugins.
 
-## install_plugins
+### install_plugins
 
 Iterates over the `node['vagrant']['plugins']` attribute and installs the listed plugins. If that attribute is a hash, it installs the specified plugin version. If the `node['vagrant']['user']` attribute is set, the plugins are installed for only that user.
 
-## uninstall_gem
+### uninstall_gem
 
 This recipe will attempt to uninstall the `vagrant` gem with the
 `gem_package` and `chef_gem` resources. Meaning, it will use the `gem`
@@ -177,7 +193,7 @@ running `rbenv rehash`. Likewise, if you have multiple copies of the
 vagrant gem installed, you'll need to clean up all versions. This
 recipe won't support such craziness :-).
 
-# Usage
+## Usage
 
 Set the url and checksum attributes on the node. Do this in a role, or
 a "wrapper" cookbook. Or, just set the version and let the magic happen.
@@ -200,47 +216,25 @@ See the attribute tables above.
 
 ## Contributors
 
-This project exists thanks to all the people who contribute.
-<img src="https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false" /></a>
-
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
 ### Backers
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/sous-chefs#backer)]
-<a href="https://opencollective.com/sous-chefs#backers" target="_blank"><img src="https://opencollective.com/sous-chefs/backers.svg?width=890"></a>
+Thank you to all our backers!
+
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
 
 ### Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/sous-chefs#sponsor)]
-<a href="https://opencollective.com/sous-chefs/sponsor/0/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/1/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/2/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/3/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/4/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/5/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/6/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/7/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/8/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/sous-chefs/sponsor/9/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/9/avatar.svg"></a>
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 
-# License and Authors
-
-* Author:: Joshua Timberman
-* Author:: Doug Ireton
-* Author:: Mark Gibbons
-* Author:: Sous Chefs <help@sous-chefs.org>
-* Copyright (c) 2013-2014, Joshua Timberman
-
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
