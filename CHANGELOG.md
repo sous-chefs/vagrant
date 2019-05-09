@@ -1,5 +1,8 @@
 # Vagrant Cookbook Changelog
 
+## Next release
+* Update the dangerfile
+
 ## 0.9.1
 * Update the README to describe the new vagrant resource
 
