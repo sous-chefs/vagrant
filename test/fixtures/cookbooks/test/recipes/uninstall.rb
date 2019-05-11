@@ -1,4 +1,7 @@
-# Copyright 2015 Joshua Timberman
+# Cookbook Name:: test
+# Test:: uninstall
+
+# Copyright 2019 Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if defined?(ChefSpec)
-  ChefSpec.define_matcher(:vagrant_plugin)
+node.default['vagrant']['plugins'] = %w(vagrant-ohai)
 
-  def install_vagrant_plugin(resource_name)
-    ChefSpec::Matchers::ResourceMatcher.new(:vagrant_plugin, :install, resource_name)
-  end
-
-  def uninstall_vagrant_plugin(resource_name)
-    ChefSpec::Matchers::ResourceMatcher.new(:vagrant_plugin, :uninstall, resource_name)
-  end
-
-  def remove_vagrant_plugin(resource_name)
-    ChefSpec::Matchers::ResourceMatcher.new(:vagrant_plugin, :remove, resource_name)
+node['vagrant']['plugins'].each do |plugin|
+  vagrant_plugin "uninstall #{plugin}" do
+    plugin_name plugin
+    action :uninstall
   end
 end
+
+include_recipe 'vagrant::uninstall_gem'

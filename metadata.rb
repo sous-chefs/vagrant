@@ -18,7 +18,7 @@ maintainer_email 'help@sous-chefs.org'
 license          'Apache-2.0'
 description      'Installs Vagrant and provides a vagrant_plugin resource for installing Vagrant plugins.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.9.1'
+version          '1.0.0'
 
 source_url       'https://github.com/sous-chefs/vagrant'
 issues_url       'https://github.com/sous-chefs/vagrant/issues'
@@ -30,7 +30,4 @@ supports         'centos'
 supports         'windows'
 supports         'mac_os_x'
 
-# TODO: remove after we can assume chef_version '>= 14.0'
-depends          'dmg', '>= 2.2.2' # ~FC121
-
-chef_version     '>= 13.0'
+chef_version     '>= 14.0'

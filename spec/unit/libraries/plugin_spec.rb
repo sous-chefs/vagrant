@@ -31,17 +31,17 @@ RSpec.describe Vagrant::Plugin do
 
       it 'given an installed plugin name, returns the version' do
         version = windows_cli_with_vpl_mocked('simple-plugin').installed_version
-        expect(version).to eq '0.1.0'
+        expect(version).to eq Gem::Version.new('0.1.0')
       end
 
       it 'given a cli configured with a plugin that has a 2-digit minor version, returns the version' do
         version = windows_cli_with_vpl_mocked('two-digit-minor').installed_version
-        expect(version).to eq '1.12.34'
+        expect(version).to eq Gem::Version.new('1.12.34')
       end
 
       it 'given a cli configured with a user to impersonate, returns the correct version' do
         version = windows_cli_with_vpl_mocked('vagrant-foobar', windows_user).installed_version
-        expect(version).to eq '2.3.4'
+        expect(version).to eq Gem::Version.new('2.3.4')
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Vagrant::Plugin do
 
       it 'given a cli configured with a name, returns the version' do
         version = unix_cli_with_vpl_mocked('simple-plugin').installed_version
-        expect(version).to eq '0.1.0'
+        expect(version).to eq Gem::Version.new('0.1.0')
       end
     end
   end

@@ -1,0 +1,5 @@
+{
+  "vagrant": {
+     "plugins": ["vagrant-ohai", "vagrant-vbguest"]
+  }
+}

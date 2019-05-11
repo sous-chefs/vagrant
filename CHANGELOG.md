@@ -3,6 +3,14 @@
 ## Next release
 * Update the dangerfile
 
+## 1.0.0
+*   Convert the resources to custom resources
+*   Add an env property to the plugin resource to allow for setting environment variables.
+*   Add an example of installing the vagrant-libvirt plugin, this plugin requires
+specific environment variable settings. See https://github.com/vagrant-libvirt/vagrant-libvirt/issues/891
+*   Add mac test instructions.
+*   Update the testing documentation
+
 ## 0.9.1
 * Update the README to describe the new vagrant resource
 

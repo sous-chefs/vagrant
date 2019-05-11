@@ -19,6 +19,7 @@ verifier:
 platforms:
   - name: centos-7.3
   - name: ubuntu-16.04
+  - name: ubuntu-18.04
     # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
   - name: macosx-10.10
     driver_config:
@@ -28,18 +29,19 @@ platforms:
       box: mwrock/Windows2012R2
 
 suites:
-<% %w(13 14).each do |version| %>
+<% %w(14).each do |version| %>
   - name: linux_chef<%= version %>
     includes: 
      - centos-7.3
      - ubuntu-16.04
+     - ubuntu-18.04
     provisioner:
       require_chef_omnibus: <%= version %>
     run_list:
       - recipe[test]
     attributes:
 <% end %>
-<% %w(13 14).each do |version| %>
+<% %w(14).each do |version| %>
   - name:  win_chef<%= version %>
     includes: 
      - windows-2012r2
@@ -51,9 +53,18 @@ suites:
 <% end %>
   - name: windows_location
     provisioner:
-      require_chef_omnibus: 13
+      require_chef_omnibus: 14
     run_list:
      - recipe[wintest::windows_location]
     includes:
       - windows-2012r2
+    attributes:
+  - name: uninstall
+    provisioner:
+      require_chef_omnibus: 14
+    run_list:
+     - recipe[test]
+     - recipe[test::uninstall]
+    includes:
+      - ubuntu-18.04
     attributes:
