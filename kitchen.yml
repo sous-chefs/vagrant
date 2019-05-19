@@ -21,7 +21,7 @@ platforms:
   - name: centos-7
   - name: ubuntu-16.04
   - name: ubuntu-18.04
-    # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
+  # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
   - name: macosx-10.10
     driver_config:
       box: chef/macosx-10.10
@@ -31,28 +31,28 @@ platforms:
 
 suites:
   - name: default
-    includes: 
-     - centos-7
-     - ubuntu-16.04
-     - ubuntu-18.04
+    includes:
+      - centos-7
+      - ubuntu-16.04
+      - ubuntu-18.04
     run_list:
       - recipe[test]
 
   - name: windows
-    includes: 
-     - windows-2012r2
+    includes:
+      - windows-2012r2
     run_list:
       - recipe[wintest]
 
   - name: windows_location
     run_list:
-     - recipe[wintest::windows_location]
+      - recipe[wintest::windows_location]
     includes:
       - windows-2012r2
 
   - name: uninstall
     run_list:
-     - recipe[test]
-     - recipe[test::uninstall]
+      - recipe[test]
+      - recipe[test::uninstall]
     includes:
       - ubuntu-18.04

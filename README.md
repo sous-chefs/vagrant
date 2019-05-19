@@ -209,9 +209,7 @@ recipe won't support such craziness :-).
 
 ### Notes about specific plugins
 
-- vagrant-libvirt. Installing this plugin has required setting environment
-variables on ubuntu system. Adding env CONFIGURE_ARGS: 'with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib'
-to the vagrant_plugin resource properties has worked.
+- vagrant-libvirt. Installing this plugin has required setting environment variables on ubuntu system. Adding env CONFIGURE_ARGS: 'with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib' to the vagrant_plugin resource properties has worked.
 
 ### Usage
 

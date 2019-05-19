@@ -8,8 +8,7 @@
 
 - Convert the resources to custom resources
 - Add an env property to the plugin resource to allow for setting environment variables.
-- Add an example of installing the vagrant-libvirt plugin, this plugin requires
-specific environment variable settings. See [vagrant-libvirt/issues/891](https://github.com/vagrant-libvirt/vagrant-libvirt/issues/891)
+- Add an example of installing the vagrant-libvirt plugin, this plugin requires specific environment variable settings. See [vagrant-libvirt/issues/891](https://github.com/vagrant-libvirt/vagrant-libvirt/issues/891)
 - Add mac test instructions.
 - Update the testing documentation
 
@@ -67,9 +66,7 @@ specific environment variable settings. See [vagrant-libvirt/issues/891](https:/
 
 ## 0.4.2 - January 7, 2016
 
-- Fix regression in `fetch_platform_checksums_for_version` method. Release 0.4.1
-changed the checksums URL to the new Hashicorp location and introduced a regression.
-The `fetch_platform_checksums_for_version` method now returns the correct URL.
+- Fix regression in `fetch_platform_checksums_for_version` method. Release 0.4.1 changed the checksums URL to the new Hashicorp location and introduced a regression. The `fetch_platform_checksums_for_version` method now returns the correct URL.
 
 Thanks to Jeff Bachtel for the PR.
 
@@ -80,10 +77,7 @@ Thanks to Jeff Bachtel for the PR.
 ## 0.4.0 - December 21, 2015
 
 - Bump default Vagrant version to 1.7.4
-- Cookbook no longer fails during compile phase if <https://dl.bintray.com> is
-unavailable. You can override `node['vagrant']['url']` and
-`node['vagrant']['checksum']` if you need to download Vagrant from a different
-location.
+- Cookbook no longer fails during compile phase if <https://dl.bintray.com> is unavailable. You can override `node['vagrant']['url']` and `node['vagrant']['checksum']` if you need to download Vagrant from a different location.
 - Fix idempotency when installing Vagrant Windows package.
 - Refactor Vagrant::Helpers and add test coverage
 - `vagrant_plugin` resource correctly installs vagrant plugins as another user on Windows.
