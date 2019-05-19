@@ -23,13 +23,15 @@ workflows:
       - kitchen/delivery:
           name: delivery
 
-      - kitchen/dokken-single:
-          name: default
-          suite: default
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: uninstall
-          suite: uninstall
-          requires:
-            *lint_and_unit
+      # We cannot test using dokken due to local make file
+      # this may be possible if we use local kitchen instead
+      # - kitchen/dokken-single:
+      #     name: default
+      #     suite: default
+      #     requires:
+      #       *lint_and_unit
+      # - kitchen/dokken-single:
+      #     name: uninstall
+      #     suite: uninstall
+      #     requires:
+      #       *lint_and_unit
