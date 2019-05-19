@@ -25,7 +25,7 @@ workflows:
 
       - kitchen/dokken-single:
           name: default
-          suite: linux
+          suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
