@@ -1,4 +1,4 @@
-# Cookbook Name:: vagrant
+# Cookbook:: vagrant
 # Library:: helpers
 
 # Author:: Joshua Timberman <opensource@housepub.org>
