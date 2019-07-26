@@ -1,7 +1,7 @@
-# Cookbook Name:: vagrant
+# Cookbook:: vagrant
 # Recipe:: install_plugins
 
-# Copyright 2013, Joshua Timberman
+# Copyright:: 2013, Joshua Timberman
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
