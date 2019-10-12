@@ -17,6 +17,8 @@
 property :checksum, String
 property :url, String
 property :version, String
+property :appimage, [true, false], default: false
+property :appimage_file, default: '/usr/local/bin/vagrant'
 
 action_class do
   include Vagrant::Helpers
@@ -31,6 +33,25 @@ action_class do
         source pkg_file
         version pkg_version
       end
+    end
+    file pkg_file do
+      action :delete
+    end
+  end
+
+  def linux(pkg_uri, pkg_file, pkg_checksum)
+    if install?
+      remote_file pkg_file do
+        action :nothing
+        source pkg_uri
+        checksum pkg_checksum
+      end.run_action(:create)
+      directory @linux_install_dir do
+        action :nothing
+        recursive true
+      end.run_action(:create)
+      Chef::Log.warn "Install vagrant at #{@appimage_file}"
+      shell_out!("unzip #{pkg_file} -d #{@linux_install_dir}")
     end
     file pkg_file do
       action :delete
@@ -98,34 +119,46 @@ end
 
 action :install do
   @vagrant_version = new_resource.version
+  @appimage = new_resource.appimage
+  @appimage_file = new_resource.appimage_file
+  @linux_install_dir = ::File.dirname(new_resource.appimage_file)
   vagrant_url = new_resource.url || vagrant_package_uri
   vagrant_checksum = new_resource.checksum || vagrant_sha256sum
   vagrant_rpm = "#{Chef::Config[:file_cache_path]}/vagrant.rpm"
   vagrant_deb = "#{Chef::Config[:file_cache_path]}/vagrant.deb"
+  vagrant_generic = "#{Chef::Config[:file_cache_path]}/vagrant.zip"
 
-  case node['platform_family']
-  when 'debian'
+  if @appimage
+    linux(vagrant_url, vagrant_generic, vagrant_checksum)
+
+  elsif platform_family?('debian')
     debian(vagrant_url, vagrant_deb, vagrant_checksum, @vagrant_version)
 
-  when 'rhel', 'amazon', 'fedora', 'suse'
-    Chef::Log.warning 'SUSE is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
-    Chef::Log.warning 'Amazon is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('amazon')
+  elsif %w(rhel amazon fedora suse).include?(node['platform_family'])
+    Chef::Log.warn 'SUSE is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
+    Chef::Log.warn 'Amazon is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('amazon')
     rhel(vagrant_url, vagrant_rpm, vagrant_checksum)
 
-  when 'mac_os_x'
+  elsif platform_family?('mac_os_x')
     mac_os_x(vagrant_url, vagrant_checksum)
 
-  when 'windows'
+  elsif platform_family?('windows')
     windows(vagrant_url, vagrant_checksum, @vagrant_version)
 
   else
-    Chef::Log.warning "Unsupported OS #{node['platform_family']}"
+    Chef::Log.fatal "Unsupported OS #{node['platform_family']}"
   end
 end
 
 action :uninstall do
-  gem_package 'vagrant' do
-    action :remove
+  if new_resource.appimage
+    puts "RM APPIMAGE #{@appimage_file}"
+    @appimage_file = new_resource.appimage_file
+    FileUtils.rm(@appimage_file) if ::File.exist?(@appimage_file)
+  else
+    gem_package 'vagrant' do
+      action :remove
+    end
   end
   chef_gem 'vagrant' do
     action :remove

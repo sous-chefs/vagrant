@@ -16,7 +16,7 @@ name             'test'
 maintainer       'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
 description      'Test cookbook for the vagrant cookbook'
-license          'Apache 2.0'
+license          'Apache-2.0'
 version          '0.1.0'
 
 depends 'vagrant'
