@@ -152,7 +152,6 @@ end
 
 action :uninstall do
   if new_resource.appimage
-    puts "RM APPIMAGE #{@appimage_file}"
     @appimage_file = new_resource.appimage_file
     FileUtils.rm(@appimage_file) if ::File.exist?(@appimage_file)
   else
