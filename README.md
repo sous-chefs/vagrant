@@ -47,6 +47,9 @@ This cookbook has [test-kitchen](http://kitchen.ci) support for Windows and Mac 
 
 Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root or Administrator).
 
+Use of the AppImage version of Vagrant assumes you have set up support for FUSE filesystems. See https://github.com/libfuse/libfuse
+for general explanation of FUSE. The vagrant installation resource does not install or set up FUSE.
+
 ## Attributes
 
 ### 'default' recipe. Install the Vagrant Package
