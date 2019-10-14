@@ -17,6 +17,8 @@
 
 vagrant 'Vagrant' do
   version node['vagrant']['version']
+  appimage node['vagrant']['appimage']
+  appimage_file node['vagrant']['appimage_file']
 end
 
 include_recipe "#{cookbook_name}::install_plugins" unless node['vagrant']['plugins'].empty?

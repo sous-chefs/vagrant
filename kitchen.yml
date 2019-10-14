@@ -22,25 +22,38 @@ platforms:
   - name: ubuntu-16.04
   - name: ubuntu-18.04
   # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
+  # or run on an actual mac
   - name: macosx-10.10
     driver_config:
       box: chef/macosx-10.10
-  - name: windows-2012r2
-    driver_config:
-      box: mwrock/Windows2012R2
+  - name: windows-2016
+    driver:
+      gui: false
+      box: tas50/windows_2016
+      customize:
+        memory: 1024
 
 suites:
   - name: default
     includes:
       - centos-7
-      - ubuntu-16.04
       - ubuntu-18.04
     run_list:
       - recipe[test]
 
+  - name: generic
+    includes:
+      - centos-7
+      - ubuntu-18.04
+    attributes:
+      vagrant:
+        appimage: true
+    run_list:
+      - recipe[test::generic]
+
   - name: windows
     includes:
-      - windows-2012r2
+      - windows-2016
     run_list:
       - recipe[wintest]
 
@@ -48,11 +61,21 @@ suites:
     run_list:
       - recipe[wintest::windows_location]
     includes:
-      - windows-2012r2
+      - windows-2016
 
   - name: uninstall
     run_list:
       - recipe[test]
       - recipe[test::uninstall]
+    includes:
+      - ubuntu-18.04
+
+  - name: genericuninstall
+    run_list:
+      - recipe[test::generic]
+      - recipe[test::genericuninstall]
+    attributes:
+      vagrant:
+        appimage: true
     includes:
       - ubuntu-18.04

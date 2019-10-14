@@ -27,7 +27,7 @@ property :vagrant_home, String
 
 action_class do
   def plugin
-    is_windows = node['platform_family'] == 'windows'
+    is_windows = platform_family?('windows')
     @plugin ||= Vagrant::Plugin.new(
       new_resource.plugin_name,
       is_windows,
