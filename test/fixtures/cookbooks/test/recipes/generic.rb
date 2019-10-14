@@ -15,6 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+path = ENV['PATH']
+ENV['PATH'] = path + ':/usr/local/bin'
+
 node.default['vagrant']['plugins'] = %w(
   vagrant-ohai
   vagrant-vbguest
@@ -22,13 +25,22 @@ node.default['vagrant']['plugins'] = %w(
 
 node.default['vagrant']['user'] = 'vagrant'
 
+# create a fuse group
+# add root to the fuse group
+group 'fuse' do
+  members %w(vagrant root)
+end
+
 if platform_family?('debian')
   execute 'current patches' do
     command 'apt-get update'
   end
-  package 'libvirt-dev'
-  node.default['vagrant']['plugins'] << { 'name' => 'vagrant-libvirt', 'env' => { CONFIGURE_ARGS: 'with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib' } }
 end
+
+# install fuse and other packages
+package 'fuse'
+package 'gvfs-fuse'
+package 'unzip'
 
 include_recipe 'vagrant::default'
 

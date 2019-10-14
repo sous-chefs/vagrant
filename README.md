@@ -29,13 +29,13 @@ Vagrant does not specifically list supported platforms on the project web site. 
 - Linux (deb-package based platforms, e.g., Debian and Ubuntu)
 - Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
 
-Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is --strongly recommended-- that this cookbook not be on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
+Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is --strongly recommended-- that this cookbook not be used on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
 
 ## Tested with Test Kitchen
 
-- Ubuntu 16.04, 18.04
+- Ubuntu 18.04
 - CentOS 7.3
-- Windows 2012
+- Windows 2016
 
 ## Tested manually
 
@@ -46,6 +46,9 @@ May work on other Debian/RHEL family distributions with or without modification.
 This cookbook has [test-kitchen](http://kitchen.ci) support for Windows and Mac OS X, but requires custom Vagrant boxes.
 
 Because Vagrant is installed as a native system package, Chef must run as a privileged user (e.g., root or Administrator).
+
+Use of the AppImage version of Vagrant assumes you have set up support for FUSE filesystems. See [FUSE](https://github.com/libfuse/libfuse)
+for general explanation of FUSE. The vagrant installation resource does not install or set up FUSE.
 
 ## Attributes
 
@@ -59,11 +62,12 @@ Attribute | Description | Type   | Default
 ['version'] | Vagrant package version | String | '2.0.3'
 ['url'] | Download Vagrant package from this URL | String | Calculated by `vagrant_package_uri` helper method.
 ['checksum'] | Vagrant package checksum (SHA256) | String | Calculated by `vagrant_sha256sum` helper method.
+['appimage'] | Use the appimage version | Binary | nil
+['appimage_file'] | Install location | String | nil
 
 ### 'install_plugins' recipe
 
 Attributes in the table below are under the `node['vagrant']` namespace.
-
 Attribute | Description | Type   | Default
 ----------|-------------|--------|--------
 ['plugins'] | An array of plugins, e.g. `%w(vagrant-aws vagrant-ohai vagrant-omnibus)` | Array | nil
@@ -97,6 +101,8 @@ This cookbook includes the:
 - `:checksum`: Vagrant package checksum (SHA256)
 - `:url`: Download Vagrant package from this URL
 - `:version`: Vagrant package version
+- `:appimage`: Install the appimage version of vagrant flag
+- `:appimage_file`: Install the appimage vagrant file at this location, defaults to /usr/local/bin/vagrant
 
 #### Examples
 

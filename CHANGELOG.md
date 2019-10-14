@@ -4,6 +4,13 @@
 
 - Update the dangerfile
 
+## [2.0.0] 2019-10-11
+
+- Breaking change. Fail if Vagrant install is attempted on an unsupported OS.
+- Add. Allow the install of the appimage version of Vagrant.
+- Remove. Rubocop.yml doesn'tt need to protect the dangerfile any more.
+- Change. Use the latest cookstyle rules
+
 ## 1.0.0
 
 - Convert the resources to custom resources
