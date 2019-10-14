@@ -52,6 +52,7 @@ module Vagrant
         'debian' => '_x86_64.deb',
         %w(rhel suse fedora amazon) => '_x86_64.rpm'
       )
+      extension = '_linux_amd64.zip' if @appimage
       raise ArgumentError "HashiCorp doesn't provide a Vagrant package for the #{node['platform']} platform." if extension.nil?
 
       extension

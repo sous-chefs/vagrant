@@ -25,6 +25,8 @@ default['vagrant']['version']     = '2.2.4'
 # in the install resource if you don't override them in a wrapper cookbook
 default['vagrant']['url']         = nil
 default['vagrant']['checksum']    = nil
+default['vagrant']['appimage']      = nil
+default['vagrant']['appimage_file'] = nil
 
 default['vagrant']['plugins']     = []
 default['vagrant']['user']        = nil
