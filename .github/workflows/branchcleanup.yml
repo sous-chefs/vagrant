@@ -1,7 +1,6 @@
 ---
 name: Branch Cleanup
-# This workflow is triggered on all closed pull requests.
-# However the script does not do anything it a merge was not performed.
+# This workflow is trigged on all closed pull requests, it does something only if a merge is performed.
 on:
   pull_request:
     types: [closed]
