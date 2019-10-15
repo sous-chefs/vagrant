@@ -1,9 +1,5 @@
 # Vagrant Cookbook Changelog
 
-## Next release
-
-- Update the dangerfile
-
 ## [2.0.0] 2019-10-11
 
 - Breaking change. Fail if Vagrant install is attempted on an unsupported OS.
