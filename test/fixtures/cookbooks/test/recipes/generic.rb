@@ -23,7 +23,7 @@ node.default['vagrant']['plugins'] = %w(
   vagrant-vbguest
 )
 
-node.default['vagrant']['user'] = 'vagrant'
+node.default['vagrant']['user'] = 'root'
 
 # create a fuse group
 # add root to the fuse group

@@ -20,7 +20,7 @@ node.default['vagrant']['plugins'] = %w(
   vagrant-vbguest
 )
 
-node.default['vagrant']['user'] = 'vagrant'
+node.default['vagrant']['user'] = 'root'
 
 if platform_family?('debian')
   execute 'current patches' do
