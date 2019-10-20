@@ -35,7 +35,7 @@ include_recipe 'vagrant::default'
 include_recipe 'vagrant::install_plugins'
 
 # Install the plugins in the /root directory
-%w(vagrant-ohai vagrant-berkshelf vagrant-omnibus).each do |plugin|
+%w(vagrant-ohai vagrant-berkshelf vagrant-omnibus vagrant-vbguest).each do |plugin|
   vagrant_plugin plugin do
     vagrant_home '/root/.vagrant.d'
   end
