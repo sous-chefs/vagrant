@@ -25,8 +25,7 @@ node.default['vagrant']['plugins'] = %w(
 
 node.default['vagrant']['user'] = 'root'
 
-
-user 'vagrant' 
+user 'vagrant'
 
 # create a fuse group
 # add root to the fuse group
