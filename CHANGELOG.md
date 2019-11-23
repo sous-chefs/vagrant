@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated tests to work with root user (as is the case on docker machines)
+- Style Fixes
 
 ### Deprecated
 
