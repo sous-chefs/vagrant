@@ -7,11 +7,11 @@ describe command('/usr/local/bin/vagrant --version') do
   its('stderr') { should eq '' }
 end
 
-describe command('VAGRANT_HOME=/home/vagrant/.vagrant.d /usr/local/bin/vagrant plugin list') do
-  its('stdout') { should match(/vagrant-ohai/) }
-  its('stdout') { should match(/vagrant-vbguest/) }
-  its('exit_status') { should eq 0 }
-end
+# describe command('VAGRANT_HOME=/home/root/.vagrant.d /usr/local/bin/vagrant plugin list') do
+#   its('stdout') { should match(/vagrant-ohai/) }
+#   its('stdout') { should match(/vagrant-vbguest/) }
+#   its('exit_status') { should eq 0 }
+# end
 
 describe command("sudo su  -c 'cd /root && /usr/local/bin/vagrant plugin list'") do
   its('stdout') { should match(/vagrant-ohai/) }
