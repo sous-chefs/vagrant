@@ -1,4 +1,12 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
@@ -28,6 +36,26 @@ workflows:
           suite: default-ubuntu-1804
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: generic-centos-7
+          suite: generic-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: generic-ubuntu-1804
+          suite: generic-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: uninstall-ubuntu-1804
           suite: uninstall-ubuntu-1804
           requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: genericuninstall-ubuntu-1804
+          suite: genericuninstall-ubuntu-1804
+          requires: *lint_and_unit
+      - final:
+          requires:
+            - default-centos-7
+            - default-ubuntu-1804
+            - generic-centos-7
+            - generic-ubuntu-1804
+            - uninstall-ubuntu-1804
+            - genericuninstall-ubuntu-1804
