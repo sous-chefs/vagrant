@@ -68,6 +68,7 @@ Attribute | Description | Type   | Default
 ### 'install_plugins' recipe
 
 Attributes in the table below are under the `node['vagrant']` namespace.
+
 Attribute | Description | Type   | Default
 ----------|-------------|--------|--------
 ['plugins'] | An array of plugins, e.g. `%w(vagrant-aws vagrant-ohai vagrant-omnibus)` | Array | nil
