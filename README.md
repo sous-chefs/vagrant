@@ -29,7 +29,7 @@ Vagrant does not specifically list supported platforms on the project web site. 
 - Linux (deb-package based platforms, e.g., Debian and Ubuntu)
 - Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
 
-Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is --strongly recommended-- that this cookbook not be used on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
+Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is __strongly recommended__ that this cookbook not be used on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
 
 ## Tested with Test Kitchen
 
