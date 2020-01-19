@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Use TrueClass and FalseClass in resources
+- Migrated to actions for testing
 
 ### Added
 

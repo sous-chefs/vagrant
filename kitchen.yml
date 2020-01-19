@@ -67,15 +67,11 @@ suites:
     run_list:
       - recipe[test]
       - recipe[test::uninstall]
-    includes:
-      - ubuntu-18.04
 
-  - name: genericuninstall
+  - name: generic_uninstall
     run_list:
       - recipe[test::generic]
       - recipe[test::genericuninstall]
     attributes:
       vagrant:
         appimage: true
-    includes:
-      - ubuntu-18.04
