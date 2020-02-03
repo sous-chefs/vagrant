@@ -5,21 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-- Simplify platform checks
-- Migrated to Github Actions for testing
-
-### Added
+## [2.0.1] 2020-02-01
 
 ### Changed
 
 - Updated tests to work with root user (as is the case on docker machines)
 - Style Fixes
-
-### Deprecated
-
-### Removed
+- Simplify platform checks
+- Migrated to Github Actions for testing
 
 ## [2.0.0] 2019-10-11
 
