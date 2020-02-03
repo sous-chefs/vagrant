@@ -17,7 +17,7 @@
 property :checksum, String
 property :url, String
 property :version, String
-property :appimage, [TrueClass, FalseClass], default: false
+property :appimage, [true, false], default: false
 property :appimage_file, default: '/usr/local/bin/vagrant'
 
 action_class do
@@ -134,7 +134,7 @@ action :install do
   elsif platform_family?('debian')
     debian(vagrant_url, vagrant_deb, vagrant_checksum, @vagrant_version)
 
-  elsif %w(rhel amazon fedora suse).include?(node['platform_family'])
+  elsif platform_family?('rhel', 'amazon', 'fedora', 'suse')
     Chef::Log.warn 'SUSE is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('suse')
     Chef::Log.warn 'Amazon is not specifically supported by Vagrant, going to try anyway as if we were RHEL (rpm install).' if platform_family?('amazon')
     rhel(vagrant_url, vagrant_rpm, vagrant_checksum)
