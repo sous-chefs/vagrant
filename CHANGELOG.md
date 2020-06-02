@@ -2,16 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2.0.2 2020-06-02
 
 - resolved cookstyle error: test/fixtures/cookbooks/wintest/resources/authorize_service.rb:11:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
 
 ## [2.0.1] 2020-02-01
-
-### Changed
 
 - Updated tests to work with root user (as is the case on docker machines)
 - Style Fixes
