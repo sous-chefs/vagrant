@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## 2.0.3 2020-07-14
 
 - Install plugins in the root user home directory for inspec testing.  The plugin location varies depending on environment variables unless explicitly set.
+- Test using ubuntu 20.04
 
 ## 2.0.2 2020-06-02
 
