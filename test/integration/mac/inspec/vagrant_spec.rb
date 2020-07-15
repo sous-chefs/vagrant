@@ -1,3 +1,4 @@
+ENV['HOME'] = '/root/'
 describe command('vagrant --version') do
   its('stdout') { should match(/Vagrant 2.2.4/) }
   its('stderr') { should eq '' }

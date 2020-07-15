@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.0.3 2020-07-14
+
+- Install plugins in the root user home directory for inspec testing.  The plugin location varies depending on environment variables unless explicitly set.
+
 ## 2.0.2 2020-06-02
 
 - resolved cookstyle error: test/fixtures/cookbooks/wintest/resources/authorize_service.rb:11:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`

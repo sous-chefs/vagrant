@@ -1,3 +1,4 @@
+ENV['HOME'] = '/root'
 describe file('/usr/local/bin/vagrant') do
   it { should be_file }
 end

@@ -23,11 +23,10 @@ node.default['vagrant']['plugins'] = %w(
 node.default['vagrant']['user'] = 'root'
 
 if platform_family?('debian')
-  execute 'current patches' do
-    command 'apt-get update'
-  end
-  package 'libvirt-dev'
-  node.default['vagrant']['plugins'] << { 'name' => 'vagrant-libvirt', 'env' => { CONFIGURE_ARGS: 'with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib' } }
+  apt_update
+  package %w(qemu ebtables dnsmasq-base)
+  package %w(libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev)
+  node.default['vagrant']['plugins'] << { 'name' => 'vagrant-libvirt', 'env' => { CONFIGURE_ARGS: 'with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64:/usr/lib/libvirt:/usr/lib/x86_64-linux-gnu' } }
 end
 
 include_recipe 'vagrant::default'
