@@ -20,6 +20,7 @@ node.default['vagrant']['plugins'] = %w(vagrant-ohai)
 node['vagrant']['plugins'].each do |plugin|
   vagrant_plugin "uninstall #{plugin}" do
     plugin_name plugin
+    vagrant_home '/root/.vagrant.d'
     action :uninstall
   end
 end

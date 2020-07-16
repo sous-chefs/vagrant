@@ -20,7 +20,7 @@ description      'Installs Vagrant and provides a vagrant_plugin resource for in
 source_url       'https://github.com/sous-chefs/vagrant'
 issues_url       'https://github.com/sous-chefs/vagrant/issues'
 chef_version     '>= 14.0'
-version          '2.0.2'
+version          '2.0.3'
 
 supports         'debian'
 supports         'ubuntu'

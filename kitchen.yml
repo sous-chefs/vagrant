@@ -19,8 +19,8 @@ verifier:
 
 platforms:
   - name: centos-7
-  - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
   # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
   # or run on an actual mac
   - name: macosx-10.10
@@ -31,13 +31,14 @@ platforms:
       gui: false
       box: tas50/windows_2016
       customize:
-        memory: 1024
+        memory: 2048
 
 suites:
   - name: default
     includes:
       - centos-7
       - ubuntu-18.04
+      - ubuntu-20.04
     run_list:
       - recipe[test]
 
@@ -45,6 +46,7 @@ suites:
     includes:
       - centos-7
       - ubuntu-18.04
+      - ubuntu-20.04
     attributes:
       vagrant:
         appimage: true

@@ -17,6 +17,7 @@
 
 path = ENV['PATH']
 ENV['PATH'] = path + ':/usr/local/bin'
+ENV['HOME'] = '/root'
 
 node.default['vagrant']['plugins'] = %w(
   vagrant-ohai
@@ -34,9 +35,7 @@ group 'fuse' do
 end
 
 if platform_family?('debian')
-  execute 'current patches' do
-    command 'apt-get update'
-  end
+  apt_update
 end
 
 # install fuse and other packages

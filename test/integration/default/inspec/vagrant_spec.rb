@@ -3,7 +3,7 @@ describe command('vagrant --version') do
   its('stderr') { should eq '' }
 end
 
-describe command('vagrant plugin list') do
+describe command("sudo su -c 'cd /root && vagrant plugin list'") do
   its('stdout') { should match(/vagrant-ohai/) }
   its('stdout') { should match(/vagrant-vbguest/) }
   its('exit_status') { should eq 0 }
@@ -17,7 +17,7 @@ describe command("sudo su  -c 'cd /root && vagrant plugin list'") do
 end
 
 if os[:family] == 'debian'
-  describe command('vagrant plugin list') do
+  describe command("sudo su -c 'cd /root && vagrant plugin list'") do
     its('stdout') { should match(/vagrant-libvirt/) }
   end
 end
