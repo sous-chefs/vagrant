@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2.0.4 - *2020-12-31*
 
 - resolved cookstyle error: metadata.rb:31:1 convention: `Layout/TrailingEmptyLines`
 
