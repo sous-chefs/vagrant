@@ -28,4 +28,3 @@ supports         'redhat'
 supports         'centos'
 supports         'windows'
 supports         'mac_os_x'
-
