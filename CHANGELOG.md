@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+- resolved cookstyle error: test/fixtures/cookbooks/wintest/resources/authorize_service.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
 ## 2.0.4 - *2020-12-31*
 
 - resolved cookstyle error: metadata.rb:31:1 convention: `Layout/TrailingEmptyLines`
