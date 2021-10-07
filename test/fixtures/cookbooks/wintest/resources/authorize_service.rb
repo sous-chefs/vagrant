@@ -9,6 +9,7 @@
 # Took most of the code from chef/lib/chef/provider/service/windows.rb
 
 provides :authorize_service
+unified_mode true
 property :service, String, required: true
 property :user, String, required: true
 

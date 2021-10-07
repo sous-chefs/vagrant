@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+- resolved cookstyle error: test/fixtures/cookbooks/wintest/resources/authorize_service.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
 ## 2.0.6 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management
