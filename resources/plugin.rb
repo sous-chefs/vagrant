@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+unified_mode true if respond_to?(:unified_mode)
+
 default_action :install
 
 property :plugin_name, name_property: true

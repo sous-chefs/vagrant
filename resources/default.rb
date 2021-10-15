@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+unified_mode true if respond_to?(:unified_mode)
+
 property :checksum, String
 property :url, String
 property :version, String
