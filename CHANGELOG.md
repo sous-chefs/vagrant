@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
- - Enabled `unified_mode` for all resources.
+- Enabled `unified_mode` for all resources.
  
 ## 2.0.6 - *2021-08-30*
 
