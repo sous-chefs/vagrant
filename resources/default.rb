@@ -18,7 +18,7 @@ property :checksum, String
 property :url, String
 property :version, String
 property :appimage, [true, false], default: false
-property :appimage_file, default: '/usr/local/bin/vagrant'
+property :appimage_file, String, default: '/usr/local/bin/vagrant'
 
 action_class do
   include Vagrant::Helpers
