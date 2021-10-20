@@ -19,7 +19,7 @@ license          'Apache-2.0'
 description      'Installs Vagrant and provides a vagrant_plugin resource for installing Vagrant plugins.'
 source_url       'https://github.com/sous-chefs/vagrant'
 issues_url       'https://github.com/sous-chefs/vagrant/issues'
-chef_version     '>= 14.0'
+chef_version     '>= 15.3'
 version          '2.0.6'
 
 supports         'debian'
