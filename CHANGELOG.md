@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+- Cookstyle fixes
+
 ## 2.0.6 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management
