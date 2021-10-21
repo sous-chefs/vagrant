@@ -43,6 +43,10 @@ package 'fuse'
 package 'gvfs-fuse'
 package 'unzip'
 
+if platform_family?('rhel')
+  package 'glibc'
+end
+
 include_recipe 'vagrant::default'
 
 include_recipe 'vagrant::install_plugins'
