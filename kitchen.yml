@@ -19,6 +19,7 @@ verifier:
 
 platforms:
   - name: centos-7
+  - name: centos-8
   - name: ubuntu-18.04
   - name: ubuntu-20.04
   # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
@@ -37,6 +38,7 @@ suites:
   - name: default
     includes:
       - centos-7
+      - centos-8
       - ubuntu-18.04
       - ubuntu-20.04
     run_list:
@@ -46,6 +48,7 @@ suites:
     includes:
       - ubuntu-18.04
       - ubuntu-20.04
+      - centos-8
     attributes:
       vagrant:
         appimage: true
@@ -75,6 +78,7 @@ suites:
       - ubuntu-20.04
       - macosx-10.10
       - windows-2016
+      - centos-8
     run_list:
       - recipe[test::generic]
       - recipe[test::genericuninstall]

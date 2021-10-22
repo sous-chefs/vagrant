@@ -23,6 +23,13 @@ platforms:
       intermediate_instructions:
         - RUN yum -y install sudo
 
+  - name: centos-8
+    driver:
+      image: dokken/centos-8
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install sudo
+
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
