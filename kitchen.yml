@@ -44,7 +44,6 @@ suites:
 
   - name: generic
     includes:
-      - centos-7
       - ubuntu-18.04
       - ubuntu-20.04
     attributes:
@@ -71,6 +70,11 @@ suites:
       - recipe[test::uninstall]
 
   - name: generic_uninstall
+    includes:
+      - ubuntu-18.04
+      - ubuntu-20.04
+      - macosx-10.10
+      - windows-2016
     run_list:
       - recipe[test::generic]
       - recipe[test::genericuninstall]
