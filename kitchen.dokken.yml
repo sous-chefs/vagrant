@@ -28,7 +28,7 @@ platforms:
       image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
       intermediate_instructions:
-        - RUN yum -y install sudo
+        - RUN yum -y install sudo openssh-clients
 
   - name: ubuntu-18.04
     driver:
