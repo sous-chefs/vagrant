@@ -19,7 +19,7 @@ unified_mode true
 property :checksum, String
 property :url, String
 property :version, String
-property :appimage, Boolean, [true, false], default: false
+property :appimage, [true, false], default: false
 property :appimage_file, String, default: '/usr/local/bin/vagrant'
 
 action_class do
