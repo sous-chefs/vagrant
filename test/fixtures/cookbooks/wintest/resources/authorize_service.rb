@@ -8,6 +8,8 @@
 # https://github.com/chef/chef/blob/7f69ad99a2446e9c70112aa531f68a971a52758f/lib/chef/provider/service/windows.rb#L241-L251
 # Took most of the code from chef/lib/chef/provider/service/windows.rb
 
+unified_mode true
+
 provides :authorize_service
 property :service, String, required: true
 property :user, String, required: true

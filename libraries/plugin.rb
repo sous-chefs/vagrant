@@ -91,7 +91,7 @@ module Vagrant
       cmd_args[:env]['VAGRANT_HOME'] = vagrant_home if vagrant_home
       shell_out!(
         command,
-        cmd_args
+        **cmd_args
       )
     end
 
