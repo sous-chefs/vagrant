@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+- Enabled `unified_mode` for all resources.
+- Dropped compatibility with Chef versions < 15.3.
+- Updated Vagrant default version to 2.2.18 (previously was 2.2.4).
+
 ## 2.0.6 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management

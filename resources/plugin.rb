@@ -15,9 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+unified_mode true
+
 default_action :install
 
-property :plugin_name, name_property: true
+property :plugin_name, String, name_property: true
 property :version, String
 property :env, [Hash, nil], default: nil
 property :user, String
