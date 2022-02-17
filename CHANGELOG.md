@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 3.0.0 - *2021-11-01*
 
 - Enabled `unified_mode` for all resources.
