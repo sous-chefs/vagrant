@@ -23,8 +23,6 @@ property :appimage, [true, false], default: false
 property :appimage_file, String, default: '/usr/local/bin/vagrant'
 
 action_class do
-  include Vagrant::Helpers
-
   def debian(pkg_uri, pkg_file, pkg_checksum, pkg_version)
     if install?
       remote_file pkg_file do

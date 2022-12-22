@@ -33,9 +33,9 @@ Other platforms are not supported. This cookbook attempts to exit gracefully in 
 
 ## Tested with Test Kitchen
 
-- Ubuntu 18.04
-- CentOS 7.3
-- Windows 2016
+- Ubuntu 18.04+
+- CentOS 7+
+- Windows 2016+
 
 ## Tested manually
 

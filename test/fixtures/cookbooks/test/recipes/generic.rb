@@ -39,9 +39,12 @@ if platform_family?('debian')
 end
 
 # install fuse and other packages
-package 'fuse'
-package 'gvfs-fuse'
-package 'unzip'
+package %w(
+  gvfs-fuse
+  libfuse2
+  openssh-client
+  unzip
+)
 
 include_recipe 'vagrant::default'
 

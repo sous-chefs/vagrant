@@ -19,7 +19,7 @@
 
 return unless %w(darwin windows linux).include?(node['os'])
 
-default['vagrant']['version']     = '2.2.18'
+default['vagrant']['version']     = '2.3.4'
 
 # the URL and checksum are calculated from the package version by helper methods
 # in the install resource if you don't override them in a wrapper cookbook
