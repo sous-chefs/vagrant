@@ -91,10 +91,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Drop testing for chef-client 12
 - Fix the calculation of the plugin directory location
 - Fixes for Windows 2012R2:
-  - The Vagrant installer needs to reboot windows, but the MSI does this in a way that chef can't handle. As an alternative, we make chef interrupt itself and reboot the instance.
-  - Related to the above, the MSI returns two specific exit codes when it finishes (but not 0...) that chef needs to know about.
-  - Testing windows requires user 'vagrant' to hold the 'Replace a process level token' and 'Adjust Memory Quotas for a process' permissions. At the moment those setting must be made using the secpol.msc interface. A furtur task is to configure the vagrant user via the test cookbook.
-  - Vagrant version 1.9.7 suffers from the issue described in #82 (Expected process to exit with [0], but received '-1073741515'). For unknown reasons, this problem is resolved by using 2.0.3 (Perhaps also earlier versions, but they were not tested.)
+   - The Vagrant installer needs to reboot windows, but the MSI does this in a way that chef can't handle. As an alternative, we make chef interrupt itself and reboot the instance.
+   - Related to the above, the MSI returns two specific exit codes when it finishes (but not 0...) that chef needs to know about.
+   - Testing windows requires user 'vagrant' to hold the 'Replace a process level token' and 'Adjust Memory Quotas for a process' permissions. At the moment those setting must be made using the secpol.msc interface. A furtur task is to configure the vagrant user via the test cookbook.
+   - Vagrant version 1.9.7 suffers from the issue described in #82 (Expected process to exit with [0], but received '-1073741515'). For unknown reasons, this problem is resolved by using 2.0.3 (Perhaps also earlier versions, but they were not tested.)
 
 ## 0.7.2
 
