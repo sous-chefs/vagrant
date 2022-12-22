@@ -22,26 +22,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        default_suite_os:
-          - 'almalinux-8'
-          - 'centos-7'
-          - 'centos-stream-8'
-          - 'debian-10'
-          - 'debian-11'
-          - 'rockylinux-8'
-          - 'ubuntu-1804'
-          - 'ubuntu-2004'
-          - 'ubuntu-2204'
-        generic_suite_os:
-          - 'debian-11'
-          - 'ubuntu-2004'
-          - 'ubuntu-2204'
-        generic_suite:
-          - 'generic'
-          - 'generic-uninstall'
-        default_suite:
-          - 'default'
-          - 'uninstall'
+        os:
+          - almalinux-8
+          - centos-7
+          - centos-stream-8
+          - debian-10
+          - debian-11
+          - rockylinux-8
+          - ubuntu-1804
+          - ubuntu-2004
+          - ubuntu-2204
+        suite:
+          - generic
+          - generic-uninstall
       fail-fast: false
 
     steps:
@@ -49,19 +42,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Install Chef
         uses: actionshub/chef-install@main
-      - name: Dokken (generic suite)
+      - name: Dokken
         uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
         with:
-          suite: ${{ matrix.generic_suite }}
-          os: ${{ matrix.generic_suite_os }}
-      - name: Dokken (default suite)
-        uses: actionshub/test-kitchen@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.default_suite }}
-          os: ${{ matrix.default_suite_os }}
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
