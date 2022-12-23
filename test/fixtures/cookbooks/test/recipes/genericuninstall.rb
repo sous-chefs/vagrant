@@ -15,16 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node.default['vagrant']['plugins'] = %w(vagrant-ohai)
-
-node['vagrant']['plugins'].each do |plugin|
-  vagrant_plugin "uninstall #{plugin}" do
-    plugin_name plugin
-    vagrant_home '/root/.vagrant.d'
-    action :uninstall
-  end
-end
-
 vagrant 'uninstall appimage' do
   action :uninstall
   appimage true

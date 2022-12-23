@@ -5,7 +5,7 @@ describe file('/usr/local/bin/vagrant') do
 end
 
 describe command('/usr/local/bin/vagrant --version') do
-  its('stdout') { should match(/Vagrant 2.3.0/) }
+  its('stdout') { should match(/Vagrant 2.3.4/) }
   its('stderr') { should eq '' }
 end
 

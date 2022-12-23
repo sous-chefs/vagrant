@@ -15,39 +15,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-path = ENV['PATH']
-ENV['PATH'] = path + ':/usr/local/bin'
-ENV['HOME'] = '/root'
-
 node.default['vagrant']['plugins'] = %w(
   vagrant-ohai
   vagrant-vbguest
 )
 
-node.default['vagrant']['user'] = 'root'
-
-user 'vagrant'
-
-# create a fuse group
-# add root to the fuse group
-group 'fuse' do
-  members %w(vagrant root)
-end
-
-if platform_family?('debian')
-  apt_update
-end
-
-# install fuse and other packages
-package %w(
-  gvfs-fuse
-  libfuse2
-  openssh-client
-  unzip
-)
+package 'libfuse2' if platform_family?('debian')
 
 include_recipe 'vagrant::default'
-
 include_recipe 'vagrant::install_plugins'
 
 # Install the plugins in the /root directory

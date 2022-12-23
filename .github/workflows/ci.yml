@@ -33,8 +33,14 @@ jobs:
           - ubuntu-2004
           - ubuntu-2204
         suite:
+          - default
           - generic
           - generic-uninstall
+        exclude:
+          - os: centos-7
+            suite: generic
+          - os: centos-7
+            suite: generic-uninstall
       fail-fast: false
 
     steps:

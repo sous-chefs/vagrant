@@ -41,20 +41,19 @@ action_class do
 
   def linux(pkg_uri, pkg_file, pkg_checksum)
     if install?
+      package 'openssh-clients' do
+        package_name 'openssh-client' if platform_family?('debian')
+      end
+
       remote_file pkg_file do
-        action :nothing
         source pkg_uri
         checksum pkg_checksum
-      end.run_action(:create)
-      directory @linux_install_dir do
-        action :nothing
-        recursive true
-      end.run_action(:create)
-      Chef::Log.warn "Install vagrant at #{@appimage_file}"
-      shell_out!("unzip #{pkg_file} -d #{@linux_install_dir}")
-    end
-    file pkg_file do
-      action :delete
+      end
+
+      archive_file pkg_file do
+        destination ::File.dirname(new_resource.appimage_file)
+        overwrite :auto
+      end
     end
   end
 
@@ -155,11 +154,8 @@ action :uninstall do
     @appimage_file = new_resource.appimage_file
     FileUtils.rm(@appimage_file) if ::File.exist?(@appimage_file)
   else
-    gem_package 'vagrant' do
+    package 'vagrant' do
       action :remove
     end
-  end
-  chef_gem 'vagrant' do
-    action :remove
   end
 end

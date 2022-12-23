@@ -1,10 +1,7 @@
-describe command('vagrant --version') do
-  its('stdout') { should match(/Vagrant 2.3.0/) }
-  its('stderr') { should eq '' }
+describe package 'vagrant' do
+  it { should_not be_installed }
 end
 
-describe command("sudo su -c 'cd /root && vagrant plugin list'") do
-  its('stdout') { should_not match(/vagrant-ohai/) }
-  its('stdout') { should match(/vagrant-vbguest/) }
-  its('exit_status') { should eq 0 }
+describe command('vagrant --version') do
+  its('exit_status') { should eq 127 }
 end
