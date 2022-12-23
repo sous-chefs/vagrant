@@ -3,61 +3,84 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_zero
-  # Codes that Windows might use to say it's rebooting.
-  # We need the retry logic or chef will see the reboot
-  # as a complete failure and give up.
-  retry_on_exit_code: [35, 259]
-  max_retries: 3
-  wait_for_retry: 180
-  client_rb:
-    exit_status: :enabled
-    client_fork: false
+  name: chef_infra
+  chef_license: accept-no-persist
+  multiple_converge: 2
+  enforce_idempotency: true
+  deprecations_as_errors: true
+  retry_on_exit_code:
+    - 35
+  max_retries: 5
+  wait_for_retry: 90
 
 verifier:
   name: inspec
 
 platforms:
+  - name: almalinux-8
   - name: centos-7
-  - name: centos-8
+  - name: centos-stream-8
+  - name: debian-10
+  - name: debian-11
+  - name: rockylinux-8
   - name: ubuntu-18.04
   - name: ubuntu-20.04
-  # To run test-kitchen for OS X, create a box for 10.10, and add it to vagrant
-  # or run on an actual mac
-  - name: macosx-10.10
-    driver_config:
-      box: chef/macosx-10.10
+  - name: ubuntu-22.04
   - name: windows-2016
     driver:
       gui: false
-      box: tas50/windows_2016
+      box: stromweld/windows-2016
       customize:
-        memory: 2048
+        memory: 4096
+    transport:
+      name: winrm
+      elevated: true
+  - name: windows-2019
+    driver:
+      gui: false
+      box: stromweld/windows-2019
+      customize:
+        memory: 4096
+    transport:
+      name: winrm
+      elevated: true
+
+  - name: windows-2022
+    driver:
+      gui: false
+      box: stromweld/windows-2022
+      customize:
+        memory: 4096
+    transport:
+      name: winrm
+      elevated: true
 
 suites:
   - name: default
-    includes:
-      - centos-7
-      - centos-8
-      - ubuntu-18.04
-      - ubuntu-20.04
     run_list:
       - recipe[test]
+    excludes:
+      - windows-2016
+      - windows-2019
+      - windows-2022
 
   - name: generic
-    includes:
-      - ubuntu-18.04
-      - ubuntu-20.04
-      - centos-8
     attributes:
       vagrant:
         appimage: true
     run_list:
       - recipe[test::generic]
+    excludes:
+      - centos-7
+      - windows-2016
+      - windows-2019
+      - windows-2022
 
   - name: windows
     includes:
       - windows-2016
+      - windows-2019
+      - windows-2022
     run_list:
       - recipe[wintest]
 
@@ -66,22 +89,29 @@ suites:
       - recipe[wintest::windows_location]
     includes:
       - windows-2016
+      - windows-2019
+      - windows-2022
 
   - name: uninstall
     run_list:
       - recipe[test]
       - recipe[test::uninstall]
+    provisioner:
+      multiple_converge: 1
+      enforce_idempotency: false
 
   - name: generic_uninstall
-    includes:
-      - ubuntu-18.04
-      - ubuntu-20.04
-      - macosx-10.10
-      - windows-2016
-      - centos-8
     run_list:
       - recipe[test::generic]
       - recipe[test::genericuninstall]
     attributes:
       vagrant:
         appimage: true
+    excludes:
+      - centos-7
+      - windows-2016
+      - windows-2019
+      - windows-2022
+    provisioner:
+      multiple_converge: 1
+      enforce_idempotency: false
