@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
 ## 4.0.6 - *2023-04-01*
 
 Standardise files with files in sous-chefs/repo-management
