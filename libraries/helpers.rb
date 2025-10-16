@@ -77,9 +77,9 @@ module Vagrant
       end
 
       def extract_checksum(sha256sums)
-        raise "SHA 256 sum not found for the Vagrant package #{package_name}" unless sha256sums.grep(/#{package_name}/)[0].respond_to?(:split)
+        raise "SHA 256 sum not found for the Vagrant package #{package_name}" unless sha256sums.grep(/#{package_name}/).first.respond_to?(:split)
 
-        sha256sums.grep(/#{package_name}/)[0].split.first
+        sha256sums.grep(/#{package_name}/).first.split.first
       end
 
       def deb_extension

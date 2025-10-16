@@ -53,7 +53,7 @@ module Vagrant
     end
 
     def install?(version)
-      requested_version = version ? Gem::Version.new(version) : Gem::Version.new('0.0.0')
+      requested_version = Gem::Version.new(version || '0.0.0')
       return true unless installed_version
       return false if installed_version >= requested_version
 

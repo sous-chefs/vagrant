@@ -5,7 +5,7 @@ RSpec.describe Vagrant::Plugin do
   let(:unix_user) { { username: 'my_user' } }
 
   let(:windows_plugin_list) { "simple-plugin (0.1.0, system)\r\ntwo-digit-minor (1.12.34)\r\nvagrant-foobar (2.3.4)" }
-  let(:unix_plugin_list) { windows_plugin_list.gsub(/\r\n/, "\n") }
+  let(:unix_plugin_list) { windows_plugin_list.gsub("\r\n", "\n") }
 
   def plugin_cli_with_vpl_mocked(name, is_windows, options = {})
     cli = Vagrant::Plugin.new(name, is_windows, options)
