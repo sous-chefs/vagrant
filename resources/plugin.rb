@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+#
 # Cookbook:: vagrant
 # Resource:: plugin
 
@@ -16,6 +18,7 @@
 # limitations under the License.
 
 unified_mode true
+provides :vagrant_plugin
 
 default_action :install
 

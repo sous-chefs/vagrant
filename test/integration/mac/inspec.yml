@@ -1,0 +1,7 @@
+---
+name: mac
+title: Vagrant macOS Tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: macOS integration tests for the vagrant cookbook
+version: 1.0.0

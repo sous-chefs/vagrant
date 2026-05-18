@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+#
 # Cookbook:: vagrant
 # Resource:: install
 # Copyright:: 2018 Sous Chefs
@@ -15,14 +17,20 @@
 # limitations under the License.
 
 unified_mode true
+provides :vagrant
 
-property :checksum, String
-property :url, String
-property :version, String
+property :checksum, [String, nil]
+property :url, [String, nil]
+property :version, String, default: '2.4.9'
 property :appimage, [true, false], default: false
 property :appimage_file, String, default: '/usr/local/bin/vagrant'
+property :plugins, Array, default: []
+property :plugin_user, [String, nil]
+property :plugin_password, [String, nil], sensitive: true
 
 action_class do
+  include Vagrant::Cookbook::Helpers
+
   def debian(pkg_uri, pkg_file, pkg_checksum, pkg_version)
     if install?
       remote_file pkg_file do
@@ -114,6 +122,18 @@ action_class do
     md = /^Vagrant\s+(?<version>\d+\.\d+\.\d+)/.match(query)
     md ? Gem::Version.new(md[:version]) : Gem::Version.new('0.0.0')
   end
+
+  def plugin_value(plugin, key)
+    return unless plugin.respond_to?(:key?)
+
+    plugin[key.to_s] || plugin[key]
+  end
+
+  def plugin_name(plugin)
+    return plugin unless plugin.respond_to?(:key?)
+
+    plugin_value(plugin, :name)
+  end
 end
 
 action :install do
@@ -146,6 +166,17 @@ action :install do
 
   else
     Chef::Log.fatal "Unsupported OS #{node['platform_family']}"
+  end
+
+  new_resource.plugins.each do |plugin|
+    vagrant_plugin plugin_name(plugin) do
+      env plugin_value(plugin, :env) if plugin_value(plugin, :env)
+      sources plugin_value(plugin, :sources) if plugin_value(plugin, :sources)
+      version plugin_value(plugin, :version) if plugin_value(plugin, :version)
+      user(plugin_value(plugin, :user) || new_resource.plugin_user) if plugin_value(plugin, :user) || new_resource.plugin_user
+      password(plugin_value(plugin, :password) || new_resource.plugin_password) if plugin_value(plugin, :password) || new_resource.plugin_password
+      vagrant_home plugin_value(plugin, :vagrant_home) if plugin_value(plugin, :vagrant_home)
+    end
   end
 end
 

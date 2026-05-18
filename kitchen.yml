@@ -18,100 +18,74 @@ verifier:
 
 platforms:
   - name: almalinux-8
-  - name: centos-7
-  - name: centos-stream-8
-  - name: debian-10
-  - name: debian-11
+  - name: almalinux-9
+  - name: almalinux-10
+  - name: amazonlinux-2023
+  - name: centos-stream-9
+  - name: centos-stream-10
+  - name: debian-12
+  - name: debian-13
+  - name: fedora-latest
+  - name: oraclelinux-8
+  - name: oraclelinux-9
   - name: rockylinux-8
-  - name: ubuntu-18.04
-  - name: ubuntu-20.04
+  - name: rockylinux-9
+  - name: rockylinux-10
   - name: ubuntu-22.04
-  - name: windows-2016
-    driver:
-      gui: false
-      box: stromweld/windows-2016
-      customize:
-        memory: 4096
-    transport:
-      name: winrm
-      elevated: true
-  - name: windows-2019
-    driver:
-      gui: false
-      box: stromweld/windows-2019
-      customize:
-        memory: 4096
-    transport:
-      name: winrm
-      elevated: true
+  - name: ubuntu-24.04
 
-  - name: windows-2022
-    driver:
-      gui: false
-      box: stromweld/windows-2022
-      customize:
-        memory: 4096
-    transport:
-      name: winrm
-      elevated: true
+x-run_lists:
+  default: &default_run_list
+    - recipe[test::default]
+  generic: &generic_run_list
+    - recipe[test::generic]
+  uninstall: &uninstall_run_list
+    - recipe[test::default]
+    - recipe[test::uninstall]
+  generic_uninstall: &generic_uninstall_run_list
+    - recipe[test::generic]
+    - recipe[test::genericuninstall]
+
+x-attributes:
+  appimage: &appimage_attributes
+    vagrant:
+      appimage: true
+
+x-verifiers:
+  default: &default_verifier
+    inspec_tests:
+      - path: test/integration/default
+  generic: &generic_verifier
+    inspec_tests:
+      - path: test/integration/generic
+  uninstall: &uninstall_verifier
+    inspec_tests:
+      - path: test/integration/uninstall
+  generic_uninstall: &generic_uninstall_verifier
+    inspec_tests:
+      - path: test/integration/generic_uninstall
 
 suites:
   - name: default
-    run_list:
-      - recipe[test]
-    excludes:
-      - windows-2016
-      - windows-2019
-      - windows-2022
+    run_list: *default_run_list
+    verifier: *default_verifier
 
   - name: generic
-    attributes:
-      vagrant:
-        appimage: true
-    run_list:
-      - recipe[test::generic]
-    excludes:
-      - centos-7
-      - windows-2016
-      - windows-2019
-      - windows-2022
-
-  - name: windows
-    includes:
-      - windows-2016
-      - windows-2019
-      - windows-2022
-    run_list:
-      - recipe[wintest]
-
-  - name: windows_location
-    run_list:
-      - recipe[wintest::windows_location]
-    includes:
-      - windows-2016
-      - windows-2019
-      - windows-2022
+    run_list: *generic_run_list
+    attributes: *appimage_attributes
+    verifier: *generic_verifier
 
   - name: uninstall
-    run_list:
-      - recipe[test]
-      - recipe[test::uninstall]
+    run_list: *uninstall_run_list
+    verifier: *uninstall_verifier
     provisioner:
       multiple_converge: 1
       enforce_idempotency: false
 
   - name: generic_uninstall
-    run_list:
-      - recipe[test::generic]
-      - recipe[test::genericuninstall]
-    attributes:
-      vagrant:
-        appimage: true
-    excludes:
-      - centos-7
-      - windows-2016
-      - windows-2019
-      - windows-2022
+    run_list: *generic_uninstall_run_list
+    attributes: *appimage_attributes
+    verifier: *generic_uninstall_verifier
     provisioner:
       multiple_converge: 1
       enforce_idempotency: false
