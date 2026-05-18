@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+#
 # Cookbook:: vagrant
 # Library:: helpers
 
@@ -114,5 +116,3 @@ module Vagrant
     end
   end
 end
-Chef::DSL::Recipe.include ::Vagrant::Cookbook::Helpers
-Chef::Resource.include ::Vagrant::Cookbook::Helpers

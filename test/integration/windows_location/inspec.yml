@@ -1,0 +1,7 @@
+---
+name: windows_location
+title: Vagrant Windows Location Tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Windows VAGRANT_HOME integration tests for the vagrant cookbook
+version: 1.0.0

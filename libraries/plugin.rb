@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'chef/mixin/shell_out'
 
 module Vagrant

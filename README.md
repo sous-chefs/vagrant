@@ -6,9 +6,9 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Installs [Vagrant](https://www.vagrantup.com/) 1.6+ and manages Vagrant plugins via a `vagrant_plugin` resource.
+Installs [Vagrant](https://www.vagrantup.com/) and manages Vagrant plugins via custom resources.
 
-This cookbook is not intended to be used for vagrant "1.0" (gem install) versions. A recipe is provided for removing the gem, see __Recipes__.
+This cookbook is not intended to install Vagrant 1.0 RubyGem versions. Use the `vagrant_gem` resource if you need to remove an old gem install.
 
 This cookbook is not supported for installing versions of Vagrant older than 1.6.
 
@@ -22,20 +22,25 @@ This cookbook should not be used on platforms that Vagrant itself does not suppo
 
 ## Vagrant Supported Platforms
 
-Vagrant does not specifically list supported platforms on the project web site. However, the only platforms with [packages provided](https://www.vagrantup.com/downloads.html) are:
+Vagrant publishes packages for:
 
 - Mac OS X
 - Windows
 - Linux (deb-package based platforms, e.g., Debian and Ubuntu)
-- Linux (rpm-packaged based platforms, e.g., RHEL and CentOS)
+- Linux (rpm-package based platforms, e.g., RHEL-compatible distributions, Fedora, and Amazon Linux)
 
 Other platforms are not supported. This cookbook attempts to exit gracefully in places where unsupported platforms may cause an issue, but it is __strongly recommended__ that this cookbook not be used on an unsupported platform's node run list or used as a dependency for cookbooks used on unsupported platforms.
 
 ## Tested with Test Kitchen
 
-- Ubuntu 18.04+
-- CentOS 7+
-- Windows 2016+
+- AlmaLinux 8+
+- Amazon Linux 2023+
+- CentOS Stream 9+
+- Debian 12+
+- Fedora latest
+- Oracle Linux 8+
+- Rocky Linux 8+
+- Ubuntu 22.04+
 
 ## Tested manually
 
@@ -50,39 +55,10 @@ Because Vagrant is installed as a native system package, Chef must run as a priv
 Use of the AppImage version of Vagrant assumes you have set up support for FUSE filesystems. See [FUSE](https://github.com/libfuse/libfuse)
 for general explanation of FUSE. The vagrant installation resource does not install or set up FUSE.
 
-## Attributes
+## Migration
 
-### 'default' recipe. Install the Vagrant Package
-
-The attributes defined for this cookbook are organized under the
-`node['vagrant']` namespace.
-
-Attribute | Description | Type   | Default
-----------|-------------|--------|--------
-['version'] | Vagrant package version | String | '2.0.3'
-['url'] | Download Vagrant package from this URL | String | Calculated by `vagrant_package_uri` helper method.
-['checksum'] | Vagrant package checksum (SHA256) | String | Calculated by `vagrant_sha256sum` helper method.
-['appimage'] | Use the appimage version | Binary | nil
-['appimage_file'] | Install location | String | nil
-
-### 'install_plugins' recipe
-
-Attributes in the table below are under the `node['vagrant']` namespace.
-
-Attribute | Description | Type   | Default
-----------|-------------|--------|--------
-['plugins'] | An array of plugins, e.g. `%w(vagrant-aws vagrant-ohai vagrant-omnibus)` | Array | nil
-['plugins'] | If you want to install specific plugin versions, use the second form of the `['plugins']` array, e.g. [ {name: 'vagrant-ohai', version: '0.1.3'}, {name: 'vagrant-aws', version: '0.6.0'} ] | Array of Hashes | nil
-
-- `node['vagrant']['plugins']` - A array of plugins. The elements in
-  the array can be a string or a hash. String elements should be the
-  names of plugins to install. Hash elements should have the name key
-  for the plugin name.  The options version and env keys may be used
-  to specify the version and any needed environment settings for the
-  plugin.  This form is used by the `vagrant_plugin` resource in the
-  `install_plugins` recipe.
-- `node['vagrant']['user']` - A user that is used to automatically install plugins as for the `node['vagrant']['plugins']` attribute.
-- `node['vagrant']['password']` - The password for the user. Used for installing as another user on windows systems.
+This cookbook now exposes custom resources only. Legacy root recipes and attributes were removed.
+See [migration.md](migration.md) for examples that map the old recipe and attribute API to resource properties.
 
 ## Resources
 
@@ -90,6 +66,13 @@ This cookbook includes the:
 
 - `vagrant` resource, for installing vagrant.
 - `vagrant_plugin` resource, for managing vagrant plugins.
+- `vagrant_gem` resource, for removing legacy RubyGem installs.
+
+See the resource documentation:
+
+- [vagrant](documentation/vagrant.md)
+- [vagrant_plugin](documentation/vagrant_plugin.md)
+- [vagrant_gem](documentation/vagrant_gem.md)
 
 ### vagrant
 
@@ -104,18 +87,27 @@ This cookbook includes the:
 - `:version`: Vagrant package version
 - `:appimage`: Install the appimage version of vagrant flag
 - `:appimage_file`: Install the appimage vagrant file at this location, defaults to /usr/local/bin/vagrant
+- `:plugins`: Install Vagrant plugins after Vagrant is installed
+- `:plugin_user`: User used for plugins installed through the `plugins` property
+- `:plugin_password`: Password used for plugins installed through the `plugins` property
 
 #### Examples
 
 ```ruby
-vagrant 'Vagrant' do
-  version node['vagrant']['version']
-end
+vagrant 'Vagrant'
 
 vagrant 'Vagrant from url' do
-  checksum node['vagrant']['checksum']
-  url node['vagrant']['url']
-  version node['vagrant']['checksum']
+  checksum 'abc123'
+  url 'https://releases.hashicorp.com/vagrant/2.4.9/vagrant_2.4.9-1_amd64.deb'
+  version '2.4.9'
+end
+
+vagrant 'Vagrant with plugins' do
+  plugin_user 'root'
+  plugins [
+    'vagrant-ohai',
+    { name: 'vagrant-berkshelf', version: '1.2.0' },
+  ]
 end
 ```
 
@@ -164,13 +156,13 @@ requires a username and password.
 
 ```ruby
 vagrant_plugin 'vagrant-winrm' do
-  user node['vagrant']['user']
-  password node['vagrant']['password']
+  user 'vagrant'
+  password 'vagrant'
 end
 
 # Install a plugin in the /root directory
 vagrant_plugin 'vagrant-aws' do
-  vagrant_home: '/root/.vagrant.d'
+  vagrant_home '/root/.vagrant.d'
 end
 ```
 
@@ -192,27 +184,21 @@ RSpec.describe 'example::default' do
 end
 ```
 
-## Recipes
+### vagrant_gem
 
-### default
+#### Actions
 
-The default recipe uses the vagrant resource to install Vagrant. OS specific code is in the install custom resource. If the `node['vagrant']['plugins']` attribute is not empty, it includes the install_plugins recipe to install any required vagrant plugins.
+- `:remove`: removes the named gem with `gem_package` and `chef_gem`. Default.
 
-### install_plugins
+#### Properties
 
-Iterates over the `node['vagrant']['plugins']` attribute and installs the listed plugins. If that attribute is a hash, it installs the specified plugin version. If the `node['vagrant']['user']` attribute is set, the plugins are installed for only that user.
+- `:gem_name`: name attribute, the RubyGem to remove.
 
-### uninstall_gem
+#### Examples
 
-This recipe will attempt to uninstall the `vagrant` gem with the
-`gem_package` and `chef_gem` resources. Meaning, it will use the `gem`
-binary in the `PATH` of the shell executing Chef to uninstall, and
-then use Chef's built-in RubyGems to uninstall. If you have a
-customized Ruby environment, such as with rbenv or rvm (or other), you
-may need to manually remove and clean up anything leftover, such as
-running `rbenv rehash`. Likewise, if you have multiple copies of the
-vagrant gem installed, you'll need to clean up all versions. This
-recipe won't support such craziness :-).
+```ruby
+vagrant_gem 'vagrant'
+```
 
 ### Notes about specific plugins
 
@@ -220,24 +206,16 @@ recipe won't support such craziness :-).
 
 ### Usage
 
-Set the url and checksum attributes on the node. Do this in a role, or
-a "wrapper" cookbook. Or, just set the version and let the magic happen.
-
-Then include the default recipe on the node's run list.
-
-To specify plugins for installation in the default recipe, specify an
-array for the `node['vagrant']['plugins']` attribute. For example, to
-install the `vagrant-omnibus` plugin (any version) and version "1.2.0"
-of the `vagrant-berkshelf` plugin:
+Use the resources directly from a wrapper cookbook. To install Vagrant and plugins:
 
 ```ruby
-node.set['vagrant']['plugins'] = [
-  'vagrant-omnibus',
-  {name: 'vagrant-berkshelf', version: '1.2.0'}
-]
+vagrant 'Vagrant' do
+  plugins [
+    'vagrant-omnibus',
+    { name: 'vagrant-berkshelf', version: '1.2.0' },
+  ]
+end
 ```
-
-See the attribute tables above.
 
 ## Contributors
 
