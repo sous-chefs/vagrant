@@ -7,6 +7,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [5.0.0](https://github.com/sous-chefs/vagrant/compare/v4.0.20...v5.0.0) (2026-05-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate vagrant to custom resources ([#205](https://github.com/sous-chefs/vagrant/issues/205))
+
+### Features
+
+* migrate vagrant to custom resources ([#205](https://github.com/sous-chefs/vagrant/issues/205)) ([86819e4](https://github.com/sous-chefs/vagrant/commit/86819e46445c9dd997a863e5653c8c086558750e))
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#200](https://github.com/sous-chefs/vagrant/issues/200)) ([21c2fee](https://github.com/sous-chefs/vagrant/commit/21c2fee4598e700800873f6e4fe9eb2c7968ba1f))
+* Proper location of checksum file after move ([33f582f](https://github.com/sous-chefs/vagrant/commit/33f582f83f2d12bafe0df003a1c45c5bcab6b623))
+
 ## [4.0.20](https://github.com/sous-chefs/vagrant/compare/4.0.19...v4.0.20) (2025-10-16)
 
 
