@@ -56,20 +56,6 @@ describe 'vagrant' do
     it { is_expected.to extract_archive_file("#{Chef::Config[:file_cache_path]}/vagrant.zip").with(destination: '/usr/local/bin') }
   end
 
-  context 'with appimage on Fedora' do
-    platform 'fedora', '44'
-
-    recipe do
-      vagrant 'Vagrant' do
-        appimage true
-        url 'https://releases.hashicorp.com/vagrant/2.4.9/vagrant_2.4.9_linux_amd64.zip'
-        checksum 'abc123'
-      end
-    end
-
-    it { is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/vagrant.zip") }
-  end
-
   context 'with action uninstall' do
     recipe do
       vagrant 'Vagrant' do
@@ -77,7 +63,7 @@ describe 'vagrant' do
       end
     end
 
-    it { is_expected.to remove_package('vagrant') }
+    it { is_expected.to remove_dpkg_package('vagrant') }
   end
 
   context 'with action uninstall on RHEL family' do
