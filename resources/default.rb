@@ -32,6 +32,8 @@ action_class do
   include Vagrant::Cookbook::Helpers
 
   def platform_ca_bundle
+    return '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem' if platform_family?('fedora')
+
     platform_family?('debian') ? '/etc/ssl/certs/ca-certificates.crt' : '/etc/pki/tls/certs/ca-bundle.crt'
   end
 
@@ -204,6 +206,14 @@ action :uninstall do
   if new_resource.appimage
     @appimage_file = new_resource.appimage_file
     FileUtils.rm(@appimage_file) if ::File.exist?(@appimage_file)
+  elsif platform_family?('debian')
+    dpkg_package 'vagrant' do
+      action :remove
+    end
+  elsif platform_family?('rhel', 'amazon', 'fedora', 'suse')
+    rpm_package 'vagrant' do
+      action :remove
+    end
   else
     package 'vagrant' do
       action :remove
