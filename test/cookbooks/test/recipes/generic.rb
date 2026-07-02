@@ -15,8 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+package 'ca-certificates'
+
 package 'libfuse2' if platform_family?('debian')
 
 vagrant 'Vagrant' do
   appimage true
+  checksum '77d4d533c82c420b6b594992a902ec43fcd9f50380dc002a599e93fc744f8cfa'
 end

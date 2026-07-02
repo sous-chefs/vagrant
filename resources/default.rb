@@ -31,11 +31,25 @@ property :plugin_password, [String, nil], sensitive: true
 action_class do
   include Vagrant::Cookbook::Helpers
 
+  def platform_ca_bundle
+    platform_family?('debian') ? '/etc/ssl/certs/ca-certificates.crt' : '/etc/pki/tls/certs/ca-bundle.crt'
+  end
+
+  def configure_platform_ca_bundle
+    return unless platform_family?('debian', 'rhel', 'amazon', 'fedora', 'suse')
+
+    package 'ca-certificates'
+    Chef::Config[:ssl_ca_file] = platform_ca_bundle
+  end
+
   def debian(pkg_uri, pkg_file, pkg_checksum, pkg_version)
     if install?
+      configure_platform_ca_bundle
+
       remote_file pkg_file do
         source pkg_uri
         checksum pkg_checksum
+        ssl_verify_mode :verify_peer
       end
       dpkg_package 'vagrant' do
         source pkg_file
@@ -49,6 +63,8 @@ action_class do
 
   def linux(pkg_uri, pkg_file, pkg_checksum)
     if install?
+      configure_platform_ca_bundle
+
       package 'openssh-clients' do
         package_name 'openssh-client' if platform_family?('debian')
       end
@@ -56,6 +72,7 @@ action_class do
       remote_file pkg_file do
         source pkg_uri
         checksum pkg_checksum
+        ssl_verify_mode :verify_peer
       end
 
       archive_file pkg_file do
@@ -77,9 +94,12 @@ action_class do
 
   def rhel(pkg_uri, pkg_file, pkg_checksum)
     if install?
+      configure_platform_ca_bundle
+
       remote_file pkg_file do
         source pkg_uri
         checksum pkg_checksum
+        ssl_verify_mode :verify_peer
       end
       rpm_package 'vagrant' do
         source pkg_file
