@@ -63,6 +63,18 @@ describe 'vagrant' do
       end
     end
 
-    it { is_expected.to remove_package('vagrant') }
+    it { is_expected.to remove_dpkg_package('vagrant') }
+  end
+
+  context 'with action uninstall on RHEL family' do
+    platform 'almalinux', '9'
+
+    recipe do
+      vagrant 'Vagrant' do
+        action :uninstall
+      end
+    end
+
+    it { is_expected.to remove_rpm_package('vagrant') }
   end
 end

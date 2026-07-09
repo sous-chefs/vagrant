@@ -74,11 +74,14 @@ suites:
     run_list: *generic_run_list
     attributes: *appimage_attributes
     verifier: *generic_verifier
+    provisioner:
+      named_run_list: generic
 
   - name: uninstall
     run_list: *uninstall_run_list
     verifier: *uninstall_verifier
     provisioner:
+      named_run_list: uninstall
       multiple_converge: 1
       enforce_idempotency: false
 
@@ -87,5 +90,6 @@ suites:
     attributes: *appimage_attributes
     verifier: *generic_uninstall_verifier
     provisioner:
+      named_run_list: generic_uninstall
       multiple_converge: 1
       enforce_idempotency: false
