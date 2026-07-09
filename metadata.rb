@@ -22,7 +22,7 @@ description       'Installs Vagrant and provides resources for managing Vagrant 
 source_url        'https://github.com/sous-chefs/vagrant'
 issues_url        'https://github.com/sous-chefs/vagrant/issues'
 chef_version      '>= 15.3'
-version           '5.0.0'
+version           '5.0.1'
 
 supports 'almalinux', '>= 8.0'
 supports 'amazon', '>= 2023.0'

@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [5.0.1](https://github.com/sous-chefs/vagrant/compare/v5.0.0...v5.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#213](https://github.com/sous-chefs/vagrant/issues/213)) ([317df86](https://github.com/sous-chefs/vagrant/commit/317df86261f931a5a8a55419c505e3994cf9efce))
+
 ## [5.0.0](https://github.com/sous-chefs/vagrant/compare/v4.0.20...v5.0.0) (2026-05-18)
 
 
